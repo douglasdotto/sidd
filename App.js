@@ -79,7 +79,7 @@ export default function App() {
     <Block safe flex style={{ backgroundColor: '#F5F5F5' }}>
       <Block row style={{ width: '100%', paddingTop: 54, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, backgroundColor: '#3e0057', color: '#ffffff !important', paddingBottom: 24 }}>
         <Block flex left>
-          <Text muted h4 bold style={{ color: "#fff", paddingLeft: 30 }}>SIDD</Text>
+          <Image source={require('./assets/header.png')} style={{ marginLeft: 20, height: 36, width: 100 }} />
         </Block>
         <Block flex right>
           <Icon size={30} color="#fff" name={'bell'} style={{ paddingRight: 30, paddingTop: 5 }} />
@@ -138,7 +138,7 @@ export default function App() {
                 <Text muted style={styles.buttonText}>Unidades</Text>
               </Button>
             </Block>
-            
+
             {cards && cards.map((card, id) => (
               <Card
                 key={`card-${card.image}`}
