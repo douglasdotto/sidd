@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Dimensions, Image, Picker } from 'react-native';
+import { ScrollView, StyleSheet, Dimensions, Image, Picker, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   Button, Block, Text, Input, Card
 } from 'galio-framework';
 import BottomNavigation, {
-  IconTab,
+  FullTab,
 } from 'react-native-material-bottom-navigation'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import theme from './theme';
@@ -16,6 +16,7 @@ const COLOR_WHITE = theme.COLORS.WHITE;
 const { width } = Dimensions.get('screen');
 
 export default function App() {
+  // START - CONTROL TABS
   const [activeTab, setActiveTab] = useState('home');
   const [activeTest, setActiveTest] = useState('');
   const [tabs, setTabs] = useState([
@@ -48,7 +49,9 @@ export default function App() {
       icon: 'account'
     }
   ]);
+  // END - CONTROL TABS
 
+  // START - CARDS
   const cards = [
     {
       id: 1,
@@ -59,27 +62,18 @@ export default function App() {
       location: 'Santa Cruz do Sul, RS',
     }
   ];
+  // END - CARDS
 
-  renderIcon = icon => ({ isActive }) => (
-    <Icon size={24} color="white" name={icon} />
-  )
-
-  renderTab = ({ tab, isActive }) => (
-    <IconTab
-      isActive={isActive}
-      key={tab.key}
-      label={tab.label}
-      renderIcon={renderIcon(tab.icon)}
-    />
-  )
-
+  // START - BOTTOM NAVIGATOR
   function tab(tab) {
     setActiveTab(tab);
+    setActiveTest("");
   }
 
   function test(test) {
     setActiveTest(test);
   }
+  // END - BOTTOM NAVIGATOR
 
   return (
     <Block safe flex style={{ backgroundColor: '#F5F5F5' }}>
@@ -88,7 +82,7 @@ export default function App() {
           <Text muted h4 bold style={{ color: "#fff", paddingLeft: 30 }}>SIDD</Text>
         </Block>
         <Block flex right>
-          <Icon size={40} color="#fff" name={'bell'} style={{ paddingRight: 30 }} />
+          <Icon size={30} color="#fff" name={'bell'} style={{ paddingRight: 30, paddingTop: 5 }} />
         </Block>
       </Block>
       <StatusBar style="light" />
@@ -100,21 +94,21 @@ export default function App() {
               <Text muted bold style={styles.buttonText}>Selecione uma opção</Text>
             </Block>
             <Block row space="evenly">
-              <Button color="transparent" style={styles.button}>
+              <Button color="" style={styles.button}>
                 <Block middle style={styles.block}>
                   <Icon size={40} color="#F5F5F5" name={'heart-pulse'} />
                 </Block>
                 <Text muted style={styles.buttonText}>Acolhimento</Text>
               </Button>
 
-              <Button color="transparent" style={styles.button} onPress={() => tab("new")}>
+              <Button color="" style={styles.button} onPress={() => tab("new")}>
                 <Block middle style={styles.block}>
                   <Icon size={40} color="#F5F5F5" name={'thermometer-plus'} />
                 </Block>
                 <Text muted style={styles.buttonText}>Novo Teste</Text>
               </Button>
 
-              <Button color="transparent" style={styles.button} onPress={() => tab("results")}>
+              <Button color="" style={styles.button} onPress={() => tab("results")}>
                 <Block middle style={styles.block}>
                   <Icon size={40} color="#F5F5F5" name={'format-list-bulleted'} />
                 </Block>
@@ -123,28 +117,28 @@ export default function App() {
             </Block>
 
             <Block row space="evenly">
-              <Button color="transparent" style={styles.button}>
+              <Button color="" style={styles.button}>
                 <Block middle style={styles.block}>
                   <Icon size={40} color="#F5F5F5" name={'account-supervisor'} />
                 </Block>
                 <Text muted style={styles.buttonText}>Pacientes</Text>
               </Button>
 
-              <Button color="transparent" style={styles.button}>
+              <Button color="" style={styles.button}>
                 <Block middle style={styles.block}>
                   <Icon size={40} color="#F5F5F5" name={'medical-bag'} />
                 </Block>
                 <Text muted style={styles.buttonText}>Médicos</Text>
               </Button>
 
-              <Button color="transparent" style={styles.button}>
+              <Button color="" style={styles.button}>
                 <Block middle style={styles.block}>
                   <Icon size={40} color="#F5F5F5" name={'home-outline'} />
                 </Block>
                 <Text muted style={styles.buttonText}>Unidades</Text>
               </Button>
-
             </Block>
+            
             {cards && cards.map((card, id) => (
               <Card
                 key={`card-${card.image}`}
@@ -173,24 +167,32 @@ export default function App() {
         {activeTab == "new" && <>
           <ScrollView>
             {activeTab == "new" && activeTest == "" && <>
+              <Block row space="evenly">
+                <Text muted bold style={styles.buttonText}>Qual teste deseja aplicar?</Text>
+              </Block>
               <Block flex center>
-                <Text h4 muted center>Qual teste deseja aplicar?</Text>
-                <Button round uppercase color="#3e0057" onPress={() => test("pfeffer")}>PFEFFER</Button>
+                <Button round color="warning" uppercase size="large" onPress={() => test("pfeffer")}>PFEFFER</Button>
               </Block>
             </>}
             {activeTab == "new" && activeTest == "pfeffer" && <>
-              <Block flex center>
-                <Text h6 muted center>Questionário Pfeffer</Text>
+              <Block row space="evenly">
+                <Text muted bold style={styles.buttonText}>Questionário Pfeffer</Text>
               </Block>
               <Block style={styles.cardQuestion}>
                 <Text muted style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro?</Text>
-                <Input placeholder="resposta 1" />
-                <Picker
-                  selectedValue={null}
-                >
-                  <Picker.Item label="Java" value="java" />
-                  <Picker.Item label="JavaScript" value="js" />
-                </Picker>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Java" value="java" />
+                    <Picker.Item label="JavaScript" value="js" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro?</Text>
+                <Input placeholder="Resposta 1" />
               </Block>
             </>}
             {activeTab == "new" && activeTest != "" && <>
@@ -214,9 +216,9 @@ export default function App() {
           </Block>
           <Block flex center>
             <Text h3>Douglas Dotto</Text>
-            <Button round uppercase icon="contacts" iconFamily="antdesign" color="#3e0057">Meus dados</Button>
-            <Button round uppercase icon="edit" iconFamily="antdesign" color="#3e0057">Alterar senha</Button>
-            <Button round uppercase icon="close" iconFamily="antdesign" color="#3e0057">Sair</Button>
+            <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="warning">Meus dados</Button>
+            <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="warning">Alterar senha</Button>
+            <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="warning">Sair</Button>
           </Block>
         </>}
       </Block>
@@ -224,8 +226,15 @@ export default function App() {
       <BottomNavigation
         tabs={tabs}
         activeTab={activeTab}
+        renderTab={({ tab, isActive }) => (
+          <FullTab
+            isActive={isActive}
+            key={tab.key}
+            label={tab.label}
+            renderIcon={() => <Icon name={tab.icon} size={24} color="white" />}
+          />
+        )}
         onTabPress={(newTab) => { tab(newTab.key) }}
-        renderTab={renderTab}
         useLayoutAnimation
       />
 
@@ -238,6 +247,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     margin: 10
+  },
+  picker: {
+    height: 45,
+    color: "#a6a6a6",
+    marginLeft: 6,
+  },
+  touchableOpacity: {
+    borderWidth: 1,
+    borderColor: "#a6a6a6",
+    borderRadius: 10,
+    marginTop: 5
   },
   card: {
     padding: 10,
@@ -276,6 +296,9 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   button: {
+    elevation: 0,
+    shadowOpacity: 0,
+    backgroundColor: 'transparent',
     borderColor: 'transparent',
     width: 'auto',
     height: 'auto',
