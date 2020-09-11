@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Dimensions, Image, Picker, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Dimensions, Image, Picker, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   Button, Block, Text, Input, Card
@@ -17,6 +17,7 @@ const { width } = Dimensions.get('screen');
 
 export default function App() {
   // START - CONTROL TABS
+  const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
   const [activeTest, setActiveTest] = useState('');
   const [tabs, setTabs] = useState([
@@ -66,12 +67,16 @@ export default function App() {
 
   // START - BOTTOM NAVIGATOR
   function tab(tab) {
+    setLoading(true);
     setActiveTab(tab);
     setActiveTest("");
+    setLoading(false);
   }
 
   function test(test) {
+    setLoading(true);
     setActiveTest(test);
+    setLoading(false);
   }
   // END - BOTTOM NAVIGATOR
 
@@ -88,10 +93,26 @@ export default function App() {
       <StatusBar style="light" />
 
       <Block style={styles.grid}>
-        {activeTab == "home" && <>
-          <ScrollView>
+        {loading &&
+          <Block style={{
+            backgroundColor: "#F5F5F5",
+            borderRadius: 20,
+            zIndex: 9999,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <ActivityIndicator size='large' color="#3e0057" />
+          </Block>
+        }
+        <ScrollView style={{ height: 1 }}>
+          {activeTab == "home" && <>
             <Block row space="evenly">
-              <Text muted bold style={styles.buttonText}>Selecione uma opção</Text>
+              <Text muted style={styles.buttonText}>Selecione uma opção</Text>
             </Block>
             <Block row space="evenly">
               <Button color="" style={styles.button}>
@@ -162,13 +183,11 @@ export default function App() {
                 {card.full ? <LinearGradient colors={['transparent', 'rgba(0,0,0, 0.8)']} style={styles.gradient} /> : null}
               </Card>
             ))}
-          </ScrollView>
-        </>}
-        {activeTab == "new" && <>
-          <ScrollView>
+          </>}
+          {activeTab == "new" && <>
             {activeTab == "new" && activeTest == "" && <>
               <Block row space="evenly">
-                <Text muted bold style={styles.buttonText}>Qual teste deseja aplicar?</Text>
+                <Text muted style={styles.buttonText}>Qual teste deseja aplicar?</Text>
               </Block>
               <Block flex center>
                 <Button round color="warning" uppercase size="large" onPress={() => test("pfeffer")}>PFEFFER</Button>
@@ -176,7 +195,7 @@ export default function App() {
             </>}
             {activeTab == "new" && activeTest == "pfeffer" && <>
               <Block row space="evenly">
-                <Text muted bold style={styles.buttonText}>Questionário Pfeffer</Text>
+                <Text muted style={styles.buttonText}>Questionário Pfeffer</Text>
               </Block>
               <Block style={styles.cardQuestion}>
                 <Text muted style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro?</Text>
@@ -200,27 +219,27 @@ export default function App() {
                 <Button round uppercase color="warning" onPress={() => test("")}>FECHAR</Button>
               </Block>
             </>}
-          </ScrollView>
-        </>}
-        {activeTab == "results" && <>
-          <Block row space="evenly">
-            <Text muted bold style={styles.buttonText}>Resultados</Text>
-          </Block>
-        </>}
-        {activeTab == "user" && <>
-          <Block center>
-            <Image source={require('./assets/avatar.png')} style={styles.avatar} />
-          </Block>
-          <Block row space="evenly">
-            <Text muted bold style={styles.buttonText}>Informações do usuário</Text>
-          </Block>
-          <Block flex center>
-            <Text h3>Douglas Dotto</Text>
-            <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="warning">Meus dados</Button>
-            <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="warning">Alterar senha</Button>
-            <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="warning">Sair</Button>
-          </Block>
-        </>}
+          </>}
+          {activeTab == "results" && <>
+            <Block row space="evenly">
+              <Text muted style={styles.buttonText}>Resultados</Text>
+            </Block>
+          </>}
+          {activeTab == "user" && <>
+            <Block center>
+              <Image source={require('./assets/avatar.png')} style={styles.avatar} />
+            </Block>
+            <Block row space="evenly">
+              <Text muted style={styles.buttonText}>Informações do usuário</Text>
+            </Block>
+            <Block flex center>
+              <Text h3>Douglas Dotto</Text>
+              <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="warning">Meus dados</Button>
+              <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="warning">Alterar senha</Button>
+              <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="warning">Sair</Button>
+            </Block>
+          </>}
+        </ScrollView>
       </Block>
 
       <BottomNavigation
@@ -271,10 +290,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     margin: 5,
     borderRadius: 20,
-    elevation: 2
+    elevation: 2,
   },
   avatar: {
-    marginTop: -40,
     borderRadius: 100,
     height: 150,
     width: 150,
