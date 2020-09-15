@@ -190,7 +190,24 @@ export default function App() {
                 <Text muted style={styles.buttonText}>Qual teste deseja aplicar?</Text>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("pfeffer")}>PFEFFER</Button>
+                <Button round color="warning" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
+              </Block>
+              <Block flex center>
+                <Button round color="warning" uppercase size="large" onPress={() => test("cdr")}>2° PASSO - CDR</Button>
+              </Block>
+              <Block flex center>
+                <Button round color="warning" uppercase size="large" onPress={() => test("minimental")}>3° PASSO - MINI MENTAL</Button>
+              </Block>
+              <Block flex center>
+                <Button round color="warning" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
+              </Block>
+              <Block flex center>
+                <Button round color="warning" uppercase size="large" onPress={() => test("sintomas")}>COMPLEMENTAR - TESTE DE SINTOMAS</Button>
+              </Block>
+            </>}
+            {activeTab == "new" && activeTest != "" && <>
+              <Block flex center>
+                <Text h4 muted onPress={() => test("")} style={{ backgroundColor: '#e8e8e8', borderRadius: 50, color: '#f5f5f5' }}>&nbsp;&nbsp;X&nbsp;&nbsp;</Text>
               </Block>
             </>}
             {activeTab == "new" && activeTest == "pfeffer" && <>
@@ -198,24 +215,198 @@ export default function App() {
                 <Text muted style={styles.buttonText}>Questionário Pfeffer</Text>
               </Block>
               <Block style={styles.cardQuestion}>
-                <Text muted style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro?</Text>
+                <Text muted center style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro?</Text>
                 <TouchableOpacity style={styles.touchableOpacity}>
                   <Picker
                     style={styles.picker}
                     selectedValue={null}
                   >
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
                   </Picker>
                 </TouchableOpacity>
               </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de comprar comidas, roupas, coisas para casa sozinho(a)?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de esquenta a água para o café e apagar o fogo?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de preparar uma comida?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de preparar uma comida?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de manter-se em dia com as atualidades, com os acontecimentos da comunidade?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de prestar atenção, entender e discutir um programa de rádio, jornal ou televisão?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de lembrar-se de compromissos, acontecimentos familiares ou feriados?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de manusear seus próprios remédios?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) é capaz de passear pela vizinhança e encontrar o caminho de volta para casa?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Ele(a) pode ser deixado(a) em casa sozinho(a) de forma segura?</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
+                    <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                    <Picker.Item label="Necessita de ajuda" value="2" />
+                    <Picker.Item label="Não é capaz" value="3" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
               <Block style={styles.cardQuestion}>
                 <Text muted style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro?</Text>
                 <Input placeholder="Resposta 1" />
               </Block>
             </>}
+            {activeTab == "new" && activeTest == "cdr" && <>
+              <Block row space="evenly">
+                <Text muted style={styles.buttonText}>Clinical Dementia Rating (CDR)</Text>
+              </Block>
+            </>}
+            {activeTab == "new" && activeTest == "minimental" && <>
+              <Block row space="evenly">
+                <Text muted style={styles.buttonText}>Mini Exame do Estado Mental (MEEM)</Text>
+              </Block>
+            </>}
+            {activeTab == "new" && activeTest == "moca" && <>
+              <Block row space="evenly">
+                <Text muted style={styles.buttonText}>Montreal Cognitive Assessment (MoCA)</Text>
+              </Block>
+            </>}
+            {activeTab == "new" && activeTest == "sintomas" && <>
+              <Block row space="evenly">
+                <Text muted style={styles.buttonText}>Teste de Sintomas</Text>
+              </Block>
+            </>}
             {activeTab == "new" && activeTest != "" && <>
-              <Block flex center>
+              <Block row center>
+                <Button round uppercase color="primary" onPress={() => test("")}>SALVAR</Button>
                 <Button round uppercase color="warning" onPress={() => test("")}>FECHAR</Button>
               </Block>
             </>}
