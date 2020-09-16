@@ -190,24 +190,26 @@ export default function App() {
                 <Text muted style={styles.buttonText}>Qual teste deseja aplicar?</Text>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
+                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("cdr")}>2° PASSO - CDR</Button>
+                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("cdr")}>2° PASSO - CDR</Button>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("minimental")}>3° PASSO - MINI MENTAL</Button>
+                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("minimental")}>3° PASSO - MINI MENTAL</Button>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
+                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("sintomas")}>COMPLEMENTAR - TESTE DE SINTOMAS</Button>
+                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("sintomas")}>COMPLEMENTAR - TESTE DE SINTOMAS</Button>
               </Block>
             </>}
             {activeTab == "new" && activeTest != "" && <>
               <Block flex center>
-                <Text h4 muted onPress={() => test("")} style={{ backgroundColor: '#e8e8e8', borderRadius: 50, color: '#f5f5f5' }}>&nbsp;&nbsp;X&nbsp;&nbsp;</Text>
+                <TouchableOpacity>
+                  <Text h4 muted onPress={() => test("")} style={{ backgroundColor: '#e8e8e8', borderRadius: 50, color: '#f5f5f5' }}>&nbsp;&nbsp;X&nbsp;&nbsp;</Text>
+                </TouchableOpacity>
               </Block>
             </>}
             {activeTab == "new" && activeTest == "pfeffer" && <>
@@ -407,7 +409,7 @@ export default function App() {
             {activeTab == "new" && activeTest != "" && <>
               <Block row center>
                 <Button round uppercase color="primary" onPress={() => test("")}>SALVAR</Button>
-                <Button round uppercase color="warning" onPress={() => test("")}>FECHAR</Button>
+                <Button round uppercase color="#34c2e0" onPress={() => test("")}>FECHAR</Button>
               </Block>
             </>}
           </>}
@@ -425,9 +427,9 @@ export default function App() {
             </Block>
             <Block flex center>
               <Text h3>Douglas Dotto</Text>
-              <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="warning">Meus dados</Button>
-              <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="warning">Alterar senha</Button>
-              <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="warning">Sair</Button>
+              <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="#34c2e0">Meus dados</Button>
+              <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="#34c2e0">Alterar senha</Button>
+              <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="#34c2e0">Sair</Button>
             </Block>
           </>}
         </ScrollView>
