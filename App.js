@@ -190,19 +190,19 @@ export default function App() {
                 <Text muted style={styles.buttonText}>Qual teste deseja aplicar?</Text>
               </Block>
               <Block flex center>
-                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
+                <Button round color="warning" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
               </Block>
               <Block flex center>
-                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("cdr")}>2° PASSO - CDR</Button>
+                <Button round color="warning" uppercase size="large" onPress={() => test("cdr")}>2° PASSO - CDR</Button>
               </Block>
               <Block flex center>
-                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("minimental")}>3° PASSO - MINI MENTAL</Button>
+                <Button round color="warning" uppercase size="large" onPress={() => test("minimental")}>3° PASSO - MINI MENTAL</Button>
               </Block>
               <Block flex center>
-                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
+                <Button round color="warning" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
               </Block>
               <Block flex center>
-                <Button round color="#34c2e0" uppercase size="large" onPress={() => test("sintomas")}>COMPLEMENTAR - TESTE DE SINTOMAS</Button>
+                <Button round color="warning" uppercase size="large" onPress={() => test("sintomas")}>COMPLEMENTAR - TESTE DE SINTOMAS</Button>
               </Block>
             </>}
             {activeTab == "new" && activeTest != "" && <>
@@ -380,15 +380,106 @@ export default function App() {
                   </Picker>
                 </TouchableOpacity>
               </Block>
-
-              <Block style={styles.cardQuestion}>
-                <Text muted style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro?</Text>
-                <Input placeholder="Resposta 1" />
-              </Block>
             </>}
             {activeTab == "new" && activeTest == "cdr" && <>
               <Block row space="evenly">
                 <Text muted style={styles.buttonText}>Clinical Dementia Rating (CDR)</Text>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Em relação a memória</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Sem perda da memória; apenas esquecimento discreto" value="0" />
+                    <Picker.Item label="Esquecimento leve e consistente; lembrança parcial de eventos" value="1" />
+                    <Picker.Item label="Moderada; mais acentuada a fatos recentes; afeta o dia-a-dia" value="2" />
+                    <Picker.Item label="Grave; apenas material muito aprendido é retido; materiais novos são rapidamente perdidos" value="3" />
+                    <Picker.Item label="Grave; apenas fragmentos permanecem" value="4" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Em relação a orientação</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Plenamente orientado" value="0" />
+                    <Picker.Item label="Plenamente orientado" value="1" />
+                    <Picker.Item label="Dificuldade moderada com as relações de tempo" value="2" />
+                    <Picker.Item label="Geralmente desorientado" value="3" />
+                    <Picker.Item label="Orientação pessoal apenas" value="4" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Em relação a julgamento e solução de problemas</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Resolve bem" value="0" />
+                    <Picker.Item label="Leve comprometimento" value="1" />
+                    <Picker.Item label="Dificuldade moderada" value="2" />
+                    <Picker.Item label="Gravemente comprometido" value="3" />
+                    <Picker.Item label="Incapaz de resolver" value="4" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Em relação a assuntos da comunidade</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal" value="0" />
+                    <Picker.Item label="Leve dificuldade" value="1" />
+                    <Picker.Item label="Desempenha algumas atividades" value="2" />
+                    <Picker.Item label="Precisa de acompanhamento" value="3" />
+                    <Picker.Item label="Incapaz" value="4" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Em relação ao lar e passatempos</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Normal" value="0" />
+                    <Picker.Item label="Levemente afetados" value="1" />
+                    <Picker.Item label="Abandono de tarefas mais dificeis" value="2" />
+                    <Picker.Item label="Apenas tarefas simples" value="3" />
+                    <Picker.Item label="Sem qualquer atividade significativa" value="4" />
+                  </Picker>
+                </TouchableOpacity>
+              </Block>
+
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Em relação a cuidados pessoais</Text>
+                <TouchableOpacity style={styles.touchableOpacity}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={null}
+                  >
+                    <Picker.Item label="Plenamente capaz" value="0" />
+                    <Picker.Item label="Plenamente capaz" value="1" />
+                    <Picker.Item label="Necessita de assistência ocasional" value="2" />
+                    <Picker.Item label="Requer assistência" value="3" />
+                    <Picker.Item label="Requer muito auxílio nos cuidados" value="4" />
+                  </Picker>
+                </TouchableOpacity>
               </Block>
             </>}
             {activeTab == "new" && activeTest == "minimental" && <>
@@ -409,7 +500,7 @@ export default function App() {
             {activeTab == "new" && activeTest != "" && <>
               <Block row center>
                 <Button round uppercase color="primary" onPress={() => test("")}>SALVAR</Button>
-                <Button round uppercase color="#34c2e0" onPress={() => test("")}>FECHAR</Button>
+                <Button round uppercase color="warning" onPress={() => test("")}>FECHAR</Button>
               </Block>
             </>}
           </>}
@@ -427,9 +518,9 @@ export default function App() {
             </Block>
             <Block flex center>
               <Text h3>Douglas Dotto</Text>
-              <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="#34c2e0">Meus dados</Button>
-              <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="#34c2e0">Alterar senha</Button>
-              <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="#34c2e0">Sair</Button>
+              <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="warning">Meus dados</Button>
+              <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="warning">Alterar senha</Button>
+              <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="warning">Sair</Button>
             </Block>
           </>}
         </ScrollView>
