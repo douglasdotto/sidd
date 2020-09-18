@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Dashboard</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2 - Application\AppSidd.Application\AppSidd.Application.csproj" />
+    <ProjectReference Include="..\..\3 - Domain\AppSidd.Domain.Mapper\AppSidd.Domain.Mapper.csproj" />
+    <ProjectReference Include="..\..\3 - Domain\AppSidd.Domain.Notifications\AppSidd.Domain.Notifications.csproj" />
+    <ProjectReference Include="..\..\3 - Domain\AppSidd.Domain.Specifications\AppSidd.Domain.Specifications.csproj" />
+    <ProjectReference Include="..\..\3 - Domain\AppSidd.Domain.Users\AppSidd.Domain.Users.csproj" />
+    <ProjectReference Include="..\..\4 - Infra\AppSidd.Infra.Repositories\AppSidd.Infra.Repositories.csproj" />
+    <ProjectReference Include="..\..\4 - Infra\AppSidd.Infra.SqlServer\AppSidd.Infra.SqlServer.csproj" />
+  </ItemGroup>
+</Project>

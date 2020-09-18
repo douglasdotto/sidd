@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2 - Application\AppSidd.Application.Dto\AppSidd.Application.Dto.csproj" />
+    <ProjectReference Include="..\AppSidd.Domain.Notifications\AppSidd.Domain.Notifications.csproj" />
+    <ProjectReference Include="..\AppSidd.Domain.Specifications\AppSidd.Domain.Specifications.csproj" />
+  </ItemGroup>
+
+</Project>

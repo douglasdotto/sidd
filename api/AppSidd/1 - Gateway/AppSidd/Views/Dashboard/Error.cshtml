@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="row ">
+    <div class="ml-auto mr-auto card col-6 text-center p-5">
+        <i class="far fa-frown-open fa-5x" style="color: darkred !important"></i>
+        <br />
+        <br />
+        <h5>Você não está autorizado a acessar este recurso.</h5>
+        <br />
+        <button class="btn btn-primary" onclick="func()">Início</button>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(() => {
+            loadStop();
+        });
+
+        function func() {
+            window.location.href = "/Dashboard"
+        }
+    </script>
+}
