@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, Dimensions, Image, Picker, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
-  Button, Block, Text, Input, Card
+  Button, Block, Text, Input, Card, Checkbox
 } from 'galio-framework';
 import BottomNavigation, {
   FullTab,
@@ -190,19 +190,19 @@ export default function App() {
                 <Text muted style={styles.buttonText}>Qual teste deseja aplicar?</Text>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
+                <Button round color="#3e0057" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("cdr")}>2° PASSO - CDR</Button>
+                <Button round color="#3e0057" uppercase size="large" onPress={() => test("cdr")}>2° PASSO - CDR</Button>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("minimental")}>3° PASSO - MINI MENTAL</Button>
+                <Button round color="#3e0057" uppercase size="large" onPress={() => test("minimental")}>3° PASSO - MINI MENTAL</Button>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
+                <Button round color="#3e0057" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
               </Block>
               <Block flex center>
-                <Button round color="warning" uppercase size="large" onPress={() => test("sintomas")}>COMPLEMENTAR - TESTE DE SINTOMAS</Button>
+                <Button round color="#3e0057" uppercase size="large" onPress={() => test("sintomas")}>COMPLEMENTAR - TESTE DE SINTOMAS</Button>
               </Block>
             </>}
             {activeTab == "new" && activeTest != "" && <>
@@ -486,6 +486,29 @@ export default function App() {
               <Block row space="evenly">
                 <Text muted style={styles.buttonText}>Mini Exame do Estado Mental (MEEM)</Text>
               </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Orientação (marque a opção, se o usuário acertou a resposta)</Text>
+                <Text muted center style={styles.buttonText}>Temporal - Qual é o</Text>
+                <Checkbox color="#3e0057" label="Ano" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Estação" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Dia da semana" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Dia do mês" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Mês" style={styles.checkbox} />
+                <Text muted center style={styles.buttonText}>Espacial - Onde estamos</Text>
+                <Checkbox color="#3e0057" label="Pais" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Estado" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Cidade" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Rua/local" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Andar" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Registro (marque a opção, se o usuário acertou a resposta)</Text>
+                <Text muted center style={styles.buttonText}>Solicite ao paciente que preste atenção pois terá que repetir as palavras mais tarde. Peça para repetir as 3 palavras depois de vocês dizê-las. Se necessário, repita até 5 vezes para aprender as palavras, porém a pontuação é referente a primeira tentativa de repetição.</Text>
+                <Text muted center style={styles.buttonText}>O objetivo é dizer três palavras: PENTE RUA AZUL</Text>
+                <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} />
+              </Block>
             </>}
             {activeTab == "new" && activeTest == "moca" && <>
               <Block row space="evenly">
@@ -500,7 +523,7 @@ export default function App() {
             {activeTab == "new" && activeTest != "" && <>
               <Block row center>
                 <Button round uppercase color="primary" onPress={() => test("")}>SALVAR</Button>
-                <Button round uppercase color="warning" onPress={() => test("")}>FECHAR</Button>
+                <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
               </Block>
             </>}
           </>}
@@ -518,9 +541,9 @@ export default function App() {
             </Block>
             <Block flex center>
               <Text h3>Douglas Dotto</Text>
-              <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="warning">Meus dados</Button>
-              <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="warning">Alterar senha</Button>
-              <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="warning">Sair</Button>
+              <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="#3e0057">Meus dados</Button>
+              <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="#3e0057">Alterar senha</Button>
+              <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="#3e0057">Sair</Button>
             </Block>
           </>}
         </ScrollView>
@@ -554,6 +577,11 @@ const styles = StyleSheet.create({
   picker: {
     height: 45,
     color: "#a6a6a6",
+    marginLeft: 6,
+    borderWidth: 0
+  },
+  checkbox: {
+    height: 45,
     marginLeft: 6,
   },
   touchableOpacity: {
