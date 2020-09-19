@@ -1,48 +1,107 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+@using AppSidd.Domain.Users.Auth.JWT;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Dashboard</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"]</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/images/site.webmanifest">
+    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#2a3f81">
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
+    <link rel="stylesheet" href="~/css/fluxo_online_bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/all.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/air-datepicker-master/dist/css/fluxo_online_datepicker.css" />
+    <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <nav class="navbar fixed-left navbar-dark bg-primary align-items-center justify-content-start p-0">
+        <div id="closenav-button" class="p-1">
+            <button class="btn btn-link p-2" onclick="toggleSidenav()"><img src="~/images/icon-bars.svg" style="height: 25px" /></button>
+        </div>
+        <img class="w-50 my-5" src="~/images/souza-logo.png" />
+        <ul class="nav nav-tabs mt-2 mt-md-4 flex-column align-self-end text-light" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Sair</a>
+                <div class="corner top"></div>
+                <div class="corner bottom"></div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="navbar-backdrop" onclick="closeSidenav()" style="display: none"></div>
+
+    <div class="container-fluid p-3 p-sm-4  p-lg-5">
+        <main role="main" class="">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - Dashboard - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <script>
+        var isSidenavOpen = false;
+        function toggleSidenav() {
+            if (isSidenavOpen)
+                closeSidenav();
+            else
+                openSidenav();
+        }
+        function openSidenav() {
+            if (!isSidenavOpen) {
+                $('#closenav-button button').attr('disabled', 'disabled');
+                $('#closenav-button button img').fadeOut(100);
+                $('#closenav-button button img').attr('src', '/images/icon-times.svg');
+                $('.navbar.fixed-left').animate({
+                    left: "+=170"
+                }, 100, () => {
+                    $('#closenav-button button img').fadeIn(100);
+                    $('#closenav-button button').attr('disabled', null);
+                    isSidenavOpen = true;
+                });
+                $('.navbar-backdrop').fadeIn();
+            }
+        }
+        function closeSidenav() {
+            if (isSidenavOpen) {
+                $('#closenav-button button').attr('disabled', 'disabled');
+                $('#closenav-button button img').fadeOut(100);
+                $('#closenav-button button img').attr('src', '/images/icon-bars.svg');
+                $('.navbar.fixed-left').animate({
+                    left: "-=170"
+                }, 100, () => {
+                    $('#closenav-button button img').fadeIn(100);
+                    $('#closenav-button button').attr('disabled', null);
+                    isSidenavOpen = false;
+                });
+                $('.navbar-backdrop').fadeOut();
+            }
+        }
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/air-datepicker-master/dist/js/datepicker.min.js"></script>
+    <script src="~/lib/air-datepicker-master/dist/js/i18n/datepicker.pt-BR.js"></script>
+    <script src="~/lib/datatables/datatables.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/sweetalert.js" asp-append-version="true"></script>
+    <script src="~/js/moment.js" asp-append-version="true"></script>
+    <script src="~/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/buttons.flash.min.js"></script>
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/pdfmake.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/buttons.print.min.js"></script>
+    <script src="~/js/jquery.mask.js"></script>
+    <script>
+        moment.locale('pt-BR');
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

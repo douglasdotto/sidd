@@ -1,5 +1,5 @@
+﻿using AppSidd.Domain.Users.Auth.JWT;
 using Dashboard.Controllers.Base;
-using AppSidd.Domain.Users.Auth.JWT;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,14 +19,12 @@ namespace Dashboard.Controllers
             _notification = notification;
             _mediator = mediator;
         }
-
-        public IActionResult Index()
+        public IActionResult Error()
         {
             ViewBag.Menu = "Dashboard";
             return View();
         }
-
-        public IActionResult Privacy()
+        public IActionResult Index()
         {
             ViewBag.Menu = "Dashboard";
             return View();

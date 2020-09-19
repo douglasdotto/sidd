@@ -2,13 +2,11 @@
 using AppSidd.Domain.Users.Auth.JWT;
 using AppSidd.Infra.SqlServer;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 
@@ -67,7 +65,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 auth.AddPolicy(Polices.POLICE_PROGRAM, new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme)
-                    .RequireRole(Roles.ROLE_ADMIN, Roles.ROLE_AGENT, Roles.ROLE_ENF, Roles.ROLE_TEC, Roles.ROLE_MEDIC, Roles.ROLE_PATIENT)
+                    .RequireRole(Roles.ROLE_ADMIN)
                     .RequireAuthenticatedUser().Build());
             });
 

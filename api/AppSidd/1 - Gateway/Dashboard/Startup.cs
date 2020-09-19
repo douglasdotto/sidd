@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace AppSidd
+namespace Dashboard
 {
     public class Startup
     {
@@ -24,14 +25,15 @@ namespace AppSidd
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationDependency()
-                  .AddRepositoriesDependency()
-                  .AddNotificationsDependency()
-                  .AddSqlServerContext(Configuration)
-                  .AddSqlServerDependency()
-                  .AddAutoMapperDependency()
-                  .AddUsersDependency()
-                  .AddControllersWithViews()
-                  .AddRazorRuntimeCompilation();
+              .AddRepositoriesDependency()
+              .AddNotificationsDependency()
+              .AddSqlServerContext(Configuration)
+              .AddSqlServerDependency()
+              .AddNotificationsDependency()
+              .AddAutoMapperDependency()
+              .AddUsersDependency()
+              .AddControllersWithViews()
+              .AddRazorRuntimeCompilation();
 
             CultureInfo[] supportedCultures = new[]
             {
@@ -56,6 +58,11 @@ namespace AppSidd
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedProto;
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddControllersWithViews();
@@ -75,7 +82,6 @@ namespace AppSidd
                 app.UseHsts();
             }
             app.UseAuthentication();
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
