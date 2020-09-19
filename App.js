@@ -488,26 +488,91 @@ export default function App() {
               </Block>
               <Block style={styles.cardQuestion}>
                 <Text muted center style={styles.buttonText}>Orientação (marque a opção, se o usuário acertou a resposta)</Text>
-                <Text muted center style={styles.buttonText}>Temporal - Qual é o</Text>
+                <Text muted style={styles.buttonText}>Em que ano estamos?</Text>
                 <Checkbox color="#3e0057" label="Ano" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Em que estação do ano estamos?</Text>
                 <Checkbox color="#3e0057" label="Estação" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual o dia da semana em que estamos?</Text>
                 <Checkbox color="#3e0057" label="Dia da semana" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual o dia do mês em que estamos?</Text>
                 <Checkbox color="#3e0057" label="Dia do mês" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual o mês em que estamos?</Text>
                 <Checkbox color="#3e0057" label="Mês" style={styles.checkbox} />
-                <Text muted center style={styles.buttonText}>Espacial - Onde estamos</Text>
+                <Text muted style={styles.buttonText}>Qual o país onde estamos?</Text>
                 <Checkbox color="#3e0057" label="Pais" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual o estados onde estamos?</Text>
                 <Checkbox color="#3e0057" label="Estado" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual a cidade onde estamos?</Text>
                 <Checkbox color="#3e0057" label="Cidade" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual a rua ou local onde estamos?</Text>
                 <Checkbox color="#3e0057" label="Rua/local" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual o andar onde estamos?</Text>
                 <Checkbox color="#3e0057" label="Andar" style={styles.checkbox} />
               </Block>
               <Block style={styles.cardQuestion}>
                 <Text muted center style={styles.buttonText}>Registro (marque a opção, se o usuário acertou a resposta)</Text>
-                <Text muted center style={styles.buttonText}>Solicite ao paciente que preste atenção pois terá que repetir as palavras mais tarde. Peça para repetir as 3 palavras depois de vocês dizê-las. Se necessário, repita até 5 vezes para aprender as palavras, porém a pontuação é referente a primeira tentativa de repetição.</Text>
-                <Text muted center style={styles.buttonText}>O objetivo é dizer três palavras: PENTE RUA AZUL</Text>
+                <Text muted style={styles.buttonText}>Solicite ao paciente que preste atenção pois terá que repetir as palavras mais tarde. Peça para repetir as 3 palavras depois de vocês dizê-las. Se necessário, repita até 5 vezes para aprender as palavras, porém a pontuação é referente a primeira tentativa de repetição.</Text>
+                <Text muted style={styles.buttonText}>O objetivo é dizer três palavras: PENTE RUA AZUL</Text>
                 <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} />
                 <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} />
                 <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Atenção e cálculo (marque a opção, se o usuário acertou a resposta)</Text>
+                <Text muted style={styles.buttonText}>Peça para que o paciente faça as subtrações seriadas. Se errar na primeira ou na segunda tentativa, peça para soletrar e pule a etapa da subtração</Text>
+                <Text muted style={styles.buttonText}>Subtrair: 100 - 7</Text>
+                <Checkbox color="#3e0057" label="(93)" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Subtrair: 93 - 7</Text>
+                <Checkbox color="#3e0057" label="(86)" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Subtrair: 86 - 7</Text>
+                <Checkbox color="#3e0057" label="(79)" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Subtrair: 79 - 7</Text>
+                <Checkbox color="#3e0057" label="(72)" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Subtrair: 72 - 7</Text>
+                <Checkbox color="#3e0057" label="(65)" style={styles.checkbox} />
+
+                <Text muted style={styles.buttonText}>Se o usuário errou acima, peça para que ele soletre MUNDO de trás pra frente</Text>
+                <Checkbox color="#3e0057" label="O" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="D" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="N" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="U" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="M" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Evocação (marque a opção, se o usuário lembrar a palavra)</Text>
+                <Text muted style={styles.buttonText}>Perguntar pelas 3 palavras anteriores: PENTE RUA AZUL</Text>
+                <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Linguagem (marque a opção, se o usuário lembrar a palavra)</Text>
+                <Text muted style={styles.buttonText}>Mostre um relógio e uma caneta e peça para nomear</Text>
+                <Checkbox color="#3e0057" label="Relógio" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Caneta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Repetir: "Nem aqui, nem ali, nem lá"</Text>
+                <Checkbox color="#3e0057" label="Repetiu corretamente" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Seguir o comando (falado) de três estágios: Pegue o papel com a mão direita, dobre ao meio e ponha no chão</Text>
+                <Checkbox color="#3e0057" label="Pegar papel com a mão direita" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Dobre ao meio" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Ponha no chão" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Escreva em um papel e peça para a pessoa executar: Feche os olhos</Text>
+                <Checkbox color="#3e0057" label="Fechou os olhos" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Solicite que o paciente escreva uma frase (um pensamento ou ideia completa)</Text>
+                <Checkbox color="#3e0057" label="Frase/ideia correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Copiar o desenho</Text>
+                <Block row space="evenly" style={{ padding: 10 }}>
+                  <Image source={require('./assets/meem1.png')} />
+                </Block>
+                <Checkbox color="#3e0057" label="Desenho correto" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Qual a escolaridade do paciente?</Text>
+                <Text muted style={styles.buttonText}>Anos concluidos de educação formal</Text>
+                <Checkbox color="#3e0057" label="Analfabeto" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="1 a 5 anos de escolaridade" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="6 a 11 anos de escolaridade" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="12 anos ou mais de escolaridade" style={styles.checkbox} />
               </Block>
             </>}
             {activeTab == "new" && activeTest == "moca" && <>
