@@ -579,6 +579,99 @@ export default function App() {
               <Block row space="evenly">
                 <Text muted style={styles.buttonText}>Montreal Cognitive Assessment (MoCA)</Text>
               </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Visuoespacial / executiva</Text>
+                <Text muted style={styles.buttonText}>Complete a imagem a seguir</Text>
+                <Block row space="evenly" style={{ padding: 10 }}>
+                  <Image source={require('./assets/moca1.png')} />
+                </Block>
+                <Checkbox color="#3e0057" label="Desenho correto" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Copiar o cubo</Text>
+                <Block row space="evenly" style={{ padding: 10 }}>
+                  <Image source={require('./assets/moca2.png')} />
+                </Block>
+                <Checkbox color="#3e0057" label="Desenho correto" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Peça desenhar um Relógio (onze horas e dez minutos)</Text>
+                <Checkbox color="#3e0057" label="Contorno" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Números" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Ponteiros" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Nomeação</Text>
+                <Text muted style={styles.buttonText}>Qual o nome do animal a seguir?</Text>
+                <Block row space="evenly" style={{ padding: 10 }}>
+                  <Image source={require('./assets/moca3.png')} />
+                </Block>
+                <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual o nome do animal a seguir?</Text>
+                <Block row space="evenly" style={{ padding: 10 }}>
+                  <Image source={require('./assets/moca4.png')} />
+                </Block>
+                <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual o nome do animal a seguir?</Text>
+                <Block row space="evenly" style={{ padding: 10 }}>
+                  <Image source={require('./assets/moca5.png')} />
+                </Block>
+                <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Memória (sem pontuação - repetir depois no passo evocação tardia)</Text>
+                <Text muted style={styles.buttonText}>Leia a lista de palavras, o sujeito deve repeti-la, faça duas tentativas, evocar após 5 minutos</Text>
+                <Text muted style={styles.buttonText}>Rosto - Veludo - Igreja - Margarida - Vermelho</Text>
+                <Checkbox color="#3e0057" label="1° tentativa (sem pontuação)" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="2° tentativa (sem pontuação)" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Atenção</Text>
+                <Text muted style={styles.buttonText}>Leia a sequência de números (1 por segundo)</Text>
+                <Text muted style={styles.buttonText}>(2 1 8 5 4) em ordem direta</Text>
+                <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>(7 4 2) em ordem indireta</Text>
+                <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Leia a série de linhas. O Sujeito deve bater com a mão na mesa, cada vez que ouvir a letra (A). Não marque a caixa abaixo se teve 2 ou mais erros</Text>
+                <Checkbox color="#3e0057" label="Série A Correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Subtração de 7 começando pelo 100 (93) (86) (79) (72) (65)</Text>
+                <Checkbox color="#3e0057" label="4 ou 5 subtrações corretas" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="2 ou 3 subtrações corretas" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="1 subtração correta" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="0 subtrações corretas" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Linguagem</Text>
+                <Text muted style={styles.buttonText}>Repetir: Eu somente sei que é João quem será ajudado hoje</Text>
+                <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Repetir: O gato sempre se esconde embaixo do Sofá quando o cachorro está na sala</Text>
+                <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Fluência verbal: dzier o maior número possivel de palavras que comecem pela letra F (1 minuto)</Text>
+                <Checkbox color="#3e0057" label="Maior ou igual a 11 palavras com a letra F" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Abstração</Text>
+                <Text muted style={styles.buttonText}>Semelhança por exemplo entre banana e laranja = fruta</Text>
+                <Text muted style={styles.buttonText}>Qual a semelhança entre trem - bicicleta?</Text>
+                <Checkbox color="#3e0057" label="Semelhança correta" style={styles.checkbox} />
+                <Text muted style={styles.buttonText}>Qual a semelhança entre relógio - régua</Text>
+                <Checkbox color="#3e0057" label="Semelhança correta" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Evocação tardia</Text>
+                <Text muted style={styles.buttonText}>O sujeito deve se recordas das palavras do teste de memória (sem pistas)</Text>
+                <Checkbox color="#3e0057" label="Rosto" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Veludo" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Igreja" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Margarida" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Vermelho" style={styles.checkbox} />
+              </Block>
+              <Block style={styles.cardQuestion}>
+                <Text muted center style={styles.buttonText}>Orientação</Text>
+                <Text muted style={styles.buttonText}>O sujeito deve saber responder as dúvidas abaixo (marque se o usuário acertou a resposta)</Text>
+                <Checkbox color="#3e0057" label="Qual dia do mês estamos" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Qual mês" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Qual Ano" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Qual dia da semana" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Em que Lugar" style={styles.checkbox} />
+                <Checkbox color="#3e0057" label="Em qual Cidade" style={styles.checkbox} />
+              </Block>
             </>}
             {activeTab == "new" && activeTest == "sintomas" && <>
               <Block row space="evenly">
