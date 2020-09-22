@@ -15,7 +15,7 @@ namespace AppSidd.Infra.SqlServer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -249,42 +249,42 @@ namespace AppSidd.Infra.SqlServer.Migrations
                         new
                         {
                             Id = "23D9D409-D7AA-4966-9047-48C04B41F0A1",
-                            ConcurrencyStamp = "2dc3d6bb-7abb-4f9f-8af3-f5c7472db735",
+                            ConcurrencyStamp = "fc23df9d-2da9-4156-8d10-bb822d0aab4c",
                             Name = "RoleAdmin",
                             NormalizedName = "ROLEADMIN"
                         },
                         new
                         {
                             Id = "53012ACA-C557-4991-8538-F22C0450CC1F",
-                            ConcurrencyStamp = "82c4699f-619e-4c25-b272-ea9c13ac4b2e",
+                            ConcurrencyStamp = "9b121131-ecda-4885-b671-8db3ce1e27d7",
                             Name = "RoleAgent",
                             NormalizedName = "ROLEAGENT"
                         },
                         new
                         {
                             Id = "84A9CF58-31F8-4C1B-BB08-E93813404C22",
-                            ConcurrencyStamp = "93a3cb46-670d-41fd-871e-ced69abc6862",
+                            ConcurrencyStamp = "524d7bc3-67dc-4a04-9e9a-1cd32ab8c4c1",
                             Name = "RoleEnf",
                             NormalizedName = "ROLEENF"
                         },
                         new
                         {
                             Id = "F4EA9499-F2FD-464E-9039-A115177C887D",
-                            ConcurrencyStamp = "66c11191-f22c-46ad-9d1e-c18cbd2399ea",
+                            ConcurrencyStamp = "587a1749-500a-4657-a6d1-8d57dd90fbb3",
                             Name = "RoleMedic",
                             NormalizedName = "ROLEMEDIC"
                         },
                         new
                         {
                             Id = "437D49C5-9C56-4E13-9E65-EB1BFF27B0CA",
-                            ConcurrencyStamp = "3b159136-fd53-491f-a04a-63cc67fc1f65",
+                            ConcurrencyStamp = "d38adea9-a99b-4a56-a3e6-6749b992c78e",
                             Name = "RoleTec",
                             NormalizedName = "ROLETEC"
                         },
                         new
                         {
                             Id = "BCC9B822-766F-4F00-8A72-288FB78260AB",
-                            ConcurrencyStamp = "a0afde32-79ae-4b84-9f23-ad8def28d026",
+                            ConcurrencyStamp = "3fd8fb19-6867-4c48-877f-4f26f78cad52",
                             Name = "RolePatient",
                             NormalizedName = "ROLEPATIENT"
                         });

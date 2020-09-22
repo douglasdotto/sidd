@@ -14,7 +14,7 @@ namespace AppSidd.Infra.SqlServer.Context
         public AppSiddServerContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppSiddServerContext>();
-            optionsBuilder.UseSqlServer(@"Server=tcp:appsidd.database.windows.net,1433;Initial Catalog=AppSidd;Persist Security Info=False;User ID=appsidd;Password=sidd#$123;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            optionsBuilder.UseSqlServer(@"Server=tcp:tekanndb.database.windows.net,1433;Initial Catalog=Sidd;Persist Security Info=False;User ID=sidd;Password=Ddotto.2020;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             return new AppSiddServerContext(optionsBuilder.Options);
         }
     }

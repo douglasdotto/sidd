@@ -10,47 +10,63 @@
         margin-left: 0px !important;
     }
 </style>
-<div class="row d-flex justify-content-center">
-    <div class="col" align="center" style="margin: 0 auto; padding-top: 25px">
-        <form id="FormLogin" asp-action="Index">
-            <div class="card" style="width: 18rem;">
-                <div class="card-header" style="background-color: #2a3f81 !important">
-                    <img class="w-50 my-5" src="~/images/souza-logo.png" />
-                </div>
-                <div class="card-body">
-                    @if (!string.IsNullOrEmpty(ViewBag.Message))
-                    {
-                        <div class="alert alert-success">@ViewBag.Message</div>
-                    }
-                    @if (ViewBag.Notifications != null)
-                    {
-                        foreach (var notification in ViewBag.Notifications)
+<section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 bg-gradient-default">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="container pt-lg-7">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-body px-lg-5 py-lg-5">
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
                         {
-                            <div class="alert alert-danger">@notification.Message</div>
+                            <div class="alert alert-success">@ViewBag.Message</div>
                         }
-                    }
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                E-mail
-                            </span>
+                        @if (ViewBag.Notifications != null)
+                        {
+                            foreach (var notification in ViewBag.Notifications)
+                            {
+                                <div class="alert alert-danger">@notification.Message</div>
+                            }
+                        }
+                        <div class="text-center text-muted mb-4">
+                            <small>SIDD - Login</small>
                         </div>
-                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "", @required = "true", @name = "email", @type = "text" })
+                        <form id="FormLogin" asp-action="Index">
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "", @required = "true", @name = "email", @type = "text" })
+                                </div>
+                            </div>
+                            <div class="form-group focused">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "", @required = "true", @name = "password", @type = "password" })
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary my-4">Entrar</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                Senha
-                            </span>
-                        </div>
-                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "", @required = "true", @name = "password", @type = "password" })
-                    </div>
-                    <input type="submit" class="btn btn-primary btn-block mb-3" value="Entrar" />
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
