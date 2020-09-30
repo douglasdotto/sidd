@@ -9,5 +9,15 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Unity\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2 - Application\AppSidd.Application.Dto\AppSidd.Application.Dto.csproj" />
+    <ProjectReference Include="..\AppSidd.Domain.Notifications\AppSidd.Domain.Notifications.csproj" />
+    <ProjectReference Include="..\AppSidd.Domain.Specifications\AppSidd.Domain.Specifications.csproj" />
+  </ItemGroup>
   
 </Project>

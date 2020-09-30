@@ -12,6 +12,11 @@ namespace AppSidd.Domain.Users.Auth
         internal AppUser() { }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Sexo { get; set; }
+        public string CPF { get; set; }
+        public string RG { get; set; }
+        public string SUS { get; set; }
+        public string COREN { get; set; }
         public Guid? UnityId { get; set; }
         public bool IsActive { get; set; }
         public virtual ICollection<AppUserRole> AppUserRoles { get; set; }

@@ -54,6 +54,22 @@ namespace AppSidd.Application.Users.Handlers
                 await _userManager.AddToRoleAsync(appUser, Roles.ROLE_ADMIN);
             }
 
+            var find2 = await _userManager.FindByNameAsync("douglasdotto");
+
+            if (find2 == null)
+            {
+                var _appUserFactory = new AppUserFactory(new NotificationHandler());
+                var appUser = _appUserFactory.DefaultBuilder()
+                    .WithEmail("douglasdotto@sidd.com.br")
+                    .WithUserName("douglasdotto")
+                    .WithFirstName("Douglas")
+                    .WithLastName("Dotto")
+                    .Raise();
+
+                await _userManager.CreateAsync(appUser, "sidd123");
+                await _userManager.AddToRoleAsync(appUser, Roles.ROLE_PATIENT);
+            }
+
             return true;
         }
     }
