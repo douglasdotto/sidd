@@ -11,11 +11,21 @@ import BottomNavigation, {
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import theme from './theme';
 
+//api client
+import ApiClient from './ApiClient';
+import endpoints from './Endpoints';
+
 const BASE_SIZE = theme.SIZES.BASE;
 const COLOR_WHITE = theme.COLORS.WHITE;
 const { width } = Dimensions.get('screen');
 
+const client = new ApiClient();
+
 export default function App() {
+  // LOGIN
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  // LOGIN
   // START - CONTROL TABS
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('login');
@@ -81,9 +91,16 @@ export default function App() {
   // END - BOTTOM NAVIGATOR
 
   // START - BOTTOM NAVIGATOR
-  function login(user, password) {
+  async function login() {
     setLoading(true);
-    setActiveTab("home");
+    console.log(user);
+    console.log(password);
+    var data = {
+      username: user,
+      password: password
+    };
+    var result = await client.postApi(`${endpoints.user.login}`, data, false);
+    console.log(result);
     setLoading(false);
   }
 
@@ -104,9 +121,9 @@ export default function App() {
             </Block>
             <Block style={styles.cardQuestion}>
               <Text muted center style={styles.buttonText}>Insira seu usário</Text>
-              <Input placeholder="usuário" viewPass />
+              <Input placeholder="usuário" onChange={(e) => setUser(e.target.value)} />
               <Text muted center style={styles.buttonText}>Insira sua senha</Text>
-              <Input placeholder="senha" password viewPass />
+              <Input placeholder="senha" password viewPass onChange={(e) => setPassword(e.target.value)} />
               <Button round color="#3e0057" uppercase size="large" onPress={() => login()}>Entrar</Button>
             </Block>
           </ScrollView>

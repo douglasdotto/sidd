@@ -1,8 +1,8 @@
-var url = "https://siddproject.azurewebsites.net/"
+var url = "https://siddproject.azurewebsites.net"
 
 const endpoints = {
     user: {
-        login: `${url}/signin`,
+        login: `${url}/loginapp`,
     },
 }
 
