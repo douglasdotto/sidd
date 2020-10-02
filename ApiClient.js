@@ -16,6 +16,9 @@ class ApiClient {
             method: "POST",
             headers: {
                 'Authorization': 'Bearer ' + this.authToken,
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+                'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -54,6 +57,9 @@ class ApiClient {
             method: "GET",
             headers: {
                 'Authorization': 'Bearer ' + this.authToken,
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+                'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }

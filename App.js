@@ -14,14 +14,17 @@ import theme from './theme';
 //api client
 import ApiClient from './ApiClient';
 import endpoints from './Endpoints';
+import AuthStorage from './AuthStorage';
 
 const BASE_SIZE = theme.SIZES.BASE;
 const COLOR_WHITE = theme.COLORS.WHITE;
 const { width } = Dimensions.get('screen');
 
 const client = new ApiClient();
+const auth = new AuthStorage();
 
 export default function App() {
+  const [error, setError] = useState("");
   // LOGIN
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -91,16 +94,25 @@ export default function App() {
   // END - BOTTOM NAVIGATOR
 
   // START - BOTTOM NAVIGATOR
+  useEffect(() => {
+    auth.isAuthenticated() ? setActiveTab("home") : setActiveTab("login");
+  }, [])
+
   async function login() {
     setLoading(true);
-    console.log(user);
-    console.log(password);
     var data = {
       username: user,
       password: password
     };
     var result = await client.postApi(`${endpoints.user.login}`, data, false);
-    console.log(result);
+    if (result.statusCode === 200) {
+      auth.login(result.response);
+      setActiveTab("home");
+    } else {
+      auth.logout();
+      setActiveTab("login");
+      setError(result.notifications[0].message);
+    }
     setLoading(false);
   }
 
@@ -120,10 +132,11 @@ export default function App() {
               <Image source={require('./assets/login.png')} />
             </Block>
             <Block style={styles.cardQuestion}>
+              {error != "" ? <Text p muted center color="primary" style={styles.buttonText}>{error}</Text> : null}
               <Text muted center style={styles.buttonText}>Insira seu usário</Text>
               <Input placeholder="usuário" onChange={(e) => setUser(e.target.value)} />
               <Text muted center style={styles.buttonText}>Insira sua senha</Text>
-              <Input placeholder="senha" password viewPass onChange={(e) => setPassword(e.target.value)} />
+              <Input placeholder="senha" password viewPass onChange={(e) => setPassword(e.target.value)} onEnter={() => login()} />
               <Button round color="#3e0057" uppercase size="large" onPress={() => login()}>Entrar</Button>
             </Block>
           </ScrollView>

@@ -1,4 +1,5 @@
-var url = "https://siddproject.azurewebsites.net"
+//var url = "https://siddproject.azurewebsites.net"
+var url = "https://localhost:44302";
 
 const endpoints = {
     user: {

@@ -11,7 +11,6 @@ using INotification = AppSidd.Domain.Notifications.INotificationHandler;
 
 namespace Dashboard.Controllers
 {
-    [Authorize(Policy = Polices.POLICE_PROGRAM)]
     public class AppController : BaseController
     {
         private readonly INotification _notification;
@@ -26,7 +25,7 @@ namespace Dashboard.Controllers
 
         [HttpPost]
         [Route("loginapp")]
-        public async Task<IActionResult> Signin([FromBody] UserSignInDto request)
+        public async Task<IActionResult> LoginApp([FromBody] UserSignInDto request)
         {
             var token = await _mediator.Send(new SigninRequest(request));
 
