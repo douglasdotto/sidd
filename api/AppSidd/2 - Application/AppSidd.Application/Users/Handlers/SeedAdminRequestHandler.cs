@@ -70,6 +70,22 @@ namespace AppSidd.Application.Users.Handlers
                 await _userManager.AddToRoleAsync(appUser, Roles.ROLE_PATIENT);
             }
 
+            var find3 = await _userManager.FindByNameAsync("rejanefrozza");
+
+            if (find3 == null)
+            {
+                var _appUserFactory = new AppUserFactory(new NotificationHandler());
+                var appUser = _appUserFactory.DefaultBuilder()
+                    .WithEmail("rejanfrozza@sidd.com.br")
+                    .WithUserName("rejanefrozza")
+                    .WithFirstName("Rejane")
+                    .WithLastName("Frozza")
+                    .Raise();
+
+                await _userManager.CreateAsync(appUser, "sidd123");
+                await _userManager.AddToRoleAsync(appUser, Roles.ROLE_PATIENT);
+            }
+
             return true;
         }
     }

@@ -11,6 +11,7 @@ using INotification = AppSidd.Domain.Notifications.INotificationHandler;
 
 namespace Dashboard.Controllers
 {
+    [ApiController]
     public class AppController : BaseController
     {
         private readonly INotification _notification;

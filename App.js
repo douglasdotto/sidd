@@ -24,7 +24,11 @@ const client = new ApiClient();
 const auth = new AuthStorage();
 
 export default function App() {
-  const [error, setError] = useState("");
+  // GENERIC
+  const [userData, setUserData] = useState(null);
+  const [patient, setPatient] = useState(null);
+  const [patientSelected, setPatientSelected] = useState(null);
+  // GENERIC
   // LOGIN
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -79,11 +83,23 @@ export default function App() {
   // END - CARDS
 
   // START - BOTTOM NAVIGATOR
-  function tab(tab) {
+  async function tab(tab) {
     setLoading(true);
     setActiveTab(tab);
     setActiveTest("");
-    setLoading(false);
+    if (tab == "new") {
+      setPatient(null);
+      setPatientSelected(null);
+      var result = await client.postApi(`${endpoints.user.getPatients}`, null, true);
+      if (result.statusCode === 200) {
+        setPatient(result.response);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
+    }
   }
 
   function test(test) {
@@ -95,8 +111,17 @@ export default function App() {
 
   // START - BOTTOM NAVIGATOR
   useEffect(() => {
-    auth.isAuthenticated() ? setActiveTab("home") : setActiveTab("login");
+    fetchData();
   }, [])
+
+  async function fetchData() {
+    if (await auth.isAuthenticated()) {
+      setUserData(await auth.getData());
+      setActiveTab("home");
+    } else {
+      setActiveTab("login");
+    }
+  }
 
   async function login() {
     setLoading(true);
@@ -107,11 +132,15 @@ export default function App() {
     var result = await client.postApi(`${endpoints.user.login}`, data, false);
     if (result.statusCode === 200) {
       auth.login(result.response);
+      setUserData(result.response);
       setActiveTab("home");
     } else {
-      auth.logout();
       setActiveTab("login");
-      setError(result.notifications[0].message);
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+        })
+      }
     }
     setLoading(false);
   }
@@ -125,18 +154,36 @@ export default function App() {
 
   return (
     <Block safe flex style={{ backgroundColor: '#F5F5F5' }}>
+      <StatusBar style="light" />
       {activeTab == "login" && <>
         <Block flex style={{ backgroundColor: '#3e0057' }}>
           <ScrollView style={{ height: 1 }}>
             <Block row space="evenly">
               <Image source={require('./assets/login.png')} />
             </Block>
+            <Block style={styles.grid}>
+              {loading &&
+                <Block style={{
+                  backgroundColor: "#F5F5F5",
+                  borderRadius: 20,
+                  zIndex: 9999,
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <ActivityIndicator size='large' color="#3e0057" />
+                </Block>
+              }
+            </Block>
             <Block style={styles.cardQuestion}>
-              {error != "" ? <Text p muted center color="primary" style={styles.buttonText}>{error}</Text> : null}
               <Text muted center style={styles.buttonText}>Insira seu usário</Text>
-              <Input placeholder="usuário" onChange={(e) => setUser(e.target.value)} />
+              <Input placeholder="Usuário" value={user} onChangeText={(e) => setUser(e)} />
               <Text muted center style={styles.buttonText}>Insira sua senha</Text>
-              <Input placeholder="senha" password viewPass onChange={(e) => setPassword(e.target.value)} onEnter={() => login()} />
+              <Input placeholder="Senha" value={password} password viewPass onChangeText={(e) => setPassword(e)} />
               <Button round color="#3e0057" uppercase size="large" onPress={() => login()}>Entrar</Button>
             </Block>
           </ScrollView>
@@ -144,7 +191,12 @@ export default function App() {
       </>
       }
       {activeTab != "login" && <>
-        <Block row style={{ width: '100%', paddingTop: 54, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, backgroundColor: '#3e0057', color: '#ffffff !important', paddingBottom: 24 }}>
+        {userData != null ? <Block row style={{ width: '100%', backgroundColor: '#3e0057', color: '#ffffff !important' }}>
+          <Block flex center>
+            <Text muted center color="#fff" style={{ paddingTop: 44 }}>Olá, {userData.user.firstName}</Text>
+          </Block>
+        </Block> : null}
+        <Block row style={{ width: '100%', paddingTop: 10, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, backgroundColor: '#3e0057', color: '#ffffff !important', paddingBottom: 24 }}>
           <Block flex left>
             <Image source={require('./assets/header.png')} style={{ marginLeft: 20, height: 36, width: 100 }} />
           </Block>
@@ -152,7 +204,6 @@ export default function App() {
             <Icon size={30} color="#fff" name={'bell'} style={{ paddingRight: 30, paddingTop: 5 }} />
           </Block>
         </Block>
-        <StatusBar style="light" />
 
         <Block style={styles.grid}>
           {loading &&
@@ -247,9 +298,29 @@ export default function App() {
               ))}
             </>}
             {activeTab == "new" && <>
-              {activeTab == "new" && activeTest == "" && <>
+              {activeTab == "new" && activeTest == "" && patientSelected == null && <>
+                <Block style={styles.cardQuestion}>
+                  <Text muted center style={styles.buttonText}>Selecione um paciente</Text>
+                  <TouchableOpacity style={styles.touchableOpacity}>
+                    <Picker
+                      style={styles.picker}
+                      selectedValue={patientSelected}
+                      onValueChange={(itemValue, itemIndex) => { if (itemValue != "null") { setPatientSelected(itemValue) } }}
+                    >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
+                      {patient != null ? patient.data.map((e) => {
+                        return <Picker.Item label={e.firstName + " " + e.lastName} value={e.id} key={e.id} />;
+                      }) : null}
+                    </Picker>
+                  </TouchableOpacity>
+                </Block>
+              </>}
+              {activeTab == "new" && activeTest == "" && patientSelected != null && <>
                 <Block row space="evenly">
-                  <Text muted style={styles.buttonText}>Qual teste deseja aplicar?</Text>
+                  <Text muted style={styles.buttonText}>Qual teste deseja aplicar para o paciente: {patient != null ? patient.data.map((element) => {
+                    if (element.id == patientSelected)
+                      return element.firstName + " " + element.lastName;
+                  }) : null}</Text>
                 </Block>
                 <Block flex center>
                   <Button round color="#3e0057" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
@@ -748,7 +819,7 @@ export default function App() {
                 <Text h3>Douglas Dotto</Text>
                 <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="#3e0057">Meus dados</Button>
                 <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="#3e0057">Alterar senha</Button>
-                <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="#3e0057" onPress={() => logout()}>Sair</Button>
+                <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="#3e0057" onPress={() => { auth.logout(); logout() }}>Sair</Button>
               </Block>
             </>}
           </ScrollView>
