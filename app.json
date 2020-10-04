@@ -16,6 +16,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.sidd.siddapp",
+      "versionCode": 1
+    },
     "ios": {
       "supportsTablet": true
     },

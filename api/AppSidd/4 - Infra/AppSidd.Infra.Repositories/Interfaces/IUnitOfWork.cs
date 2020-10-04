@@ -1,11 +1,13 @@
-﻿using AppSidd.Infra.Repositories.Interfaces;
+﻿using AppSidd.Domain.Project;
+using AppSidd.Infra.Repositories.Interfaces;
 using System.Threading.Tasks;
 
 namespace AppSidd.Domain.Interfaces.Write
 {
     public interface IUnitOfWork
     {
-        //IRepository<GT> GTRepository { get; }
+        IRepository<Unity> UnityRepository { get; }
+        IRepository<Pfeffer> PfefferRepository { get; }
 
         Task Save();
     }

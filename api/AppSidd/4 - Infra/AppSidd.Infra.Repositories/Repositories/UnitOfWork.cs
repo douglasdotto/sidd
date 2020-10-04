@@ -1,5 +1,7 @@
 ﻿using AppSidd.Domain.Interfaces.Write;
 using AppSidd.Domain.Notifications;
+using AppSidd.Domain.Project;
+using AppSidd.Infra.Repositories.Interfaces;
 using AppSidd.Infra.SqlServer.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -17,9 +19,13 @@ namespace AppSidd.Infra.Repositories.Repositories
             _notificationHandler = notificationHandler;
             _context = context;
 
-            //GTRepository = new Repository<GT>(context);
+            UnityRepository = new Repository<Unity>(context);
+            PfefferRepository = new Repository<Pfeffer>(context);
         }
-        //public IRepository<GT> GTRepository { get; }
+        
+        public IRepository<Unity> UnityRepository { get; }
+        public IRepository<Pfeffer> PfefferRepository { get; }
+        
         public void Dispose()
             => _context.Dispose();
 

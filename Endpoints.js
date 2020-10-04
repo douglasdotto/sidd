@@ -6,6 +6,10 @@ const endpoints = {
         login: `${url}/loginapp`,
         getPatients: `${url}/getPatients`,
     },
+    app: {
+        insertUnity: `${url}/insertUnity`,
+        insertPfeffer: `${url}/insertPfeffer`,
+    }
 }
 
 export default endpoints;
