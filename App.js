@@ -29,6 +29,78 @@ export default function App() {
   const [patient, setPatient] = useState(null);
   const [patientSelected, setPatientSelected] = useState(null);
   // GENERIC
+  // PFEFFER
+  const [pfeffer1, setPfeffer1] = useState(null);
+  const [pfeffer2, setPfeffer2] = useState(null);
+  const [pfeffer3, setPfeffer3] = useState(null);
+  const [pfeffer4, setPfeffer4] = useState(null);
+  const [pfeffer5, setPfeffer5] = useState(null);
+  const [pfeffer6, setPfeffer6] = useState(null);
+  const [pfeffer7, setPfeffer7] = useState(null);
+  const [pfeffer8, setPfeffer8] = useState(null);
+  const [pfeffer9, setPfeffer9] = useState(null);
+  const [pfeffer10, setPfeffer10] = useState(null);
+  // PFEFFER
+  // CDR
+  const [cdr1, setCDR1] = useState(null);
+  const [cdr2, setCDR2] = useState(null);
+  const [cdr3, setCDR3] = useState(null);
+  const [cdr4, setCDR4] = useState(null);
+  const [cdr5, setCDR5] = useState(null);
+  const [cdr6, setCDR6] = useState(null);
+  // CDR
+  // MEEM
+  const [meem1_1, setMEEM1_1] = useState(false);
+  const [meem1_2, setMEEM1_2] = useState(false);
+  const [meem1_3, setMEEM1_3] = useState(false);
+  const [meem1_4, setMEEM1_4] = useState(false);
+  const [meem1_5, setMEEM1_5] = useState(false);
+  const [meem1_6, setMEEM1_6] = useState(false);
+  const [meem1_7, setMEEM1_7] = useState(false);
+  const [meem1_8, setMEEM1_8] = useState(false);
+  const [meem1_9, setMEEM1_9] = useState(false);
+  const [meem1_10, setMEEM1_10] = useState(false);
+
+  const [meem2_1, setMEEM2_1] = useState(false);
+  const [meem2_2, setMEEM2_2] = useState(false);
+  const [meem2_3, setMEEM2_3] = useState(false);
+
+  const [meem3_1, setMEEM3_1] = useState(false);
+  const [meem3_2, setMEEM3_2] = useState(false);
+  const [meem3_3, setMEEM3_3] = useState(false);
+  const [meem3_4, setMEEM3_4] = useState(false);
+  const [meem3_5, setMEEM3_5] = useState(false);
+  const [meem3_11, setMEEM3_11] = useState(false);
+  const [meem3_22, setMEEM3_22] = useState(false);
+  const [meem3_33, setMEEM3_33] = useState(false);
+  const [meem3_44, setMEEM3_44] = useState(false);
+  const [meem3_55, setMEEM3_55] = useState(false);
+
+
+  const [meem4_1, setMEEM4_1] = useState(false);
+  const [meem4_2, setMEEM4_2] = useState(false);
+  const [meem4_3, setMEEM4_3] = useState(false);
+
+  const [meem5_1, setMEEM5_1] = useState(false);
+  const [meem5_2, setMEEM5_2] = useState(false);
+
+  const [meem6_1, setMEEM6_1] = useState(false);
+
+  const [meem7_1, setMEEM7_1] = useState(false);
+  const [meem7_2, setMEEM7_2] = useState(false);
+  const [meem7_3, setMEEM7_3] = useState(false);
+
+  const [meem8_1, setMEEM8_1] = useState(false);
+
+  const [meem9_1, setMEEM9_1] = useState(false);
+
+  const [meem10_1, setMEEM10_1] = useState(false);
+
+  const [meem11_1, setMEEM11_1] = useState(false);
+  const [meem11_2, setMEEM11_2] = useState(false);
+  const [meem11_3, setMEEM11_3] = useState(false);
+  const [meem11_4, setMEEM11_4] = useState(false);
+  // MEEM
   // LOGIN
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -109,7 +181,7 @@ export default function App() {
   }
   // END - BOTTOM NAVIGATOR
 
-  // START - BOTTOM NAVIGATOR
+  // START - FUNCTIONS
   useEffect(() => {
     fetchData();
   }, [])
@@ -145,12 +217,121 @@ export default function App() {
     setLoading(false);
   }
 
+  async function pfeffer() {
+    setLoading(true);
+    var data = {
+      userId: patientSelected,
+      question1: pfeffer1 != null ? parseInt(pfeffer1) : 0,
+      question2: pfeffer2 != null ? parseInt(pfeffer2) : 0,
+      question3: pfeffer3 != null ? parseInt(pfeffer3) : 0,
+      question4: pfeffer4 != null ? parseInt(pfeffer4) : 0,
+      question5: pfeffer5 != null ? parseInt(pfeffer5) : 0,
+      question6: pfeffer6 != null ? parseInt(pfeffer6) : 0,
+      question7: pfeffer7 != null ? parseInt(pfeffer7) : 0,
+      question8: pfeffer8 != null ? parseInt(pfeffer8) : 0,
+      question9: pfeffer9 != null ? parseInt(pfeffer9) : 0,
+      question10: pfeffer10 != null ? parseInt(pfeffer10) : 0,
+      createdBy: userData.id
+    };
+    var result = await client.postApi(`${endpoints.app.insertPfeffer}`, data, false);
+    if (result.statusCode === 200) {
+      setPfeffer1(null);
+      setPfeffer2(null);
+      setPfeffer3(null);
+      setPfeffer4(null);
+      setPfeffer5(null);
+      setPfeffer6(null);
+      setPfeffer7(null);
+      setPfeffer8(null);
+      setPfeffer9(null);
+      setPfeffer10(null);
+      setPatientSelected(null);
+      setActiveTab("home");
+    } else {
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+        })
+      }
+    }
+    setLoading(false);
+  }
+
+  async function cdr() {
+    setLoading(true);
+    var data = {
+      userId: patientSelected,
+      question1: cdr1 != null ? parseFloat(cdr1) : 0,
+      question2: cdr2 != null ? parseFloat(cdr2) : 0,
+      question3: cdr3 != null ? parseFloat(cdr3) : 0,
+      question4: cdr4 != null ? parseFloat(cdr4) : 0,
+      question5: cdr5 != null ? parseFloat(cdr5) : 0,
+      question6: cdr6 != null ? parseFloat(cdr6) : 0,
+      createdBy: userData.id
+    };
+    var result = await client.postApi(`${endpoints.app.insertCDR}`, data, false);
+    if (result.statusCode === 200) {
+      setCDR11(null);
+      setCDR2(null);
+      setCDR3(null);
+      setCDR4(null);
+      setCDR5(null);
+      setCDR6(null);
+      setPatientSelected(null);
+      setActiveTab("home");
+    } else {
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+        })
+      }
+    }
+    setLoading(false);
+  }
+
+  async function meem() {
+    setLoading(true);
+    var data = {
+      userId: patientSelected,
+      question1: (meem1_1 ? 1 : 0) + (meem1_2 ? 1 : 0) + (meem1_3 ? 1 : 0) + (meem1_4 ? 1 : 0) + (meem1_5 ? 1 : 0) + (meem1_6 ? 1 : 0) + (meem1_7 ? 1 : 0) + (meem1_8 ? 1 : 0) + (meem1_9 ? 1 : 0) + (meem1_10 ? 1 : 0),
+      question2: cdr2 != null ? parseFloat(cdr2) : 0,
+      question3: cdr3 != null ? parseFloat(cdr3) : 0,
+      question4: cdr4 != null ? parseFloat(cdr4) : 0,
+      question5: cdr5 != null ? parseFloat(cdr5) : 0,
+      question6: cdr6 != null ? parseFloat(cdr6) : 0,
+      question7: cdr6 != null ? parseFloat(cdr6) : 0,
+      question8: cdr6 != null ? parseFloat(cdr6) : 0,
+      question9: cdr6 != null ? parseFloat(cdr6) : 0,
+      question10: cdr6 != null ? parseFloat(cdr6) : 0,
+      escolaridade: cdr6 != null ? parseFloat(cdr6) : 0,
+      createdBy: userData.id
+    };
+    var result = await client.postApi(`${endpoints.app.insertCDR}`, data, false);
+    if (result.statusCode === 200) {
+      setCDR11(null);
+      setCDR2(null);
+      setCDR3(null);
+      setCDR4(null);
+      setCDR5(null);
+      setCDR6(null);
+      setPatientSelected(null);
+      setActiveTab("home");
+    } else {
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+        })
+      }
+    }
+    setLoading(false);
+  }
+
   function logout() {
     setLoading(true);
     setActiveTab("login");
     setLoading(false);
   }
-  // END - BOTTOM NAVIGATOR
+  // END - FUNCTIONS
 
   return (
     <Block safe flex style={{ backgroundColor: '#F5F5F5' }}>
@@ -354,8 +535,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer1}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer1(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -369,8 +552,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer2}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer2(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -384,8 +569,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer3}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer3(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -399,8 +586,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer4}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer4(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -414,8 +603,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer5}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer5(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -429,8 +620,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer6}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer6(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -444,8 +637,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer7}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer7(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -459,8 +654,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer8}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer8(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -474,8 +671,10 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer9}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer9(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
@@ -489,14 +688,20 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={pfeffer10}
+                      onValueChange={(itemValue, itemIndex) => { setPfeffer10(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
                       <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
                       <Picker.Item label="Necessita de ajuda" value="2" />
                       <Picker.Item label="Não é capaz" value="3" />
                     </Picker>
                   </TouchableOpacity>
+                </Block>
+                <Block row center>
+                  <Button round uppercase color="primary" onPress={() => pfeffer()}>SALVAR</Button>
+                  <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
                 </Block>
               </>}
               {activeTab == "new" && activeTest == "cdr" && <>
@@ -509,13 +714,15 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={cdr1}
+                      onValueChange={(itemValue, itemIndex) => { setCDR1(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Sem perda da memória; apenas esquecimento discreto" value="0" />
-                      <Picker.Item label="Esquecimento leve e consistente; lembrança parcial de eventos" value="1" />
-                      <Picker.Item label="Moderada; mais acentuada a fatos recentes; afeta o dia-a-dia" value="2" />
-                      <Picker.Item label="Grave; apenas material muito aprendido é retido; materiais novos são rapidamente perdidos" value="3" />
-                      <Picker.Item label="Grave; apenas fragmentos permanecem" value="4" />
+                      <Picker.Item label="Esquecimento leve e consistente; lembrança parcial de eventos" value="0.5" />
+                      <Picker.Item label="Moderada; mais acentuada a fatos recentes; afeta o dia-a-dia" value="1" />
+                      <Picker.Item label="Grave; apenas material muito aprendido é retido; materiais novos são rapidamente perdidos" value="2" />
+                      <Picker.Item label="Grave; apenas fragmentos permanecem" value="3" />
                     </Picker>
                   </TouchableOpacity>
                 </Block>
@@ -525,13 +732,15 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={cdr2}
+                      onValueChange={(itemValue, itemIndex) => { setCDR2(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Plenamente orientado" value="0" />
-                      <Picker.Item label="Plenamente orientado" value="1" />
-                      <Picker.Item label="Dificuldade moderada com as relações de tempo" value="2" />
-                      <Picker.Item label="Geralmente desorientado" value="3" />
-                      <Picker.Item label="Orientação pessoal apenas" value="4" />
+                      <Picker.Item label="Leve dificuldade" value="0.5" />
+                      <Picker.Item label="Dificuldade moderada com as relações de tempo" value="1" />
+                      <Picker.Item label="Geralmente desorientado" value="2" />
+                      <Picker.Item label="Orientação pessoal apenas" value="3" />
                     </Picker>
                   </TouchableOpacity>
                 </Block>
@@ -541,13 +750,15 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={cdr3}
+                      onValueChange={(itemValue, itemIndex) => { setCDR3(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Resolve bem" value="0" />
-                      <Picker.Item label="Leve comprometimento" value="1" />
-                      <Picker.Item label="Dificuldade moderada" value="2" />
-                      <Picker.Item label="Gravemente comprometido" value="3" />
-                      <Picker.Item label="Incapaz de resolver" value="4" />
+                      <Picker.Item label="Leve comprometimento" value="0.5" />
+                      <Picker.Item label="Dificuldade moderada" value="1" />
+                      <Picker.Item label="Gravemente comprometido" value="2" />
+                      <Picker.Item label="Incapaz de resolver" value="3" />
                     </Picker>
                   </TouchableOpacity>
                 </Block>
@@ -557,13 +768,15 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={cdr4}
+                      onValueChange={(itemValue, itemIndex) => { setCDR4(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal" value="0" />
-                      <Picker.Item label="Leve dificuldade" value="1" />
-                      <Picker.Item label="Desempenha algumas atividades" value="2" />
-                      <Picker.Item label="Precisa de acompanhamento" value="3" />
-                      <Picker.Item label="Incapaz" value="4" />
+                      <Picker.Item label="Leve dificuldade" value="0.5" />
+                      <Picker.Item label="Desempenha algumas atividades" value="1" />
+                      <Picker.Item label="Precisa de acompanhamento" value="2" />
+                      <Picker.Item label="Incapaz" value="3" />
                     </Picker>
                   </TouchableOpacity>
                 </Block>
@@ -573,13 +786,15 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={cdr5}
+                      onValueChange={(itemValue, itemIndex) => { setCDR5(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Normal" value="0" />
-                      <Picker.Item label="Levemente afetados" value="1" />
-                      <Picker.Item label="Abandono de tarefas mais dificeis" value="2" />
-                      <Picker.Item label="Apenas tarefas simples" value="3" />
-                      <Picker.Item label="Sem qualquer atividade significativa" value="4" />
+                      <Picker.Item label="Levemente afetados" value="0.5" />
+                      <Picker.Item label="Abandono de tarefas mais dificeis" value="1" />
+                      <Picker.Item label="Apenas tarefas simples" value="2" />
+                      <Picker.Item label="Sem qualquer atividade significativa" value="3" />
                     </Picker>
                   </TouchableOpacity>
                 </Block>
@@ -589,15 +804,21 @@ export default function App() {
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
                       style={styles.picker}
-                      selectedValue={null}
+                      selectedValue={cdr6}
+                      onValueChange={(itemValue, itemIndex) => { setCDR6(itemValue) }}
                     >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Plenamente capaz" value="0" />
-                      <Picker.Item label="Plenamente capaz" value="1" />
-                      <Picker.Item label="Necessita de assistência ocasional" value="2" />
-                      <Picker.Item label="Requer assistência" value="3" />
-                      <Picker.Item label="Requer muito auxílio nos cuidados" value="4" />
+                      <Picker.Item label="Levemente afetado" value="0.5" />
+                      <Picker.Item label="Necessita de assistência ocasional" value="1" />
+                      <Picker.Item label="Requer assistência" value="2" />
+                      <Picker.Item label="Requer muito auxílio nos cuidados" value="3" />
                     </Picker>
                   </TouchableOpacity>
+                </Block>
+                <Block row center>
+                  <Button round uppercase color="primary" onPress={() => cdr()}>SALVAR</Button>
+                  <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
                 </Block>
               </>}
               {activeTab == "new" && activeTest == "minimental" && <>
@@ -607,90 +828,94 @@ export default function App() {
                 <Block style={styles.cardQuestion}>
                   <Text muted center style={styles.buttonText}>Orientação (marque a opção, se o usuário acertou a resposta)</Text>
                   <Text muted style={styles.buttonText}>Em que ano estamos?</Text>
-                  <Checkbox color="#3e0057" label="Ano" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Ano" style={styles.checkbox} value={meem1_1} onChange={(e) => setMEEM1_1(e)} />
                   <Text muted style={styles.buttonText}>Em que estação do ano estamos?</Text>
-                  <Checkbox color="#3e0057" label="Estação" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Estação" style={styles.checkbox} value={meem1_2} onChange={(e) => setMEEM1_2(e)} />
                   <Text muted style={styles.buttonText}>Qual o dia da semana em que estamos?</Text>
-                  <Checkbox color="#3e0057" label="Dia da semana" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Dia da semana" style={styles.checkbox} value={meem1_3} onChange={(e) => setMEEM1_3(e)} />
                   <Text muted style={styles.buttonText}>Qual o dia do mês em que estamos?</Text>
-                  <Checkbox color="#3e0057" label="Dia do mês" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Dia do mês" style={styles.checkbox} value={meem1_4} onChange={(e) => setMEEM1_4(e)} />
                   <Text muted style={styles.buttonText}>Qual o mês em que estamos?</Text>
-                  <Checkbox color="#3e0057" label="Mês" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Mês" style={styles.checkbox} value={meem1_5} onChange={(e) => setMEEM1_5(e)} />
                   <Text muted style={styles.buttonText}>Qual o país onde estamos?</Text>
-                  <Checkbox color="#3e0057" label="Pais" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Pais" style={styles.checkbox} value={meem1_6} onChange={(e) => setMEEM1_6(e)} />
                   <Text muted style={styles.buttonText}>Qual o estados onde estamos?</Text>
-                  <Checkbox color="#3e0057" label="Estado" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Estado" style={styles.checkbox} value={meem1_7} onChange={(e) => setMEEM1_7(e)} />
                   <Text muted style={styles.buttonText}>Qual a cidade onde estamos?</Text>
-                  <Checkbox color="#3e0057" label="Cidade" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Cidade" style={styles.checkbox} value={meem1_8} onChange={(e) => setMEEM1_8(e)} />
                   <Text muted style={styles.buttonText}>Qual a rua ou local onde estamos?</Text>
-                  <Checkbox color="#3e0057" label="Rua/local" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Rua/local" style={styles.checkbox} value={meem1_9} onChange={(e) => setMEEM1_9(e)} />
                   <Text muted style={styles.buttonText}>Qual o andar onde estamos?</Text>
-                  <Checkbox color="#3e0057" label="Andar" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Andar" style={styles.checkbox} value={meem1_10} onChange={(e) => setMEEM1_10(e)} />
                 </Block>
                 <Block style={styles.cardQuestion}>
                   <Text muted center style={styles.buttonText}>Registro (marque a opção, se o usuário acertou a resposta)</Text>
                   <Text muted style={styles.buttonText}>Solicite ao paciente que preste atenção pois terá que repetir as palavras mais tarde. Peça para repetir as 3 palavras depois de vocês dizê-las. Se necessário, repita até 5 vezes para aprender as palavras, porém a pontuação é referente a primeira tentativa de repetição.</Text>
                   <Text muted style={styles.buttonText}>O objetivo é dizer três palavras: PENTE RUA AZUL</Text>
-                  <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} value={meem2_1} onChange={(e) => setMEEM2_2(e)} />
+                  <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} value={meem2_2} onChange={(e) => setMEEM2_2(e)} />
+                  <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} value={meem2_3} onChange={(e) => setMEEM2_3(e)} />
                 </Block>
                 <Block style={styles.cardQuestion}>
                   <Text muted center style={styles.buttonText}>Atenção e cálculo (marque a opção, se o usuário acertou a resposta)</Text>
                   <Text muted style={styles.buttonText}>Peça para que o paciente faça as subtrações seriadas. Se errar na primeira ou na segunda tentativa, peça para soletrar e pule a etapa da subtração</Text>
                   <Text muted style={styles.buttonText}>Subtrair: 100 - 7</Text>
-                  <Checkbox color="#3e0057" label="(93)" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="(93)" style={styles.checkbox} value={meem3_1} onChange={(e) => setMEEM3_1(e)} />
                   <Text muted style={styles.buttonText}>Subtrair: 93 - 7</Text>
-                  <Checkbox color="#3e0057" label="(86)" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="(86)" style={styles.checkbox} value={meem3_2} onChange={(e) => setMEEM3_2(e)} />
                   <Text muted style={styles.buttonText}>Subtrair: 86 - 7</Text>
-                  <Checkbox color="#3e0057" label="(79)" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="(79)" style={styles.checkbox} value={meem3_3} onChange={(e) => setMEEM3_3(e)} />
                   <Text muted style={styles.buttonText}>Subtrair: 79 - 7</Text>
-                  <Checkbox color="#3e0057" label="(72)" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="(72)" style={styles.checkbox} value={meem3_4} onChange={(e) => setMEEM3_4(e)} />
                   <Text muted style={styles.buttonText}>Subtrair: 72 - 7</Text>
-                  <Checkbox color="#3e0057" label="(65)" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="(65)" style={styles.checkbox} value={meem3_5} onChange={(e) => setMEEM3_5(e)} />
 
                   <Text muted style={styles.buttonText}>Se o usuário errou acima, peça para que ele soletre MUNDO de trás pra frente</Text>
-                  <Checkbox color="#3e0057" label="O" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="D" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="N" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="U" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="M" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="O" style={styles.checkbox} value={meem3_11} onChange={(e) => setMEEM3_11(e)} />
+                  <Checkbox color="#3e0057" label="D" style={styles.checkbox} value={meem3_22} onChange={(e) => setMEEM3_22(e)} />
+                  <Checkbox color="#3e0057" label="N" style={styles.checkbox} value={meem3_33} onChange={(e) => setMEEM3_33(e)} />
+                  <Checkbox color="#3e0057" label="U" style={styles.checkbox} value={meem3_44} onChange={(e) => setMEEM3_44(e)} />
+                  <Checkbox color="#3e0057" label="M" style={styles.checkbox} value={meem3_55} onChange={(e) => setMEEM3_55(e)} />
                 </Block>
                 <Block style={styles.cardQuestion}>
                   <Text muted center style={styles.buttonText}>Evocação (marque a opção, se o usuário lembrar a palavra)</Text>
                   <Text muted style={styles.buttonText}>Perguntar pelas 3 palavras anteriores: PENTE RUA AZUL</Text>
-                  <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} value={meem4_1} onChange={(e) => setMEEM4_1(e)} />
+                  <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} value={meem4_2} onChange={(e) => setMEEM4_2(e)} />
+                  <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} value={meem4_3} onChange={(e) => setMEEM4_3(e)} />
                 </Block>
                 <Block style={styles.cardQuestion}>
                   <Text muted center style={styles.buttonText}>Linguagem (marque a opção, se o usuário lembrar a palavra)</Text>
                   <Text muted style={styles.buttonText}>Mostre um relógio e uma caneta e peça para nomear</Text>
-                  <Checkbox color="#3e0057" label="Relógio" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="Caneta" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Relógio" style={styles.checkbox} value={meem5_1} onChange={(e) => setMEEM5_1(e)} />
+                  <Checkbox color="#3e0057" label="Caneta" style={styles.checkbox} value={meem5_2} onChange={(e) => setMEEM5_2(e)} />
                   <Text muted style={styles.buttonText}>Repetir: "Nem aqui, nem ali, nem lá"</Text>
-                  <Checkbox color="#3e0057" label="Repetiu corretamente" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Repetiu corretamente" style={styles.checkbox} value={meem6_1} onChange={(e) => setMEEM6_1(e)} />
                   <Text muted style={styles.buttonText}>Seguir o comando (falado) de três estágios: Pegue o papel com a mão direita, dobre ao meio e ponha no chão</Text>
-                  <Checkbox color="#3e0057" label="Pegar papel com a mão direita" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="Dobre ao meio" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="Ponha no chão" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Pegar papel com a mão direita" style={styles.checkbox} value={meem7_1} onChange={(e) => setMEEM7_1(e)} />
+                  <Checkbox color="#3e0057" label="Dobre ao meio" style={styles.checkbox} value={meem7_2} onChange={(e) => setMEEM7_2(e)} />
+                  <Checkbox color="#3e0057" label="Ponha no chão" style={styles.checkbox} value={meem7_3} onChange={(e) => setMEEM7_3(e)} />
                   <Text muted style={styles.buttonText}>Escreva em um papel e peça para a pessoa executar: Feche os olhos</Text>
-                  <Checkbox color="#3e0057" label="Fechou os olhos" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Fechou os olhos" style={styles.checkbox} value={meem8_1} onChange={(e) => setMEEM8_1(e)} />
                   <Text muted style={styles.buttonText}>Solicite que o paciente escreva uma frase (um pensamento ou ideia completa)</Text>
-                  <Checkbox color="#3e0057" label="Frase/ideia correta" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Frase/ideia correta" style={styles.checkbox} value={meem9_1} onChange={(e) => setMEEM9_1(e)} />
                   <Text muted style={styles.buttonText}>Copiar o desenho</Text>
                   <Block row space="evenly" style={{ padding: 10 }}>
                     <Image source={require('./assets/meem1.png')} style={{ minWidth: 100, minHeight: 100 }} />
                   </Block>
-                  <Checkbox color="#3e0057" label="Desenho correto" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Desenho correto" style={styles.checkbox} value={meem10_1} onChange={(e) => setMEEM10_1(e)} />
                 </Block>
                 <Block style={styles.cardQuestion}>
                   <Text muted center style={styles.buttonText}>Qual a escolaridade do paciente?</Text>
                   <Text muted style={styles.buttonText}>Quantos anos concluidos de educação formal</Text>
-                  <Checkbox color="#3e0057" label="Analfabeto" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="1 a 5 anos de escolaridade" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="6 a 11 anos de escolaridade" style={styles.checkbox} />
-                  <Checkbox color="#3e0057" label="12 anos ou mais de escolaridade" style={styles.checkbox} />
+                  <Checkbox color="#3e0057" label="Analfabeto" style={styles.checkbox} value={meem11_1} onChange={(e) => { setMEEM11_1(true); setMEEM11_2(false); setMEEM11_3(false); setMEEM11_4(false); }} />
+                  <Checkbox color="#3e0057" label="1 a 5 anos de escolaridade" style={styles.checkbox} value={meem11_2} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(true); setMEEM11_3(false); setMEEM11_4(false); }} />
+                  <Checkbox color="#3e0057" label="6 a 11 anos de escolaridade" style={styles.checkbox} value={meem11_3} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(false); setMEEM11_3(true); setMEEM11_4(false); }} />
+                  <Checkbox color="#3e0057" label="12 anos ou mais de escolaridade" style={styles.checkbox} value={meem11_4} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(false); setMEEM11_3(false); setMEEM11_4(true); }} />
+                </Block>
+                <Block row center>
+                  <Button round uppercase color="primary" onPress={() => meem()}>SALVAR</Button>
+                  <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
                 </Block>
               </>}
               {activeTab == "new" && activeTest == "moca" && <>
@@ -794,12 +1019,6 @@ export default function App() {
               {activeTab == "new" && activeTest == "sintomas" && <>
                 <Block row space="evenly">
                   <Text muted style={styles.buttonText}>Teste de Sintomas</Text>
-                </Block>
-              </>}
-              {activeTab == "new" && activeTest != "" && <>
-                <Block row center>
-                  <Button round uppercase color="primary" onPress={() => test("")}>SALVAR</Button>
-                  <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
                 </Block>
               </>}
             </>}

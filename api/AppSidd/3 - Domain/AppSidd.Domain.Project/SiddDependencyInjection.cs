@@ -10,6 +10,9 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.TryAddTransient<IUnityFactory, UnityFactory>();
             services.TryAddTransient<IPfefferFactory, PfefferFactory>();
+            services.TryAddTransient<ICDRFactory, CDRFactory>();
+            services.TryAddTransient<IMEEMFactory, MEEMFactory>();
+            services.TryAddTransient<IMoCAFactory, MoCAFactory>();
 
             return services;
         }

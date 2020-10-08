@@ -4,9 +4,9 @@ using System.Text;
 
 namespace AppSidd.Application.Dto
 {
-    public class PfefferDto
+    public class MoCADto
     {
-        public string PfefferId { get; set; }
+        public string MoCAId { get; set; }
         public string UserId { get; set; }
         public int Question1 { get; set; }
         public int Question2 { get; set; }

@@ -9,6 +9,10 @@ namespace AppSidd.Domain.Mapper
         public ApplicationMappingProfile()
         {
             CreateMap<Unity, UnityDto>();
+            CreateMap<Pfeffer, PfefferDto>();
+            CreateMap<CDR, CDRDto>();
+            CreateMap<MEEM, MEEMDto>();
+            CreateMap<MoCA, MoCADto>();
         }
     }
 }

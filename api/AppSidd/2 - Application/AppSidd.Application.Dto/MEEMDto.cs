@@ -4,9 +4,9 @@ using System.Text;
 
 namespace AppSidd.Application.Dto
 {
-    public class PfefferDto
+    public class MEEMDto
     {
-        public string PfefferId { get; set; }
+        public string MEEMId { get; set; }
         public string UserId { get; set; }
         public int Question1 { get; set; }
         public int Question2 { get; set; }
@@ -18,6 +18,7 @@ namespace AppSidd.Application.Dto
         public int Question8 { get; set; }
         public int Question9 { get; set; }
         public int Question10 { get; set; }
+        public int Escolaridade { get; set; }
         public int Total { get; set; }
         public DateTime? Created { get; set; }
         public string CreatedBy { get; set; }

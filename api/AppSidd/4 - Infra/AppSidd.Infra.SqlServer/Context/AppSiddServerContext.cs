@@ -28,6 +28,9 @@ namespace AppSidd.Infra.SqlServer
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new UnityConfiguration());
             modelBuilder.ApplyConfiguration(new PfefferConfiguration());
+            modelBuilder.ApplyConfiguration(new CDRConfiguration());
+            modelBuilder.ApplyConfiguration(new MEEMConfiguration());
+            modelBuilder.ApplyConfiguration(new MoCAConfiguration());
         }
 
         public async Task<int> SaveChangesAsync()

@@ -32,6 +32,7 @@ namespace Dashboard
               .AddNotificationsDependency()
               .AddAutoMapperDependency()
               .AddUsersDependency()
+              .AddFluxoDependency()
               .AddControllersWithViews()
               .AddRazorRuntimeCompilation();
 

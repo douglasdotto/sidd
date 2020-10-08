@@ -7,12 +7,12 @@ using Dashboard.Controllers.Base;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using INotification = AppSidd.Domain.Notifications.INotificationHandler;
 
 namespace Dashboard.Controllers
 {
-    [ApiController]
     public class AppController : BaseController
     {
         private readonly INotification _notification;
@@ -26,6 +26,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("loginapp")]
         public async Task<IActionResult> LoginApp([FromBody] UserSignInDto request)
         {
@@ -51,9 +52,9 @@ namespace Dashboard.Controllers
 
         [HttpPost]
         [Route("insertUnity")]
-        public async Task<IActionResult> InsertUnity([FromBody] UnityDto unity, string userId)
+        public async Task<IActionResult> InsertUnity([FromBody] UnityDto unity)
         {
-            var token = await _mediator.Send(new InsertUnityRequest(unity, userId));
+            var token = await _mediator.Send(new InsertUnityRequest(unity, CurrentUser.Id));
 
             if (_notification.HasNotification())
                 return BadRequest(new BadRequestDto(_notification));
@@ -63,9 +64,45 @@ namespace Dashboard.Controllers
 
         [HttpPost]
         [Route("insertPfeffer")]
-        public async Task<IActionResult> InsertPfeffer([FromBody] PfefferDto pfeffer, string userId)
+        public async Task<IActionResult> InsertPfeffer([FromBody] PfefferDto pfeffer)
         {
-            var token = await _mediator.Send(new InsertPfefferRequest(pfeffer, userId));
+            var token = await _mediator.Send(new InsertPfefferRequest(pfeffer, pfeffer.CreatedBy));
+
+            if (_notification.HasNotification())
+                return BadRequest(new BadRequestDto(_notification));
+
+            return Ok(new OkDto(token));
+        }
+
+        [HttpPost]
+        [Route("insertCDR")]
+        public async Task<IActionResult> InsertCDR([FromBody] CDRDto cdr)
+        {
+            var token = await _mediator.Send(new InsertCDRRequest(cdr, cdr.CreatedBy));
+
+            if (_notification.HasNotification())
+                return BadRequest(new BadRequestDto(_notification));
+
+            return Ok(new OkDto(token));
+        }
+
+        [HttpPost]
+        [Route("insertMoCA")]
+        public async Task<IActionResult> InsertMoCA([FromBody] MoCADto moca)
+        {
+            var token = await _mediator.Send(new InsertMoCARequest(moca, moca.CreatedBy));
+
+            if (_notification.HasNotification())
+                return BadRequest(new BadRequestDto(_notification));
+
+            return Ok(new OkDto(token));
+        }
+
+        [HttpPost]
+        [Route("insertMEEM")]
+        public async Task<IActionResult> InsertMEEM([FromBody] MEEMDto meem)
+        {
+            var token = await _mediator.Send(new InsertMEEMRequest(meem, meem.CreatedBy));
 
             if (_notification.HasNotification())
                 return BadRequest(new BadRequestDto(_notification));

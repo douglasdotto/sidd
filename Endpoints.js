@@ -1,5 +1,5 @@
-var url = "https://siddproject.azurewebsites.net"
-//var url = "https://localhost:44302";
+//var url = "https://siddproject.azurewebsites.net"
+var url = "https://localhost:44302";
 
 const endpoints = {
     user: {
@@ -9,6 +9,9 @@ const endpoints = {
     app: {
         insertUnity: `${url}/insertUnity`,
         insertPfeffer: `${url}/insertPfeffer`,
+        insertCDR: `${url}/insertCDR`,
+        insertMoCA: `${url}/insertMoCA`,
+        insertMEEM: `${url}/insertMEEM`,
     }
 }
 

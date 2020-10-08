@@ -24,6 +24,7 @@ namespace Dashboard.Controllers
             ViewBag.Menu = "Dashboard";
             return View();
         }
+
         public IActionResult Index()
         {
             ViewBag.Menu = "Dashboard";

@@ -21,11 +21,17 @@ namespace AppSidd.Infra.Repositories.Repositories
 
             UnityRepository = new Repository<Unity>(context);
             PfefferRepository = new Repository<Pfeffer>(context);
+            CDRRepository = new Repository<CDR>(context);
+            MoCARepository = new Repository<MoCA>(context);
+            MEEMRepository = new Repository<MEEM>(context);
         }
-        
+
         public IRepository<Unity> UnityRepository { get; }
         public IRepository<Pfeffer> PfefferRepository { get; }
-        
+        public IRepository<CDR> CDRRepository { get; }
+        public IRepository<MoCA> MoCARepository { get; }
+        public IRepository<MEEM> MEEMRepository { get; }
+
         public void Dispose()
             => _context.Dispose();
 
