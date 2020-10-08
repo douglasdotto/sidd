@@ -306,6 +306,7 @@ export default function App() {
       escolaridade: cdr6 != null ? parseFloat(cdr6) : 0,
       createdBy: userData.id
     };
+    
     var result = await client.postApi(`${endpoints.app.insertCDR}`, data, false);
     if (result.statusCode === 200) {
       setCDR11(null);
