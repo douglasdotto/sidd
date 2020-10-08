@@ -7,9 +7,10 @@ import {
 } from 'galio-framework';
 import BottomNavigation, {
   FullTab,
-} from 'react-native-material-bottom-navigation'
-import Icon from '@expo/vector-icons/MaterialCommunityIcons'
+} from 'react-native-material-bottom-navigation';
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import theme from './theme';
+import Toast from 'react-native-toast-message';
 
 //api client
 import ApiClient from './ApiClient';
@@ -164,6 +165,14 @@ export default function App() {
       setPatientSelected(null);
       var result = await client.postApi(`${endpoints.user.getPatients}`, null, true);
       if (result.statusCode === 200) {
+        Toast.show({
+          text1: 'Sucesso',
+          text2: 'Pacientes carregados! 👋',
+          position: 'top',
+          visibilityTime: 4000,
+          autoHide: true,
+          topOffset: 60
+        });
         setPatient(result.response);
         setLoading(false);
       } else {
@@ -189,6 +198,15 @@ export default function App() {
   async function fetchData() {
     if (await auth.isAuthenticated()) {
       setUserData(await auth.getData());
+      Toast.show({
+        text1: 'Olá',
+        text2: 'Seja bem-vindo de volta! 👋',
+        type: 'success',
+        position: 'top',
+        visibilityTime: 4000,
+        autoHide: true,
+        topOffset: 60
+      });
       setActiveTab("home");
     } else {
       setActiveTab("login");
@@ -205,12 +223,29 @@ export default function App() {
     if (result.statusCode === 200) {
       auth.login(result.response);
       setUserData(result.response);
+      Toast.show({
+        text1: 'Olá',
+        text2: 'Seu login foi realizado com sucesso! 👋',
+        position: 'top',
+        visibilityTime: 4000,
+        autoHide: true,
+        topOffset: 60
+      });
       setActiveTab("home");
     } else {
       setActiveTab("login");
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 4000,
+            autoHide: true,
+            topOffset: 60
+          });
         })
       }
     }
@@ -246,11 +281,28 @@ export default function App() {
       setPfeffer9(null);
       setPfeffer10(null);
       setPatientSelected(null);
+      Toast.show({
+        text1: 'Sucesso',
+        text2: 'Questionário Pfeffer enviado! 👋',
+        position: 'top',
+        visibilityTime: 4000,
+        autoHide: true,
+        topOffset: 60
+      });
       setActiveTab("home");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 4000,
+            autoHide: true,
+            topOffset: 60
+          });
         })
       }
     }
@@ -278,11 +330,28 @@ export default function App() {
       setCDR5(null);
       setCDR6(null);
       setPatientSelected(null);
+      Toast.show({
+        text1: 'Sucesso',
+        text2: 'Teste CDR enviado! 👋',
+        position: 'top',
+        visibilityTime: 4000,
+        autoHide: true,
+        topOffset: 60
+      });
       setActiveTab("home");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 4000,
+            autoHide: true,
+            topOffset: 60
+          });
         })
       }
     }
@@ -294,9 +363,9 @@ export default function App() {
     var data = {
       userId: patientSelected,
       question1: (meem1_1 ? 1 : 0) + (meem1_2 ? 1 : 0) + (meem1_3 ? 1 : 0) + (meem1_4 ? 1 : 0) + (meem1_5 ? 1 : 0) + (meem1_6 ? 1 : 0) + (meem1_7 ? 1 : 0) + (meem1_8 ? 1 : 0) + (meem1_9 ? 1 : 0) + (meem1_10 ? 1 : 0),
-      question2: cdr2 != null ? parseFloat(cdr2) : 0,
-      question3: cdr3 != null ? parseFloat(cdr3) : 0,
-      question4: cdr4 != null ? parseFloat(cdr4) : 0,
+      question2: (meem2_1 ? 1 : 0) + (meem2_2 ? 1 : 0) + (meem2_3 ? 1 : 0),
+      question3: (meem3_1 ? 1 : 0) + (meem3_2 ? 1 : 0) + (meem3_3 ? 1 : 0) + (meem3_4 ? 1 : 0) + (meem3_5 ? 1 : 0),
+      question4: (meem4_1 ? 1 : 0) + (meem4_2 ? 1 : 0) + (meem4_3 ? 1 : 0),
       question5: cdr5 != null ? parseFloat(cdr5) : 0,
       question6: cdr6 != null ? parseFloat(cdr6) : 0,
       question7: cdr6 != null ? parseFloat(cdr6) : 0,
@@ -306,21 +375,38 @@ export default function App() {
       escolaridade: cdr6 != null ? parseFloat(cdr6) : 0,
       createdBy: userData.id
     };
-    
+
     var result = await client.postApi(`${endpoints.app.insertCDR}`, data, false);
     if (result.statusCode === 200) {
-      setCDR11(null);
+      setCDR1(null);
       setCDR2(null);
       setCDR3(null);
       setCDR4(null);
       setCDR5(null);
       setCDR6(null);
       setPatientSelected(null);
+      Toast.show({
+        text1: 'Sucesso',
+        text2: 'Teste Mini-Mental(MEEM) enviado! 👋',
+        position: 'top',
+        visibilityTime: 4000,
+        autoHide: true,
+        topOffset: 60
+      });
       setActiveTab("home");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 4000,
+            autoHide: true,
+            topOffset: 60
+          });
         })
       }
     }
@@ -337,6 +423,7 @@ export default function App() {
   return (
     <Block safe flex style={{ backgroundColor: '#F5F5F5' }}>
       <StatusBar style="light" />
+      <Toast ref={(ref) => Toast.setRef(ref)} />
       {activeTab == "login" && <>
         <Block flex style={{ backgroundColor: '#3e0057' }}>
           <ScrollView style={{ height: 1 }}>
