@@ -78,25 +78,25 @@ namespace AppSidd.Domain.Project
 
             public MoCABuilder WithQuestion7(int value)
             {
-                _MoCA.Question6 = value;
+                _MoCA.Question7 = value;
                 return this;
             }
 
             public MoCABuilder WithQuestion8(int value)
             {
-                _MoCA.Question6 = value;
+                _MoCA.Question8 = value;
                 return this;
             }
 
             public MoCABuilder WithQuestion9(int value)
             {
-                _MoCA.Question6 = value;
+                _MoCA.Question9 = value;
                 return this;
             }
 
             public MoCABuilder WithQuestion10(int value)
             {
-                _MoCA.Question6 = value;
+                _MoCA.Question10 = value;
                 return this;
             }
 
