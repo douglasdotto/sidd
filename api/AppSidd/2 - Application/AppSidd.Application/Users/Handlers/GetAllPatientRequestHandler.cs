@@ -55,6 +55,13 @@ namespace AppSidd.Application.Users.Handlers
                         roleDto.Name = "Paciente";
                         rolesList.Add(roleDto);
                         userInfo.Roles = rolesList;
+
+                        var total = 0;
+                        total += _uow.CDRRepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
+                        total += _uow.MEEMRepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
+                        total += _uow.MoCARepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
+                        total += _uow.PfefferRepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
+                        userInfo.TotalTests = total;
                         result.Add(userInfo);
                     }
                 }

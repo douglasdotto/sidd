@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims;
+@using AppSidd.Application.Dto;
 @using AppSidd.Domain.Users.Auth.JWT;
 @{
     ViewData["Title"] = "Dashboard";
@@ -11,10 +12,7 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="mb-0">Page visits</h3>
-                        </div>
-                        <div class="col text-right">
-                            <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                            <h3 class="mb-0">Pacientes</h3>
                         </div>
                     </div>
                 </div>
@@ -23,83 +21,18 @@
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Page name</th>
-                                <th scope="col">Visitors</th>
-                                <th scope="col">Unique users</th>
-                                <th scope="col">Bounce rate</th>
+                                <th scope="col">Nome Completo</th>
+                                <th scope="col">Testes Aplicados</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">
-                                    /argon/
-                                </th>
-                                <td>
-                                    4,569
-                                </td>
-                                <td>
-                                    340
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    /argon/index.html
-                                </th>
-                                <td>
-                                    3,985
-                                </td>
-                                <td>
-                                    319
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    /argon/charts.html
-                                </th>
-                                <td>
-                                    3,513
-                                </td>
-                                <td>
-                                    294
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    /argon/tables.html
-                                </th>
-                                <td>
-                                    2,050
-                                </td>
-                                <td>
-                                    147
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    /argon/profile.html
-                                </th>
-                                <td>
-                                    1,795
-                                </td>
-                                <td>
-                                    190
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                                </td>
-                            </tr>
+                            @foreach (var user in ViewBag.Patients)
+                            {
+                                <tr>
+                                    <td>@user.FirstName @user.LastName</td>
+                                    <td>@user.TotalTests</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -110,10 +43,7 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="mb-0">Social traffic</h3>
-                        </div>
-                        <div class="col text-right">
-                            <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                            <h3 class="mb-0">Testes</h3>
                         </div>
                     </div>
                 </div>
@@ -122,97 +52,64 @@
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Referral</th>
-                                <th scope="col">Visitors</th>
+                                <th scope="col">Teste</th>
+                                <th scope="col">Executados</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">
-                                    Facebook
-                                </th>
-                                <td>
-                                    1,480
-                                </td>
+                                <td>Pfeffer</td>
+                                <td>@ViewBag.Pffefer</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span class="mr-2">60%</span>
+                                        <span class="mr-2">@Html.Raw(ViewBag.PffeferPerc)%</span>
                                         <div>
                                             <div class="progress">
-                                                <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                                )
+                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.PffeferPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.PffeferPerc)%;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    Facebook
-                                </th>
-                                <td>
-                                    5,480
-                                </td>
+                                <td>CDR</td>
+                                <td>@ViewBag.CDR</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span class="mr-2">70%</span>
+                                        <span class="mr-2">@Html.Raw(ViewBag.CDRPerc)%</span>
                                         <div>
                                             <div class="progress">
-                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.CDRPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.CDRPerc)%;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    Google
-                                </th>
-                                <td>
-                                    4,807
-                                </td>
+                                <td>MEEM</td>
+                                <td>@ViewBag.MEEM</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span class="mr-2">80%</span>
+                                        <span class="mr-2">@Html.Raw(ViewBag.MEEMPerc)%</span>
                                         <div>
                                             <div class="progress">
-                                                <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.MEEMPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.MEEMPerc)%;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">
-                                    Instagram
-                                </th>
-                                <td>
-                                    3,678
-                                </td>
+                                <td>MoCA</td>
+                                <td>@ViewBag.MoCA</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <span class="mr-2">75%</span>
+                                        <span class="mr-2">@Html.Raw(ViewBag.MoCAPerc)%</span>
                                         <div>
                                             <div class="progress">
-                                                <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    twitter
-                                </th>
-                                <td>
-                                    2,645
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">30%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
+                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.MoCAPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.MoCAPerc)%;"></div>
                                             </div>
                                         </div>
                                     </div>
