@@ -154,6 +154,7 @@ export default function App() {
   // START - CONTROL TABS
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('login');
+  const [secondTab, setSecondTab] = useState('results');
   const [activeTest, setActiveTest] = useState('');
   const [tabs, setTabs] = useState([
     {
@@ -204,10 +205,38 @@ export default function App() {
   async function tab(tab) {
     setLoading(true);
     setActiveTab(tab);
+    setSecondTab("results");
     setActiveTest("");
     if (tab == "new") {
       setPatient(null);
       setPatientSelected(null);
+      var result = await client.postApi(`${endpoints.user.getPatients}`, null, true);
+      if (result.statusCode === 200) {
+        Toast.show({
+          text1: 'Sucesso',
+          text2: 'Pacientes carregados! 👋',
+          type: 'info',
+          position: 'top',
+          visibilityTime: 2000,
+          autoHide: true,
+          topOffset: 60
+        });
+        setPatient(result.response);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
+    }
+  }
+
+  async function second(tab) {
+    setLoading(true);
+    setActiveTab("results");
+    setSecondTab(tab);
+    if (tab == "patients") {
+      setPatient(null);
       var result = await client.postApi(`${endpoints.user.getPatients}`, null, true);
       if (result.statusCode === 200) {
         Toast.show({
@@ -724,7 +753,7 @@ export default function App() {
                 <Block row space="evenly">
                   <Button color="" style={styles.button}>
                     <Block middle style={styles.block}>
-                      <Icon size={40} color="#F5F5F5" name={'heart-pulse'} />
+                      <Icon size={40} color="#F5F5F5" name={'heart-pulse'} onPress={() => second("acol")} />
                     </Block>
                     <Text muted style={styles.buttonText}>Acolhimento</Text>
                   </Button>
@@ -745,21 +774,21 @@ export default function App() {
                 </Block>
 
                 <Block row space="evenly">
-                  <Button color="" style={styles.button}>
+                  <Button color="" style={styles.button} onPress={() => second("patients")}>
                     <Block middle style={styles.block}>
                       <Icon size={40} color="#F5F5F5" name={'account-supervisor'} />
                     </Block>
                     <Text muted style={styles.buttonText}>Pacientes</Text>
                   </Button>
 
-                  <Button color="" style={styles.button}>
+                  <Button color="" style={styles.button} onPress={() => second("medics")}>
                     <Block middle style={styles.block}>
                       <Icon size={40} color="#F5F5F5" name={'medical-bag'} />
                     </Block>
                     <Text muted style={styles.buttonText}>Médicos</Text>
                   </Button>
 
-                  <Button color="" style={styles.button}>
+                  <Button color="" style={styles.button} onPress={() => second("unitys")}>
                     <Block middle style={styles.block}>
                       <Icon size={40} color="#F5F5F5" name={'home-outline'} />
                     </Block>
@@ -1013,8 +1042,8 @@ export default function App() {
                     </TouchableOpacity>
                   </Block>
                   <Block row center>
-                    <Button round uppercase color="primary" onPress={() => pfeffer()}>SALVAR</Button>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
+                    <Button round uppercase color="primary" onPress={() => pfeffer()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "cdr" && <>
@@ -1130,8 +1159,8 @@ export default function App() {
                     </TouchableOpacity>
                   </Block>
                   <Block row center>
-                    <Button round uppercase color="primary" onPress={() => cdr()}>SALVAR</Button>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
+                    <Button round uppercase color="primary" onPress={() => cdr()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "minimental" && <>
@@ -1228,8 +1257,8 @@ export default function App() {
                     <Checkbox color="#3e0057" label="12 anos ou mais de escolaridade" style={styles.checkbox} value={meem11_4} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(false); setMEEM11_3(false); setMEEM11_4(true); }} />
                   </Block>
                   <Block row center>
-                    <Button round uppercase color="primary" onPress={() => meem()}>SALVAR</Button>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
+                    <Button round uppercase color="primary" onPress={() => meem()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "moca" && <>
@@ -1336,8 +1365,8 @@ export default function App() {
                     <Checkbox color="#3e0057" label="Escolaridade <= 12 anos" style={styles.checkbox} value={moca11_1} onChange={(e) => setMOCA11_1(e)} />
                   </Block>
                   <Block row center>
-                    <Button round uppercase color="primary" onPress={() => moca()}>SALVAR</Button>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
+                    <Button round uppercase color="primary" onPress={() => moca()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "sintomas" && <>
@@ -1346,9 +1375,35 @@ export default function App() {
                   </Block>
                 </>}
               </>}
-              {activeTab == "results" && <>
+              {activeTab == "results" && secondTab == "acol" && <>
+                <Block row space="evenly">
+                  <Text muted style={styles.buttonText}>Acolhimento</Text>
+                </Block>
+              </>}
+              {activeTab == "results" && secondTab == "results" && <>
                 <Block row space="evenly">
                   <Text muted style={styles.buttonText}>Resultados</Text>
+                </Block>
+              </>}
+              {activeTab == "results" && secondTab == "patients" && <>
+                <Block row space="evenly">
+                  <Text muted style={styles.buttonText}>Pacientes</Text>
+                </Block>
+                {patient != null ? patient.data.map((e) => {
+                  return <Block style={styles.cardQuestion} key={e.id}>
+                    <Text p>{e.firstName + " " + e.lastName}</Text>
+                    <Text muted>Testes aplicados: {e.totalTests}</Text>
+                  </Block>
+                }) : null}
+              </>}
+              {activeTab == "results" && secondTab == "medics" && <>
+                <Block row space="evenly">
+                  <Text muted style={styles.buttonText}>Médicos</Text>
+                </Block>
+              </>}
+              {activeTab == "results" && secondTab == "unitys" && <>
+                <Block row space="evenly">
+                  <Text muted style={styles.buttonText}>Unidades</Text>
                 </Block>
               </>}
               {activeTab == "user" && <>
