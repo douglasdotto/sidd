@@ -156,6 +156,11 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('login');
   const [secondTab, setSecondTab] = useState('results');
   const [activeTest, setActiveTest] = useState('');
+
+  const [testResult, setTestResult] = useState('');
+  const [totalResult, setTotalResult] = useState('');
+  const [obsResult, setObsResult] = useState('');
+
   const [tabs, setTabs] = useState([
     {
       key: 'home',
@@ -330,18 +335,32 @@ export default function App() {
 
   async function pfeffer() {
     setLoading(true);
+    if (pfeffer1 == null || pfeffer2 == null || pfeffer3 == null || pfeffer4 == null || pfeffer5 == null || pfeffer6 == null || pfeffer7 == null || pfeffer8 == null || pfeffer9 == null || pfeffer10 == null) {
+      Toast.show({
+        text1: 'Erro',
+        text2: "Por favor, marque todas as opções de acordo com o paciente.",
+        position: 'top',
+        type: 'error',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 60
+      });
+      setLoading(false);
+      return;
+    }
+
     var data = {
       userId: patientSelected,
-      question1: pfeffer1 != null ? parseInt(pfeffer1) : 0,
-      question2: pfeffer2 != null ? parseInt(pfeffer2) : 0,
-      question3: pfeffer3 != null ? parseInt(pfeffer3) : 0,
-      question4: pfeffer4 != null ? parseInt(pfeffer4) : 0,
-      question5: pfeffer5 != null ? parseInt(pfeffer5) : 0,
-      question6: pfeffer6 != null ? parseInt(pfeffer6) : 0,
-      question7: pfeffer7 != null ? parseInt(pfeffer7) : 0,
-      question8: pfeffer8 != null ? parseInt(pfeffer8) : 0,
-      question9: pfeffer9 != null ? parseInt(pfeffer9) : 0,
-      question10: pfeffer10 != null ? parseInt(pfeffer10) : 0,
+      question1: parseInt(pfeffer1),
+      question2: parseInt(pfeffer2),
+      question3: parseInt(pfeffer3),
+      question4: parseInt(pfeffer4),
+      question5: parseInt(pfeffer5),
+      question6: parseInt(pfeffer6),
+      question7: parseInt(pfeffer7),
+      question8: parseInt(pfeffer8),
+      question9: parseInt(pfeffer9),
+      question10: parseInt(pfeffer10),
       createdBy: userData.id
     };
     var result = await client.postApi(`${endpoints.app.insertPfeffer}`, data, false);
@@ -357,16 +376,16 @@ export default function App() {
       setPfeffer9(null);
       setPfeffer10(null);
       setPatientSelected(null);
-      Toast.show({
-        text1: 'Sucesso',
-        text2: 'Questionário Pfeffer enviado! 👋',
-        type: 'info',
-        position: 'top',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
-      setActiveTab("home");
+      setActiveTab("results");
+      setSecondTab("tests");
+      setTestResult("Pfeffer");
+      setTotalResult(result.response.total);
+      if (result.response.total >= 5)
+        setObsResult("Pontuação chama a atenção e indica comprometimento funcional");
+      else if (result.response.total >= 3 && result.response.total < 5)
+        setObsResult("Pontuação suspeita");
+      else
+        setObsResult("Pontuação normal");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
@@ -414,23 +433,23 @@ export default function App() {
     };
     var result = await client.postApi(`${endpoints.app.insertCDR}`, data, false);
     if (result.statusCode === 200) {
-      setCDR11(null);
+      setCDR1(null);
       setCDR2(null);
       setCDR3(null);
       setCDR4(null);
       setCDR5(null);
       setCDR6(null);
       setPatientSelected(null);
-      Toast.show({
-        text1: 'Sucesso',
-        text2: 'Teste CDR enviado! 👋',
-        type: 'info',
-        position: 'top',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
-      setActiveTab("home");
+      setActiveTab("results");
+      setSecondTab("tests");
+      setTestResult("CDR");
+      setTotalResult(result.response.total);
+      if (result.response.total <= 4)
+        setObsResult("Pontuação normal");
+      else if (result.response.total > 4 && result.response.total < 9)
+        setObsResult("Suspeita de demência");
+      else
+        setObsResult("Possível demência existente");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
@@ -536,16 +555,29 @@ export default function App() {
       setMEEM11_4(false);
 
       setPatientSelected(null);
-      Toast.show({
-        text1: 'Sucesso',
-        text2: 'Teste Mini-Mental(MEEM) enviado! 👋',
-        type: 'info',
-        position: 'top',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
-      setActiveTab("home");
+      setActiveTab("results");
+      setSecondTab("tests");
+      setTestResult("Mini-Mental (MEEM)");
+      setTotalResult(result.response.total);
+      if (meem11_1 && result.response.total <= 21)
+        setObsResult("Com base na escolaridade selecionada, o usuário está reprovado");
+      if (meem11_1 && result.response.total > 21)
+        setObsResult("Com base na escolaridade selecionada, o usuário está aprovado");
+
+      if (meem11_2 && result.response.total <= 24)
+        setObsResult("Com base na escolaridade selecionada, o usuário está reprovado");
+      if (meem11_2 && result.response.total > 24)
+        setObsResult("Com base na escolaridade selecionada, o usuário está aprovado");
+
+      if (meem11_3 && result.response.total <= 26)
+        setObsResult("Com base na escolaridade selecionada, o usuário está reprovado");
+      if (meem11_3 && result.response.total > 26)
+        setObsResult("Com base na escolaridade selecionada, o usuário está aprovado");
+
+      if (meem11_4 && result.response.total <= 27)
+        setObsResult("Com base na escolaridade selecionada, o usuário está reprovado");
+      if (meem11_4 && result.response.total > 27)
+        setObsResult("Com base na escolaridade selecionada, o usuário está aprovado");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
@@ -628,16 +660,14 @@ export default function App() {
       setMOCA11_1(false);
 
       setPatientSelected(null);
-      Toast.show({
-        text1: 'Sucesso',
-        text2: 'Teste MoCA enviado! 👋',
-        type: 'info',
-        position: 'top',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
-      setActiveTab("home");
+      setActiveTab("results");
+      setSecondTab("tests");
+      setTestResult("MoCA");
+      setTotalResult(result.response.total);
+      if (result.response.total <= 24)
+        setObsResult("Comprometimento cognitivo");
+      else
+        setObsResult("Possível normal");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
@@ -826,6 +856,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Selecione um paciente</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={patientSelected}
                         onValueChange={(itemValue, itemIndex) => { if (itemValue != "null") { setPatientSelected(itemValue) } }}
@@ -876,13 +907,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer1}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer1(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -893,13 +927,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de comprar comidas, roupas, coisas para casa sozinho(a)? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer2}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer2(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -910,13 +947,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de esquenta a água para o café e apagar o fogo? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer3}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer3(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -927,13 +967,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de preparar uma comida? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer4}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer4(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -944,13 +987,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de manter-se em dia com as atualidades, com os acontecimentos da comunidade? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer5}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer5(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -961,13 +1007,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de prestar atenção, entender e discutir um programa de rádio, jornal ou televisão? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer6}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer6(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -978,13 +1027,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de lembrar-se de compromissos, acontecimentos familiares ou feriados? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer7}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer7(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -995,13 +1047,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de manusear seus próprios remédios? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer8}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer8(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -1012,13 +1067,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de passear pela vizinhança e encontrar o caminho de volta para casa? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer9}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer9(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -1029,13 +1087,16 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) pode ser deixado(a) em casa sozinho(a) de forma segura? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={pfeffer10}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer10(itemValue) }}
                       >
                         <Picker.Item label="Nenhum selecionado" value="null" />
-                        <Picker.Item label="Normal ou nunca o fez mas poderia fazê-lo agora" value="0" />
-                        <Picker.Item label="Faz com dificuldades ou nunca o fez e agora teria dificuldades" value="1" />
+                        <Picker.Item label="Normal" value="0" />
+                        <Picker.Item label="Nunca o fez mas poderia fazê-lo" value="0" />
+                        <Picker.Item label="Faz com dificuldades" value="1" />
+                        <Picker.Item label="Nunca o fez e agora teria dificuldades" value="1" />
                         <Picker.Item label="Necessita de ajuda" value="2" />
                         <Picker.Item label="Não é capaz" value="3" />
                       </Picker>
@@ -1055,6 +1116,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a memória (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={cdr1}
                         onValueChange={(itemValue, itemIndex) => { setCDR1(itemValue) }}
@@ -1073,6 +1135,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a orientação (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={cdr2}
                         onValueChange={(itemValue, itemIndex) => { setCDR2(itemValue) }}
@@ -1091,6 +1154,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a julgamento e solução de problemas (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={cdr3}
                         onValueChange={(itemValue, itemIndex) => { setCDR3(itemValue) }}
@@ -1109,6 +1173,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a assuntos da comunidade (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={cdr4}
                         onValueChange={(itemValue, itemIndex) => { setCDR4(itemValue) }}
@@ -1127,6 +1192,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação ao lar e passatempos (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={cdr5}
                         onValueChange={(itemValue, itemIndex) => { setCDR5(itemValue) }}
@@ -1145,6 +1211,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a cuidados pessoais (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
+                        mode="dropdown"
                         style={styles.picker}
                         selectedValue={cdr6}
                         onValueChange={(itemValue, itemIndex) => { setCDR6(itemValue) }}
@@ -1404,6 +1471,20 @@ export default function App() {
               {activeTab == "results" && secondTab == "unitys" && <>
                 <Block row space="evenly">
                   <Text muted style={styles.buttonText}>Unidades</Text>
+                </Block>
+              </>}
+              {activeTab == "results" && secondTab == "tests" && <>
+                <Block row space="evenly">
+                  <Text muted style={styles.buttonText}>Resultado</Text>
+                </Block>
+                <Block style={styles.cardQuestion}>
+                  <Block style={{ paddingTop: 10 }}></Block>
+                  <Text h4 center style={styles.buttonText} color="#3e0057">{testResult}</Text>
+                  <Block style={{ paddingTop: 10 }}></Block>
+                  <Text h1 bold={true} center color="#3e0057" style={styles.buttonText}>{totalResult}</Text>
+                  <Text muted center style={styles.buttonText}>PONTOS</Text>
+                  <Text muted center style={styles.buttonText}>{obsResult}</Text>
+                  <Block style={{ paddingTop: 20 }}></Block>
                 </Block>
               </>}
               {activeTab == "user" && <>
