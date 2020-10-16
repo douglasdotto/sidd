@@ -13,6 +13,7 @@ namespace AppSidd.Domain.Users.Auth
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Sexo { get; set; }
+        public int Idade { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
         public string SUS { get; set; }

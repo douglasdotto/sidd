@@ -4,14 +4,16 @@ using AppSidd.Infra.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AppSidd.Infra.SqlServer.Migrations
 {
     [DbContext(typeof(AppSiddServerContext))]
-    partial class AppSiddServerContextModelSnapshot : ModelSnapshot
+    [Migration("20201015210350_acolhimento")]
+    partial class acolhimento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

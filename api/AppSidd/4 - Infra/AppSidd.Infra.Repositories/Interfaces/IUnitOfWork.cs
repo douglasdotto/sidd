@@ -7,6 +7,7 @@ namespace AppSidd.Domain.Interfaces.Write
     public interface IUnitOfWork
     {
         IRepository<Unity> UnityRepository { get; }
+        IRepository<Acolhimento> AcolhimentoRepository { get; }
         IRepository<Pfeffer> PfefferRepository { get; }
         IRepository<CDR> CDRRepository { get; }
         IRepository<MoCA> MoCARepository { get; }

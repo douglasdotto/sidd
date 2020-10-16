@@ -24,7 +24,6 @@ namespace Dashboard.Controllers
         }
         public IActionResult Error()
         {
-            ViewBag.Menu = "Dashboard";
             return View();
         }
 
@@ -44,7 +43,24 @@ namespace Dashboard.Controllers
             ViewBag.MoCAPerc = Decimal.Round(Convert.ToDecimal((dash.MoCA * 100)) / total, 2).ToString().Replace(",", ".");
             ViewBag.CDR = dash.CDR.ToString();
             ViewBag.CDRPerc = Decimal.Round(Convert.ToDecimal((dash.CDR * 100)) / total, 2).ToString().Replace(",", ".");
-            ViewBag.Menu = "Dashboard";
+            return View();
+        }
+
+        [Route("/View/{patientId}")]
+        public async Task<IActionResult> View(string patientId)
+        {
+            var dados = await _mediator.Send(new GetViewDashByPatientRequest(CurrentUser, patientId));
+            ViewBag.Nome = dados.FirstName + " " + dados.LastName;
+            ViewBag.Idade = dados.Idade;
+            ViewBag.Sexo = dados.Sexo;
+            ViewBag.RG = dados.RG;
+            ViewBag.CPF = dados.CPF;
+            ViewBag.SUS = dados.SUS;
+
+            ViewBag.TotalTests = dados.TotalTests;
+            ViewBag.Tests = dados.Tests;
+            ViewBag.Acolhimento = dados.Acolhimento;
+
             return View();
         }
     }

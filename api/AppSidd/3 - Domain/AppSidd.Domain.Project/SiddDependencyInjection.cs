@@ -9,6 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddFluxoDependency(this IServiceCollection services)
         {
             services.TryAddTransient<IUnityFactory, UnityFactory>();
+            services.TryAddTransient<IAcolhimentoFactory, AcolhimentoFactory>();
             services.TryAddTransient<IPfefferFactory, PfefferFactory>();
             services.TryAddTransient<ICDRFactory, CDRFactory>();
             services.TryAddTransient<IMEEMFactory, MEEMFactory>();

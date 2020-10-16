@@ -4,120 +4,119 @@
 @{
     ViewData["Title"] = "Dashboard";
 }
-
-<div class="container-fluid mt--6">
-    <div class="row">
-        <div class="col-xl-8">
-            <div class="card">
-                <div class="card-header border-0">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="mb-0">Pacientes</h3>
-                        </div>
+<div class="row m-2 mt-4">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="mb-0">Pacientes</h3>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <!-- Projects table -->
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Nome Completo</th>
-                                <th scope="col">Testes Aplicados</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var user in ViewBag.Patients)
-                            {
-                                <tr>
-                                    <td>@user.FirstName @user.LastName</td>
-                                    <td>@user.TotalTests</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
                 </div>
             </div>
+            <div class="table-responsive">
+                <!-- Projects table -->
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Nome Completo</th>
+                            <th scope="col">Testes Aplicados</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in ViewBag.Patients)
+                            {
+                        <tr>
+                            <td>@user.FirstName @user.LastName</td>
+                            <td>@user.TotalTests</td>
+                            <td><a href="/View/@user.Id">Ver mais</a></td>
+                        </tr>
+                            }
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-xl-4">
-            <div class="card">
-                <div class="card-header border-0">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="mb-0">Testes</h3>
-                        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="mb-0">Testes</h3>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <!-- Projects table -->
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Teste</th>
-                                <th scope="col">Executados</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Pfeffer</td>
-                                <td>@ViewBag.Pffefer</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">@Html.Raw(ViewBag.PffeferPerc)%</span>
-                                        <div>
-                                            <div class="progress">
-                                                )
-                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.PffeferPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.PffeferPerc)%;"></div>
-                                            </div>
+            </div>
+            <div class="table-responsive">
+                <!-- Projects table -->
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Teste</th>
+                            <th scope="col">Executados</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pfeffer</td>
+                            <td>@ViewBag.Pffefer</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <span class="mr-2">@Html.Raw(ViewBag.PffeferPerc)%</span>
+                                    <div>
+                                        <div class="progress">
+                                            )
+                                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.PffeferPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.PffeferPerc)%;"></div>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CDR</td>
-                                <td>@ViewBag.CDR</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">@Html.Raw(ViewBag.CDRPerc)%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.CDRPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.CDRPerc)%;"></div>
-                                            </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CDR</td>
+                            <td>@ViewBag.CDR</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <span class="mr-2">@Html.Raw(ViewBag.CDRPerc)%</span>
+                                    <div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.CDRPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.CDRPerc)%;"></div>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>MEEM</td>
-                                <td>@ViewBag.MEEM</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">@Html.Raw(ViewBag.MEEMPerc)%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.MEEMPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.MEEMPerc)%;"></div>
-                                            </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MEEM</td>
+                            <td>@ViewBag.MEEM</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <span class="mr-2">@Html.Raw(ViewBag.MEEMPerc)%</span>
+                                    <div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.MEEMPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.MEEMPerc)%;"></div>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>MoCA</td>
-                                <td>@ViewBag.MoCA</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">@Html.Raw(ViewBag.MoCAPerc)%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.MoCAPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.MoCAPerc)%;"></div>
-                                            </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MoCA</td>
+                            <td>@ViewBag.MoCA</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <span class="mr-2">@Html.Raw(ViewBag.MoCAPerc)%</span>
+                                    <div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.MoCAPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.MoCAPerc)%;"></div>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

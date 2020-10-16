@@ -13,6 +13,7 @@ namespace AppSidd.Domain.Mapper
             CreateMap<CDR, CDRDto>();
             CreateMap<MEEM, MEEMDto>();
             CreateMap<MoCA, MoCADto>();
+            CreateMap<Acolhimento, AcolhimentoDto>();
         }
     }
 }

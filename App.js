@@ -383,9 +383,9 @@ export default function App() {
       if (result.response.total >= 5)
         setObsResult("Pontuação chama a atenção e indica comprometimento funcional");
       else if (result.response.total >= 3 && result.response.total < 5)
-        setObsResult("Pontuação suspeita");
+        setObsResult("Suspeita de demência");
       else
-        setObsResult("Pontuação normal");
+        setObsResult("Normal");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
@@ -445,7 +445,7 @@ export default function App() {
       setTestResult("CDR");
       setTotalResult(result.response.total);
       if (result.response.total <= 4)
-        setObsResult("Pontuação normal");
+        setObsResult("Normal");
       else if (result.response.total > 4 && result.response.total < 9)
         setObsResult("Suspeita de demência");
       else
@@ -560,24 +560,24 @@ export default function App() {
       setTestResult("Mini-Mental (MEEM)");
       setTotalResult(result.response.total);
       if (meem11_1 && result.response.total <= 21)
-        setObsResult("Com base na escolaridade selecionada, o usuário está reprovado");
+        setObsResult("Com base na escolaridade selecionada (analfabeto), o usuário está reprovado, possível demência existente");
       if (meem11_1 && result.response.total > 21)
-        setObsResult("Com base na escolaridade selecionada, o usuário está aprovado");
+        setObsResult("Com base na escolaridade selecionada (analfabeto), o usuário está aprovado");
 
       if (meem11_2 && result.response.total <= 24)
-        setObsResult("Com base na escolaridade selecionada, o usuário está reprovado");
+        setObsResult("Com base na escolaridade selecionada (1 a 5 anos de escolaridade), o usuário está reprovado, possível demência existente");
       if (meem11_2 && result.response.total > 24)
-        setObsResult("Com base na escolaridade selecionada, o usuário está aprovado");
+        setObsResult("Com base na escolaridade selecionada (1 a 5 anos de escolaridade), o usuário está aprovado");
 
       if (meem11_3 && result.response.total <= 26)
-        setObsResult("Com base na escolaridade selecionada, o usuário está reprovado");
+        setObsResult("Com base na escolaridade selecionada (6 a 11 anos de escolaridade), o usuário está reprovado, possível demência existente");
       if (meem11_3 && result.response.total > 26)
-        setObsResult("Com base na escolaridade selecionada, o usuário está aprovado");
+        setObsResult("Com base na escolaridade selecionada (6 a 11 anos de escolaridade), o usuário está aprovado");
 
       if (meem11_4 && result.response.total <= 27)
-        setObsResult("Com base na escolaridade selecionada, o usuário está reprovado");
+        setObsResult("Com base na escolaridade selecionada (12 anos ou mais de escolaridade), o usuário está reprovado, possível demência existente");
       if (meem11_4 && result.response.total > 27)
-        setObsResult("Com base na escolaridade selecionada, o usuário está aprovado");
+        setObsResult("Com base na escolaridade selecionada (12 anos ou mais de escolaridade), o usuário está aprovado");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
@@ -667,7 +667,7 @@ export default function App() {
       if (result.response.total <= 24)
         setObsResult("Comprometimento cognitivo");
       else
-        setObsResult("Possível normal");
+        setObsResult("Normal");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {

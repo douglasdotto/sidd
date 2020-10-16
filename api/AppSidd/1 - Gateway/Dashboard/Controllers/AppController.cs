@@ -109,5 +109,17 @@ namespace Dashboard.Controllers
 
             return Ok(new OkDto(token));
         }
+
+        [HttpPost]
+        [Route("insertAcolhimento")]
+        public async Task<IActionResult> InsertAcolhimento([FromBody] AcolhimentoDto acolhimento)
+        {
+            var token = await _mediator.Send(new InsertAcolhimentoRequest(acolhimento, acolhimento.CreatedBy));
+
+            if (_notification.HasNotification())
+                return BadRequest(new BadRequestDto(_notification));
+
+            return Ok(new OkDto(token));
+        }
     }
 }

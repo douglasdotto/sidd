@@ -20,6 +20,7 @@ namespace AppSidd.Infra.Repositories.Repositories
             _context = context;
 
             UnityRepository = new Repository<Unity>(context);
+            AcolhimentoRepository = new Repository<Acolhimento>(context);
             PfefferRepository = new Repository<Pfeffer>(context);
             CDRRepository = new Repository<CDR>(context);
             MoCARepository = new Repository<MoCA>(context);
@@ -27,6 +28,7 @@ namespace AppSidd.Infra.Repositories.Repositories
         }
 
         public IRepository<Unity> UnityRepository { get; }
+        public IRepository<Acolhimento> AcolhimentoRepository { get; }
         public IRepository<Pfeffer> PfefferRepository { get; }
         public IRepository<CDR> CDRRepository { get; }
         public IRepository<MoCA> MoCARepository { get; }

@@ -1,0 +1,117 @@
+﻿@using System.Security.Claims;
+@using AppSidd.Application.Dto;
+@using AppSidd.Domain.Users.Auth.JWT;
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<style>
+    th, td {
+        width: 360px; /* adjust to desired wrapping */
+        white-space: pre-wrap !important; /* css-3 */
+        white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+        white-space: -pre-wrap !important; /* Opera 4-6 */
+        white-space: -o-pre-wrap !important; /* Opera 7 */
+        word-wrap: break-word !important; /* Internet Explorer 5.5+ */
+    }
+</style>
+<div class="row m-2 mt-4">
+    <div class="col-xl-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <img src="~/img/theme/avatar.png" width="150" height="150" /><hr />
+                <h2>Dados do paciente</h2>
+                <strong>Nome:</strong> @ViewBag.Nome<br />
+                <strong>Sexo:</strong> @ViewBag.Sexo<br />
+                <strong>Idade:</strong> @ViewBag.Idade anos<br />
+                <strong>Testes:</strong> @ViewBag.TotalTests aplicado(s)
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Dados do acolhimento</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="        overflow-x: hidden !important">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Data do Acolhimento</th>
+                                    <th scope="col">Frequencia Cardiaca</th>
+                                    <th scope="col">Saturação</th>
+                                    <th scope="col">Pressão Arterial</th>
+                                    <th scope="col">Glicemia</th>
+                                    <th scope="col">Sintomas</th>
+                                    <th scope="col">Medicamentos</th>
+                                    <th scope="col">Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var aco in ViewBag.Acolhimento)
+                                {
+                                <tr>
+                                    <td>@aco.Created</td>
+                                    <td>@aco.FrequenciaCardiaca</td>
+                                    <td>@aco.Saturação</td>
+                                    <td>@aco.PressaoArterial</td>
+                                    <td>@aco.Glicemia</td>
+                                    <td>@aco.Sintomas</td>
+                                    <td>@aco.Medicamentos</td>
+                                    <td>@aco.Observacoes</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Testes aplicados</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="overflow-x: hidden !important">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Data do Teste</th>
+                                    <th scope="col">Teste</th>
+                                    <th scope="col">Pontos</th>
+                                    <th scope="col">Classificação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var test in ViewBag.Tests)
+                                {
+                                <tr>
+                                    <td>@test.Date</td>
+                                    <td>@test.Type</td>
+                                    <td><strong>@test.TotalPoints</strong></td>
+                                    <td class="@(test.Color == "G" ? Html.Raw("text-success") : @test.Color == "Y" ? Html.Raw("text-primary") : Html.Raw("text-danger"))">@test.Classification</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+
+        $(() => {
+        });
+    </script>
+}
