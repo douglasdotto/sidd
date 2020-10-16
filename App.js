@@ -36,6 +36,16 @@ export default function App() {
   const [idade, setIdade] = useState("");
   const [sexo, setSexo] = useState("");
   // NEW
+  // NEW
+  const [frequencia, setFrequencia] = useState("");
+  const [saturacao, setSaturacao] = useState("");
+  const [pressao1, setPressao1] = useState("");
+  const [pressao2, setPressao2] = useState("");
+  const [glicemia, setGlicemia] = useState("");
+  const [sintomas, setSintomas] = useState("");
+  const [medicamentos, setMedicamentos] = useState("");
+  const [observacoes, setObservacoes] = useState("");
+  // NEW
   // PFEFFER
   const [pfeffer1, setPfeffer1] = useState(null);
   const [pfeffer2, setPfeffer2] = useState(null);
@@ -396,6 +406,73 @@ export default function App() {
     }
     setLoading(false);
   }
+
+  async function newAcolhimento() {
+    setLoading(true);
+    if (frequencia == "" || saturacao == "" || pressao1 == "" || pressao2 == "" || glicemia == "") {
+      Toast.show({
+        text1: 'Erro',
+        text2: "Por favor, preencha todas as opções de acordo com o paciente.",
+        position: 'top',
+        type: 'error',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 60
+      });
+      setLoading(false);
+      return;
+    }
+    var data = {
+      userId: patientSelected,
+      frequenciaCardiaca: frequencia,
+      saturação: saturacao,
+      pressaoArterial: pressao1 + "/" + pressao2,
+      glicemia: glicemia,
+      sintomas: sintomas,
+      medicamentos: medicamentos,
+      observacoes: observacoes,
+      createdBy: userData.id
+    };
+    var result = await client.postApi(`${endpoints.app.insertAcolhimento}`, data, false);
+    if (result.statusCode === 200) {
+      setFrequencia("");
+      setSaturacao("");
+      setPressao1("");
+      setPressao2("");
+      setGlicemia("");
+      setSintomas("");
+      setMedicamentos("");
+      setObservacoes("");
+      Toast.show({
+        text1: 'Acolhimento',
+        text2: 'Os dados do acolhimento foram salvos com sucesso! 👋',
+        position: 'top',
+        type: 'info',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 60
+      });
+      tab("home");
+    } else {
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 2000,
+            autoHide: true,
+            topOffset: 60
+          });
+        })
+      }
+      tab("home");
+    }
+    setLoading(false);
+  }
+
 
   async function pfeffer() {
     setLoading(true);
@@ -1533,6 +1610,30 @@ export default function App() {
                 <Block row space="evenly">
                   <Text muted style={styles.buttonText}>Acolhimento</Text>
                 </Block>
+                <Block style={styles.cardQuestion}>
+                  <Text muted center style={styles.buttonText}>Frequência Cardiaca (batimentos por minuto (bpm))</Text>
+                  <Input type="numeric" value={frequencia} onChangeText={(e) => setFrequencia(e)} />
+                  <Text muted center style={styles.buttonText}>Saturação (saturação de oxigênio)</Text>
+                  <Input type="numeric" value={saturacao} onChangeText={(e) => setSaturacao(e)} />
+                  <Text muted center style={styles.buttonText}>Pressão Arterial (exemplo: 14 / 8)</Text>
+                  <Block row>
+                    <Input type="numeric" style={{ width: '85%' }} value={pressao1} onChangeText={(e) => setPressao1(e)} />
+                    <Text muted style={{ marginTop: 18, marginRight: 18 }}>por</Text>
+                    <Input type="numeric" style={{ width: '85%' }} value={pressao2} onChangeText={(e) => setPressao2(e)} />
+                  </Block>
+                  <Text muted center style={styles.buttonText}>Glicemia (nível de glicose no sangue)</Text>
+                  <Input type="numeric" value={glicemia} onChangeText={(e) => setGlicemia(e)} />
+                  <Text muted center style={styles.buttonText}>Sintomas (insira aqui se o paciente tem algum sintoma aparente para doenças de demência)</Text>
+                  <Input type="default" value={sintomas} onChangeText={(e) => setSintomas(e)} />
+                  <Text muted center style={styles.buttonText}>Medicamentos Utilizados (insira aqui se o paciente faz uso de algum medicamento)</Text>
+                  <Input type="default" value={medicamentos} onChangeText={(e) => setMedicamentos(e)} />
+                  <Text muted center style={styles.buttonText}>Observações (insira aqui informações que você acha interessante para histórico)</Text>
+                  <Input type="default" value={observacoes} onChangeText={(e) => setObservacoes(e)} />
+                </Block>
+                <Block row center>
+                  <Button round uppercase color="#3e0057" onPress={() => tab("home")}>FECHAR</Button>
+                  <Button round uppercase color="primary" onPress={() => newAcolhimento()}>SALVAR</Button>
+                </Block>
               </>}
               {activeTab == "results" && secondTab == "acol" && patientSelected != null && patientSelected == "new" && <>
                 <Block row space="evenly">
@@ -1600,7 +1701,7 @@ export default function App() {
                   <Text h4 center style={styles.buttonText} color="#3e0057">{testResult}</Text>
                   <Block style={{ paddingTop: 10 }}></Block>
                   <Text h1 bold={true} center color="#3e0057" style={styles.buttonText}>{totalResult}</Text>
-                  <Text muted center style={styles.buttonText}>PONTOS</Text>
+                  <Text muted center style={styles.buttonText}>PONTO(S)</Text>
                   <Text muted center style={styles.buttonText}>{obsResult}</Text>
                   <Block style={{ paddingTop: 20 }}></Block>
                 </Block>
