@@ -60,6 +60,7 @@ namespace Dashboard.Controllers
             ViewBag.TotalTests = dados.TotalTests;
             ViewBag.Tests = dados.Tests;
             ViewBag.Acolhimento = dados.Acolhimento;
+            ViewBag.Diagnostico = dados.Diagnostico;
 
             return View();
         }

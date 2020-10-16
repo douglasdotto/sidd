@@ -10,10 +10,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using INotification = AppSidd.Domain.Notifications.INotificationHandler;
+using System.Text.RegularExpressions;
+using AppSidd.Application.Dto;
 
 namespace AppSidd.Application.Users.Handlers
 {
-    public class InsertUserRequestHandler : IRequestHandler<InsertUserRequest, bool>
+    public class InsertPatientRequestHandler : IRequestHandler<InsertPatientRequest, UserDto>
     {
         private readonly IUnitOfWork _uow;
         private readonly SignInManager<AppUser> _signInManager;
@@ -22,7 +24,7 @@ namespace AppSidd.Application.Users.Handlers
         private readonly IMapper _mapper;
         private readonly INotification _notification;
 
-        public InsertUserRequestHandler(IUnitOfWork uow
+        public InsertPatientRequestHandler(IUnitOfWork uow
             , IMapper mapper
             , SignInManager<AppUser> signInManager
             , UserManager<AppUser> userManager
@@ -37,18 +39,23 @@ namespace AppSidd.Application.Users.Handlers
             _notification = notification;
         }
 
-        public async Task<bool> Handle(InsertUserRequest request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(InsertPatientRequest request, CancellationToken cancellationToken)
         {
-            var find = await _userManager.FindByNameAsync(request.User.UserName);
+            var userName = Regex.Replace(request.User.FirstName + request.User.LastName, @"\s+", "").ToLower();
+            var find = await _userManager.FindByNameAsync(userName);
 
             if (find == null)
             {
                 var _appUserFactory = new AppUserFactory(new NotificationHandler());
+                var first = request.User.FirstName.ToLower();
+                var last = request.User.LastName.ToLower();
                 var appUser = _appUserFactory.DefaultBuilder()
-                    .WithEmail(request.User.Email)
-                    .WithUserName(request.User.UserName)
-                    .WithFirstName(request.User.FirstName)
-                    .WithLastName(request.User.LastName)
+                    .WithEmail(userName + "@sidd.com.br")
+                    .WithUserName(userName)
+                    .WithFirstName(char.ToUpper(first[0]) + first.Substring(1))
+                    .WithLastName(char.ToUpper(last[0]) + last.Substring(1))
+                    .WithSexo(request.User.Sexo)
+                    .WithIdade(request.User.Idade)
                     .Raise();
 
                 if (!appUser.IsValid)
@@ -59,20 +66,12 @@ namespace AppSidd.Application.Users.Handlers
                             .WithMessage("Não foi possível criar o usuário.")
                             .RaiseNotification();
 
-                    return false;
+                    return null;
                 }
 
-                if (!String.IsNullOrEmpty(request.UnityId))
-                {
-                    appUser.UnityId = new Guid(request.UnityId);
-                }
-                else
-                {
-                    appUser.UnityId = null;
-                }
+                appUser.IsActive = true;
 
-
-                var result = await _userManager.CreateAsync(appUser, request.User.Password);
+                var result = await _userManager.CreateAsync(appUser, "sidd123");
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
@@ -84,11 +83,12 @@ namespace AppSidd.Application.Users.Handlers
                             .RaiseNotification();
                     }
 
-                    return false;
+                    return null;
                 }
 
-                if (request.Role == Roles.ROLE_ADMIN)
-                    await _userManager.AddToRoleAsync(appUser, Roles.ROLE_ADMIN);
+                await _userManager.AddToRoleAsync(appUser, Roles.ROLE_PATIENT);
+                var user = _mapper.Map<UserDto>(appUser);
+                return user;
             }
             else
             {
@@ -97,10 +97,8 @@ namespace AppSidd.Application.Users.Handlers
                                     .WithMessage("Este usuário já existe.")
                                     .RaiseNotification();
 
-                return false;
+                return null;
             }
-
-            return true;
         }
     }
 }

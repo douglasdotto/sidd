@@ -30,6 +30,12 @@ export default function App() {
   const [patient, setPatient] = useState(null);
   const [patientSelected, setPatientSelected] = useState(null);
   // GENERIC
+  // NEW
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [idade, setIdade] = useState("");
+  const [sexo, setSexo] = useState("");
+  // NEW
   // PFEFFER
   const [pfeffer1, setPfeffer1] = useState(null);
   const [pfeffer2, setPfeffer2] = useState(null);
@@ -212,9 +218,9 @@ export default function App() {
     setActiveTab(tab);
     setSecondTab("results");
     setActiveTest("");
+    setPatientSelected(null);
     if (tab == "new") {
       setPatient(null);
-      setPatientSelected(null);
       var result = await client.postApi(`${endpoints.user.getPatients}`, null, true);
       if (result.statusCode === 200) {
         Toast.show({
@@ -240,7 +246,8 @@ export default function App() {
     setLoading(true);
     setActiveTab("results");
     setSecondTab(tab);
-    if (tab == "patients") {
+    setPatientSelected(null);
+    if (tab == "patients" || tab == "acol") {
       setPatient(null);
       var result = await client.postApi(`${endpoints.user.getPatients}`, null, true);
       if (result.statusCode === 200) {
@@ -329,6 +336,63 @@ export default function App() {
           });
         })
       }
+    }
+    setLoading(false);
+  }
+
+  async function newPatient() {
+    setLoading(true);
+    if (firstName == "" || lastName == "" || idade == "" || sexo == "") {
+      Toast.show({
+        text1: 'Erro',
+        text2: "Por favor, preencha todas as opções de acordo com o paciente.",
+        position: 'top',
+        type: 'error',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 60
+      });
+      setLoading(false);
+      return;
+    }
+    var data = {
+      firstName: firstName,
+      lastName: lastName,
+      idade: parseInt(idade),
+      sexo: sexo
+    };
+    var result = await client.postApi(`${endpoints.user.insertPatient}`, data, false);
+    if (result.statusCode === 200) {
+      setFirstName("");
+      setLastName("");
+      setIdade("");
+      setSexo("");
+      Toast.show({
+        text1: 'Novo Paciente',
+        text2: 'O paciente foi cadastrado com sucesso! 👋',
+        position: 'top',
+        type: 'info',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 60
+      });
+      setPatientSelected(result.response.id);
+    } else {
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 2000,
+            autoHide: true,
+            topOffset: 60
+          });
+        })
+      }
+      tab("home");
     }
     setLoading(false);
   }
@@ -1442,9 +1506,63 @@ export default function App() {
                   </Block>
                 </>}
               </>}
-              {activeTab == "results" && secondTab == "acol" && <>
+              {activeTab == "results" && secondTab == "acol" && patientSelected == null && <>
                 <Block row space="evenly">
                   <Text muted style={styles.buttonText}>Acolhimento</Text>
+                </Block>
+                <Button round uppercase size="large" icon="plus" iconFamily="antdesign" color="#3e0057" onPress={() => setPatientSelected("new")}>Novo Paciente</Button>
+                <Text h4 center style={styles.buttonText}>OU</Text>
+                <Block style={styles.cardQuestion}>
+                  <Text muted center style={styles.buttonText}>Selecione um paciente</Text>
+                  <TouchableOpacity style={styles.touchableOpacity}>
+                    <Picker
+                      mode="dropdown"
+                      style={styles.picker}
+                      selectedValue={patientSelected}
+                      onValueChange={(itemValue, itemIndex) => { if (itemValue != "null") { setPatientSelected(itemValue) } }}
+                    >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
+                      {patient != null ? patient.data.map((e) => {
+                        return <Picker.Item label={e.firstName + " " + e.lastName} value={e.id} key={e.id} />;
+                      }) : null}
+                    </Picker>
+                  </TouchableOpacity>
+                </Block>
+              </>}
+              {activeTab == "results" && secondTab == "acol" && patientSelected != null && patientSelected != "new" && <>
+                <Block row space="evenly">
+                  <Text muted style={styles.buttonText}>Acolhimento</Text>
+                </Block>
+              </>}
+              {activeTab == "results" && secondTab == "acol" && patientSelected != null && patientSelected == "new" && <>
+                <Block row space="evenly">
+                  <Text muted style={styles.buttonText}>Acolhimento - Novo</Text>
+                </Block>
+                <Block style={styles.cardQuestion}>
+                  <Text muted center style={styles.buttonText}>Primeiro Nome</Text>
+                  <Input type="default" value={firstName} onChangeText={(e) => setFirstName(e)} />
+                  <Text muted center style={styles.buttonText}>Último Nome</Text>
+                  <Input type="default" value={lastName} onChangeText={(e) => setLastName(e)} />
+                  <Text muted center style={styles.buttonText}>Idade</Text>
+                  <Input type="numeric" value={idade} onChangeText={(e) => setIdade(e)} />
+                  <Text muted center style={styles.buttonText}>Sexo</Text>
+                  <TouchableOpacity style={styles.touchableOpacity}>
+                    <Picker
+                      mode="dropdown"
+                      style={styles.picker}
+                      selectedValue={sexo}
+                      onValueChange={(itemValue, itemIndex) => { setSexo(itemValue) }}
+                    >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
+                      <Picker.Item label="Masculino" value="Masculino" />
+                      <Picker.Item label="Feminino" value="Feminino" />
+                      <Picker.Item label="Outro" value="Outro" />
+                    </Picker>
+                  </TouchableOpacity>
+                </Block>
+                <Block row center>
+                  <Button round uppercase color="#3e0057" onPress={() => tab("home")}>FECHAR</Button>
+                  <Button round uppercase color="primary" onPress={() => newPatient()}>SALVAR</Button>
                 </Block>
               </>}
               {activeTab == "results" && secondTab == "results" && <>
@@ -1496,7 +1614,6 @@ export default function App() {
                 </Block>
                 <Block flex center>
                   <Text h3>Douglas Dotto</Text>
-                  <Button round uppercase size="large" icon="contacts" iconFamily="antdesign" color="#3e0057">Meus dados</Button>
                   <Button round uppercase size="large" icon="edit" iconFamily="antdesign" color="#3e0057">Alterar senha</Button>
                   <Button round uppercase size="large" icon="close" iconFamily="antdesign" color="#3e0057" onPress={() => { auth.logout(); logout() }}>Sair</Button>
                 </Block>

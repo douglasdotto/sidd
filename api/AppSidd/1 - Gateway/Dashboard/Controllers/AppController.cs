@@ -39,6 +39,18 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [Route("insertPatient")]
+        public async Task<IActionResult> InsertPatient([FromBody] NewPatientDto patient)
+        {
+            var token = await _mediator.Send(new InsertPatientRequest(patient));
+
+            if (_notification.HasNotification())
+                return BadRequest(new BadRequestDto(_notification));
+
+            return Ok(new OkDto(token));
+        }
+
+        [HttpPost]
         [Route("getPatients")]
         public async Task<IActionResult> GetPatients()
         {

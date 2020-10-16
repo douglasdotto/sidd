@@ -4,9 +4,11 @@ var url = "https://siddproject.azurewebsites.net"
 const endpoints = {
     user: {
         login: `${url}/loginapp`,
+        insertPatient: `${url}/insertPatient`,
         getPatients: `${url}/getPatients`,
     },
     app: {
+        insertAcolhimento: `${url}/insertAcolhimento`,
         insertUnity: `${url}/insertUnity`,
         insertPfeffer: `${url}/insertPfeffer`,
         insertCDR: `${url}/insertCDR`,

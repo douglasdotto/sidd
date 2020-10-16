@@ -16,14 +16,26 @@
 </style>
 <div class="row m-2 mt-4">
     <div class="col-xl-3">
-        <div class="card">
-            <div class="card-body text-center">
-                <img src="~/img/theme/avatar.png" width="150" height="150" /><hr />
-                <h2>Dados do paciente</h2>
-                <strong>Nome:</strong> @ViewBag.Nome<br />
-                <strong>Sexo:</strong> @ViewBag.Sexo<br />
-                <strong>Idade:</strong> @ViewBag.Idade anos<br />
-                <strong>Testes:</strong> @ViewBag.TotalTests aplicado(s)
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="~/img/theme/avatar.png" width="150" height="150" /><hr />
+                        <h2>Dados do paciente</h2>
+                        <strong>Nome:</strong> @ViewBag.Nome<br />
+                        <strong>Sexo:</strong> @ViewBag.Sexo<br />
+                        <strong>Idade:</strong> @ViewBag.Idade anos<br />
+                        <strong>Testes:</strong> @ViewBag.TotalTests aplicado(s)
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2>Diagnóstico - SIDD</h2>
+                        <strong><h3>@ViewBag.Diagnostico</h3></strong>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -55,16 +67,16 @@
                             <tbody>
                                 @foreach (var aco in ViewBag.Acolhimento)
                                 {
-                                <tr>
-                                    <td>@aco.Created</td>
-                                    <td>@aco.FrequenciaCardiaca</td>
-                                    <td>@aco.Saturação</td>
-                                    <td>@aco.PressaoArterial</td>
-                                    <td>@aco.Glicemia</td>
-                                    <td>@aco.Sintomas</td>
-                                    <td>@aco.Medicamentos</td>
-                                    <td>@aco.Observacoes</td>
-                                </tr>
+                                    <tr>
+                                        <td>@aco.Created</td>
+                                        <td>@aco.FrequenciaCardiaca</td>
+                                        <td>@aco.Saturação</td>
+                                        <td>@aco.PressaoArterial</td>
+                                        <td>@aco.Glicemia</td>
+                                        <td>@aco.Sintomas</td>
+                                        <td>@aco.Medicamentos</td>
+                                        <td>@aco.Observacoes</td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -93,12 +105,12 @@
                             <tbody>
                                 @foreach (var test in ViewBag.Tests)
                                 {
-                                <tr>
-                                    <td>@test.Date</td>
-                                    <td>@test.Type</td>
-                                    <td><strong>@test.TotalPoints</strong></td>
-                                    <td class="@(test.Color == "G" ? Html.Raw("text-success") : @test.Color == "Y" ? Html.Raw("text-primary") : Html.Raw("text-danger"))">@test.Classification</td>
-                                </tr>
+                                    <tr>
+                                        <td>@test.Date</td>
+                                        <td>@test.Type</td>
+                                        <td><strong>@test.TotalPoints</strong></td>
+                                        <td class="@(test.Color == "G" ? Html.Raw("text-success") : @test.Color == "Y" ? Html.Raw("text-primary") : Html.Raw("text-danger"))">@test.Classification</td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

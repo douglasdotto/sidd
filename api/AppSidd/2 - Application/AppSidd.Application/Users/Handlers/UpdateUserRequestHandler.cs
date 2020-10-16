@@ -54,7 +54,6 @@ namespace AppSidd.Application.Users.Handlers
             appUser.FirstName = request.User.FirstName;
             appUser.LastName = request.User.LastName;
             appUser.Email = request.User.Email;
-            appUser.IsActive = request.User.IsActive;
 
             if (!String.IsNullOrEmpty(request.UnityId))
             {

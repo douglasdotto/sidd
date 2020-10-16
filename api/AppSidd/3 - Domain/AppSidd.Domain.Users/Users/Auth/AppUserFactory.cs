@@ -47,9 +47,22 @@ namespace AppSidd.Domain.Users.Auth
                 _appuser.LastName = value;
                 return this;
             }
+
             public AppUserBuilder WithUnityId(Guid value)
             {
                 _appuser.UnityId = value;
+                return this;
+            }
+
+            public AppUserBuilder WithSexo(string value)
+            {
+                _appuser.Sexo = value;
+                return this;
+            }
+
+            public AppUserBuilder WithIdade(int value)
+            {
+                _appuser.Idade = value;
                 return this;
             }
 

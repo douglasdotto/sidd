@@ -176,7 +176,7 @@ namespace AppSidd.Application.Users.Handlers
                 tests.Add(test);
             }
 
-            var acolhimentos = _uow.AcolhimentoRepository.Find(x => !x.IsDeleted && x.UserId == request.PatientId).ToList();
+            var acolhimentos = _uow.AcolhimentoRepository.Find(x => !x.IsDeleted && x.UserId == request.PatientId).OrderBy(x => x.Created).ToList();
 
             List<AcolhimentoDto> acoDto = new List<AcolhimentoDto>();
             foreach (var aco in acolhimentos)
@@ -231,6 +231,8 @@ namespace AppSidd.Application.Users.Handlers
             result.Tests = tests.OrderBy(x => x.Date).ToList();
             result.TotalTests = tests.Count();
             result.Acolhimento = acoDto;
+            result.Diagnostico = "Ainda não é possível informar um diagnóstico.";
+
             return result;
         }
     }
