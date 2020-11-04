@@ -32,6 +32,7 @@ namespace AppSidd.Infra.SqlServer
             modelBuilder.ApplyConfiguration(new CDRConfiguration());
             modelBuilder.ApplyConfiguration(new MEEMConfiguration());
             modelBuilder.ApplyConfiguration(new MoCAConfiguration());
+            modelBuilder.ApplyConfiguration(new SintomasConfiguration());
         }
 
         public async Task<int> SaveChangesAsync()

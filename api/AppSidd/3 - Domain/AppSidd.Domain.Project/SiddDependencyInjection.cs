@@ -14,6 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddTransient<ICDRFactory, CDRFactory>();
             services.TryAddTransient<IMEEMFactory, MEEMFactory>();
             services.TryAddTransient<IMoCAFactory, MoCAFactory>();
+            services.TryAddTransient<ISintomasFactory, SintomasFactory>();
 
             return services;
         }

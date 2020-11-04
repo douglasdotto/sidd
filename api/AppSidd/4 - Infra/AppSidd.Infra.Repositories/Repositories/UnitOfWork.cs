@@ -25,6 +25,7 @@ namespace AppSidd.Infra.Repositories.Repositories
             CDRRepository = new Repository<CDR>(context);
             MoCARepository = new Repository<MoCA>(context);
             MEEMRepository = new Repository<MEEM>(context);
+            SintomasRepository = new Repository<Sintomas>(context);
         }
 
         public IRepository<Unity> UnityRepository { get; }
@@ -33,6 +34,7 @@ namespace AppSidd.Infra.Repositories.Repositories
         public IRepository<CDR> CDRRepository { get; }
         public IRepository<MoCA> MoCARepository { get; }
         public IRepository<MEEM> MEEMRepository { get; }
+        public IRepository<Sintomas> SintomasRepository { get; }
 
         public void Dispose()
             => _context.Dispose();
