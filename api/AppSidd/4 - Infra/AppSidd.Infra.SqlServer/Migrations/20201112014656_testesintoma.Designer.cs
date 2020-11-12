@@ -4,14 +4,16 @@ using AppSidd.Infra.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AppSidd.Infra.SqlServer.Migrations
 {
     [DbContext(typeof(AppSiddServerContext))]
-    partial class AppSiddServerContextModelSnapshot : ModelSnapshot
+    [Migration("20201112014656_testesintoma")]
+    partial class testesintoma
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -384,8 +386,6 @@ namespace AppSidd.Infra.SqlServer.Migrations
 
                     b.HasKey("TesteSintomaId");
 
-                    b.HasIndex("SintomasId");
-
                     b.ToTable("TesteSintoma");
                 });
 
@@ -666,42 +666,42 @@ namespace AppSidd.Infra.SqlServer.Migrations
                         new
                         {
                             Id = "23D9D409-D7AA-4966-9047-48C04B41F0A1",
-                            ConcurrencyStamp = "d3b803a4-cf31-464f-b280-cd97c4ade2b3",
+                            ConcurrencyStamp = "8ca310e5-97a5-4271-a3ea-2f28eaf5d631",
                             Name = "RoleAdmin",
                             NormalizedName = "ROLEADMIN"
                         },
                         new
                         {
                             Id = "53012ACA-C557-4991-8538-F22C0450CC1F",
-                            ConcurrencyStamp = "e1ea31dc-4d79-4dd3-9d70-3d4e82b32de0",
+                            ConcurrencyStamp = "7805348e-473d-4ce4-9496-5ca7ee39152b",
                             Name = "RoleAgent",
                             NormalizedName = "ROLEAGENT"
                         },
                         new
                         {
                             Id = "84A9CF58-31F8-4C1B-BB08-E93813404C22",
-                            ConcurrencyStamp = "f5faefbf-8999-480d-8377-3a409fc4fd07",
+                            ConcurrencyStamp = "16b01fcd-1158-4539-bdbd-206e4bcc34b2",
                             Name = "RoleEnf",
                             NormalizedName = "ROLEENF"
                         },
                         new
                         {
                             Id = "F4EA9499-F2FD-464E-9039-A115177C887D",
-                            ConcurrencyStamp = "9ea6d3c8-41af-4872-a5e1-a64753d1d23e",
+                            ConcurrencyStamp = "3f2d59ff-d9ac-4caf-b45f-b86ddc6b1a29",
                             Name = "RoleMedic",
                             NormalizedName = "ROLEMEDIC"
                         },
                         new
                         {
                             Id = "437D49C5-9C56-4E13-9E65-EB1BFF27B0CA",
-                            ConcurrencyStamp = "bc1b03b7-1351-4400-83f8-814fb674ecb5",
+                            ConcurrencyStamp = "842223f1-9cb7-4de6-b869-2ffe6be2f1e8",
                             Name = "RoleTec",
                             NormalizedName = "ROLETEC"
                         },
                         new
                         {
                             Id = "BCC9B822-766F-4F00-8A72-288FB78260AB",
-                            ConcurrencyStamp = "a1eb1c70-aa88-40b1-bdb1-c523f640c63c",
+                            ConcurrencyStamp = "7ba0a54e-5b32-4309-ac64-de8bb874a8ae",
                             Name = "RolePatient",
                             NormalizedName = "ROLEPATIENT"
                         });
@@ -712,15 +712,6 @@ namespace AppSidd.Infra.SqlServer.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
 
                     b.HasDiscriminator().HasValue("AppUserRole");
-                });
-
-            modelBuilder.Entity("AppSidd.Domain.Project.TesteSintoma", b =>
-                {
-                    b.HasOne("AppSidd.Domain.Project.Sintomas", "Sintomas")
-                        .WithMany()
-                        .HasForeignKey("SintomasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

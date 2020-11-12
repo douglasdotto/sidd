@@ -13,6 +13,7 @@ namespace AppSidd.Domain.Interfaces.Write
         IRepository<MoCA> MoCARepository { get; }
         IRepository<MEEM> MEEMRepository { get; }
         IRepository<Sintomas> SintomasRepository { get; }
+        IRepository<TesteSintoma> TesteSintomaRepository { get; }
 
         Task Save();
     }
