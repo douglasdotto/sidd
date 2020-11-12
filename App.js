@@ -46,6 +46,7 @@ export default function App() {
   const [medicamentos, setMedicamentos] = useState("");
   const [observacoes, setObservacoes] = useState("");
   // NEW
+  const [listaSintomas, setListaSintomas] = useState(null);
   // PFEFFER
   const [pfeffer1, setPfeffer1] = useState(null);
   const [pfeffer2, setPfeffer2] = useState(null);
@@ -828,6 +829,31 @@ export default function App() {
     setLoading(false);
   }
 
+  async function calltest() {
+    setLoading(true);
+    var result = await client.postApi(`${endpoints.app.getSintomas}`, null, false);
+    if (result.statusCode === 200) {
+      setListaSintomas(result.response);
+      test("sintomas");
+    } else {
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 2000,
+            autoHide: true,
+            topOffset: 60
+          });
+        })
+      }
+    }
+    setLoading(false);
+  }
+
   function logout() {
     setLoading(true);
     setActiveTab("login");
@@ -873,7 +899,9 @@ export default function App() {
                 <Input placeholder="Usuário" value={user} onChangeText={(e) => setUser(e)} />
                 <Text muted center style={styles.buttonText}>Insira sua senha</Text>
                 <Input placeholder="Senha" value={password} password viewPass onChangeText={(e) => setPassword(e)} />
-                <Button round color="#3e0057" uppercase size="large" onPress={() => login()}>Entrar</Button>
+                <Block center>
+                  <Button round color="#3e0057" uppercase onPress={() => login()}>Entrar</Button>
+                </Block>
               </Block>
             </KeyboardAvoidingView>
           </ScrollView>
@@ -883,16 +911,11 @@ export default function App() {
       {activeTab != "login" && <>
         {userData != null ? <Block row style={{ width: '100%', backgroundColor: '#3e0057', color: '#ffffff !important' }}>
           <Block flex center>
-            <Text muted center color="#fff" style={{ paddingTop: 44 }}>Olá, {userData.user.firstName}</Text>
+            <Image source={require('./assets/header.png')} style={{ marginTop: 44 }} />
+            <Text muted center color="#fff" style={{ marginTop: 14 }}>Olá, {userData.user.firstName} {userData.user.lastName}</Text>
           </Block>
         </Block> : null}
-        <Block row style={{ width: '100%', paddingTop: 10, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, backgroundColor: '#3e0057', color: '#ffffff !important', paddingBottom: 24 }}>
-          <Block flex left>
-            <Image source={require('./assets/header.png')} style={{ marginLeft: 20, height: 36, width: 100 }} />
-          </Block>
-          <Block flex right>
-            <Icon size={30} color="#fff" name={'bell'} style={{ paddingRight: 30, paddingTop: 5 }} />
-          </Block>
+        <Block row style={{ width: '100%', paddingTop: 10, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, backgroundColor: '#3e0057', color: '#ffffff !important', paddingBottom: 10 }}>
         </Block>
 
         <Block style={styles.grid}>
@@ -1030,13 +1053,13 @@ export default function App() {
                     <Button round color="#3e0057" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
                   </Block>
                   <Block flex center>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("sintomas")}>COMPLEMENTAR - TESTE DE SINTOMAS</Button>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => calltest("sintomas")}>TESTE DE SINTOMAS</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest != "" && <>
                   <Block flex center>
                     <TouchableOpacity>
-                      <Text h4 muted onPress={() => test("")} style={{ backgroundColor: '#e8e8e8', borderRadius: 50, color: '#f5f5f5' }}>&nbsp;&nbsp;X&nbsp;&nbsp;</Text>
+                      <Text h4 muted onPress={() => test("")} style={{ backgroundColor: '#e8e8e8', borderRadius: 50, color: '#f5f5f5', paddingLeft: 15, paddingRight: 15 }}>FECHAR</Text>
                     </TouchableOpacity>
                   </Block>
                 </>}
@@ -1581,15 +1604,26 @@ export default function App() {
                   <Block row space="evenly">
                     <Text muted style={styles.buttonText}>Teste de Sintomas</Text>
                   </Block>
+                  {listaSintomas != null ? listaSintomas.map((e) => {
+                    return <Block style={styles.cardQuestion} key={e.sintomasId}>
+                      <Checkbox color="#3e0057" label={e.descricao} style={styles.checkboxSintoma} />
+                    </Block>
+                  }) : null}
+                  <Block row center>
+                    <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
+                    <Button round uppercase color="primary">SALVAR</Button>
+                  </Block>
                 </>}
               </>}
               {activeTab == "results" && secondTab == "acol" && patientSelected == null && <>
                 <Block row space="evenly">
                   <Text muted style={styles.buttonText}>Acolhimento</Text>
                 </Block>
-                <Button round uppercase size="large" icon="plus" iconFamily="antdesign" color="#3e0057" onPress={() => setPatientSelected("new")}>Novo Paciente</Button>
-                <Text h4 center style={styles.buttonText}>OU</Text>
                 <Block style={styles.cardQuestion}>
+                  <Block center>
+                    <Button round uppercase color="#3e0057" onPress={() => setPatientSelected("new")}>Novo Paciente</Button>
+                  </Block>
+                  <Text h4 center style={styles.buttonText}>OU</Text>
                   <Text muted center style={styles.buttonText}>Selecione um paciente</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
@@ -1758,6 +1792,13 @@ const styles = StyleSheet.create({
   checkbox: {
     height: 45,
     marginLeft: 6,
+  },
+  checkboxSintoma: {
+    paddingRight: 10,
+    marginLeft: 6,
+    marginRight: 10,
+    marginTop: 15,
+    marginBottom: 15,
   },
   touchableOpacity: {
     borderWidth: 1,
