@@ -7,6 +7,7 @@ namespace AppSidd.Application.Dto
     public class TesteSintomaDto
     {
         public Guid? TesteSintomaId { get; set; }
+        public string UserId { get; set; }
         public string Descricao { get; set; }
         public Guid? SintomasId { get; set; }
         public DateTime? Created { get; set; }

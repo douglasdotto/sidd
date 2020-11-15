@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using INotification = AppSidd.Domain.Notifications.INotificationHandler;
 
@@ -39,6 +40,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("insertPatient")]
         public async Task<IActionResult> InsertPatient([FromBody] NewPatientDto patient)
         {
@@ -51,6 +53,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("getPatients")]
         public async Task<IActionResult> GetPatients()
         {
@@ -63,6 +66,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("insertUnity")]
         public async Task<IActionResult> InsertUnity([FromBody] UnityDto unity)
         {
@@ -75,6 +79,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("insertPfeffer")]
         public async Task<IActionResult> InsertPfeffer([FromBody] PfefferDto pfeffer)
         {
@@ -87,6 +92,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("insertCDR")]
         public async Task<IActionResult> InsertCDR([FromBody] CDRDto cdr)
         {
@@ -99,6 +105,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("insertMoCA")]
         public async Task<IActionResult> InsertMoCA([FromBody] MoCADto moca)
         {
@@ -111,6 +118,7 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("insertMEEM")]
         public async Task<IActionResult> InsertMEEM([FromBody] MEEMDto meem)
         {
@@ -123,10 +131,37 @@ namespace Dashboard.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("insertAcolhimento")]
         public async Task<IActionResult> InsertAcolhimento([FromBody] AcolhimentoDto acolhimento)
         {
             var token = await _mediator.Send(new InsertAcolhimentoRequest(acolhimento, acolhimento.CreatedBy));
+
+            if (_notification.HasNotification())
+                return BadRequest(new BadRequestDto(_notification));
+
+            return Ok(new OkDto(token));
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("getSintomas")]
+        public async Task<IActionResult> GetSintomas()
+        {
+            var token = await _mediator.Send(new GetSintomasRequest(CurrentUser));
+
+            if (_notification.HasNotification())
+                return BadRequest(new BadRequestDto(_notification));
+
+            return Ok(new OkDto(token));
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("insertTesteSintoma")]
+        public async Task<IActionResult> InsertTesteSintoma([FromBody] List<TesteSintomaDto> lista)
+        {
+            var token = await _mediator.Send(new InsertTesteSintomaRequest(lista, CurrentUser.Id));
 
             if (_notification.HasNotification())
                 return BadRequest(new BadRequestDto(_notification));

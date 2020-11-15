@@ -20,7 +20,7 @@ namespace AppSidd.Domain.Project
             _notificationHandler = notificationHandler;
         }
         public Guid TesteSintomaId { get; set; }
-        public string Descricao { get; set; }
+        public string UserId { get; set; }
         public Guid SintomasId { get; set; }
         [ForeignKey("SintomasId")]
         private Sintomas _Sintomas;

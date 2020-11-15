@@ -33,10 +33,15 @@ namespace AppSidd.Application.App.Handlers
         public async Task<List<TesteSintomaDto>> Handle(InsertTesteSintomaRequest request, CancellationToken cancellationToken)
         {
             List<TesteSintoma> lista = new List<TesteSintoma>();
+            var created = DateTime.UtcNow;
             foreach (var a in request.TesteSintoma)
             {
                 TesteSintoma un = _unFactory.DefaultBuilder()
                                     .WithTesteSintomaId(new Guid())
+                                    .SintomasId(a.SintomasId.Value)
+                                    .WithCreated(created)
+                                    .WithCreatedBy(request.UserId)
+                                    .WithIsDeleted(false)
                                     .Raise();
 
                 un = await _uow.TesteSintomaRepository.InsertAsync(un);

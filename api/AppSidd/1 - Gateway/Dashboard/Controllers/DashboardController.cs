@@ -32,7 +32,7 @@ namespace Dashboard.Controllers
             var token = await _mediator.Send(new GetAllPatientRequest(CurrentUser));
             var dash = await _mediator.Send(new GetInfoDashRequest(CurrentUser));
 
-            decimal total = dash.Pfeffer + dash.CDR + dash.MEEM + dash.MoCA;
+            decimal total = dash.Pfeffer + dash.CDR + dash.MEEM + dash.MoCA + dash.TesteSintomas;
 
             ViewBag.Patients = token.Data;
             ViewBag.Pffefer = dash.Pfeffer.ToString();
@@ -43,6 +43,8 @@ namespace Dashboard.Controllers
             ViewBag.MoCAPerc = Decimal.Round(Convert.ToDecimal((dash.MoCA * 100)) / total, 2).ToString().Replace(",", ".");
             ViewBag.CDR = dash.CDR.ToString();
             ViewBag.CDRPerc = Decimal.Round(Convert.ToDecimal((dash.CDR * 100)) / total, 2).ToString().Replace(",", ".");
+            ViewBag.TesteSintoma = dash.TesteSintomas.ToString();
+            ViewBag.TesteSintomaPerc = Decimal.Round(Convert.ToDecimal((dash.TesteSintomas * 100)) / total, 2).ToString().Replace(",", ".");
             return View();
         }
 

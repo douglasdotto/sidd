@@ -14,6 +14,8 @@ namespace AppSidd.Domain.Mapper
             CreateMap<MEEM, MEEMDto>();
             CreateMap<MoCA, MoCADto>();
             CreateMap<Acolhimento, AcolhimentoDto>();
+            CreateMap<Sintomas, SintomasDto>();
+            CreateMap<TesteSintoma, TesteSintomaDto>();
         }
     }
 }

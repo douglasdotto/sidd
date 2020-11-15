@@ -34,9 +34,9 @@ namespace AppSidd.Domain.Project
                 return this;
             }
 
-            public TesteSintomaBuilder WithDescricao(string value)
+            public TesteSintomaBuilder UserId(string value)
             {
-                _TesteSintoma.Descricao = value;
+                _TesteSintoma.UserId = value;
                 return this;
             }
 
