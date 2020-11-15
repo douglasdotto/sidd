@@ -14,6 +14,8 @@ const endpoints = {
         insertCDR: `${url}/insertCDR`,
         insertMoCA: `${url}/insertMoCA`,
         insertMEEM: `${url}/insertMEEM`,
+        getSintomas: `${url}/getSintomas`,
+        insertTesteSintoma: `${url}/insertTesteSintoma`,
     }
 }
 
