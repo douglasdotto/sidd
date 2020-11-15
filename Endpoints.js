@@ -15,6 +15,7 @@ const endpoints = {
         insertMoCA: `${url}/insertMoCA`,
         insertMEEM: `${url}/insertMEEM`,
         getSintomas: `${url}/getSintomas`,
+        insertTesteSintoma: `${url}/insertTesteSintoma`,
     }
 }
 

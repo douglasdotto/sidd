@@ -47,6 +47,7 @@ export default function App() {
   const [observacoes, setObservacoes] = useState("");
   // NEW
   const [listaSintomas, setListaSintomas] = useState(null);
+  const [testeSintoma, setTesteSintoma] = useState([]);
   // PFEFFER
   const [pfeffer1, setPfeffer1] = useState(null);
   const [pfeffer2, setPfeffer2] = useState(null);
@@ -854,6 +855,62 @@ export default function App() {
     setLoading(false);
   }
 
+  const CheckTesteSintoma = (e) => {
+    console.log(e)
+    var teste = testeSintoma.filter(x => x == e);
+    if (teste.length == 0)
+      setTesteSintoma([...testeSintoma, e])
+    else
+      setTesteSintoma(testeSintoma.filter((x) => (x !== e)))
+    console.log(testeSintoma)
+  };
+
+  async function sendTesteSintoma() {
+    setLoading(true);
+    var listaA = [];
+    testeSintoma.map((a) => {
+      var data = {
+        userId: patientSelected,
+        sintomasId: a,
+        createdBy: userData.id
+      };
+      listaA.push(data);
+    });
+    var data = {
+      lista: listaA
+    };
+
+    var result = await client.postApi(`${endpoints.app.insertTesteSintoma}`, data, false);
+    if (result.statusCode === 200) {
+      Toast.show({
+        text1: 'Teste de Sintomas',
+        text2: 'Os dados do teste de sintomas foram salvos com sucesso! 👋',
+        position: 'top',
+        type: 'info',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 60
+      });
+      tab("home");
+    } else {
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 2000,
+            autoHide: true,
+            topOffset: 60
+          });
+        })
+      }
+    }
+    setLoading(false);
+  }
+
   function logout() {
     setLoading(true);
     setActiveTab("login");
@@ -1606,12 +1663,12 @@ export default function App() {
                   </Block>
                   {listaSintomas != null ? listaSintomas.map((e) => {
                     return <Block style={styles.cardQuestion} key={e.sintomasId}>
-                      <Checkbox color="#3e0057" label={e.descricao} style={styles.checkboxSintoma} />
+                      <Checkbox color="#3e0057" label={e.descricao} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
                     </Block>
                   }) : null}
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
-                    <Button round uppercase color="primary">SALVAR</Button>
+                    <Button round uppercase color="primary" onPress={() => sendTesteSintoma()}>SALVAR</Button>
                   </Block>
                 </>}
               </>}
