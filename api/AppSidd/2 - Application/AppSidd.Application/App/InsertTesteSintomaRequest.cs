@@ -6,12 +6,10 @@ namespace AppSidd.Application.App
 {
     public class InsertTesteSintomaRequest : IRequest<List<TesteSintomaDto>>
     {
-        public List<TesteSintomaDto> TesteSintoma { get; set; }
-        public string UserId { get; set; }
-        public InsertTesteSintomaRequest(List<TesteSintomaDto> testeSintoma, string userId)
+        public List<InsertSintomaDto> TesteSintoma { get; set; }
+        public InsertTesteSintomaRequest(List<InsertSintomaDto> testeSintoma)
         {
             TesteSintoma = testeSintoma;
-            UserId = userId;
         }
     }
 }

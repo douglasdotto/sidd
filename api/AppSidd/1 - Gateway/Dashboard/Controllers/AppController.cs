@@ -159,9 +159,9 @@ namespace Dashboard.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("insertTesteSintoma")]
-        public async Task<IActionResult> InsertTesteSintoma([FromBody] List<TesteSintomaDto> lista)
+        public async Task<IActionResult> InsertTesteSintoma([FromBody] List<InsertSintomaDto> lista)
         {
-            var token = await _mediator.Send(new InsertTesteSintomaRequest(lista, CurrentUser.Id));
+            var token = await _mediator.Send(new InsertTesteSintomaRequest(lista));
 
             if (_notification.HasNotification())
                 return BadRequest(new BadRequestDto(_notification));

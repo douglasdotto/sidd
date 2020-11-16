@@ -38,9 +38,10 @@ namespace AppSidd.Application.App.Handlers
             {
                 TesteSintoma un = _unFactory.DefaultBuilder()
                                     .WithTesteSintomaId(new Guid())
-                                    .SintomasId(a.SintomasId.Value)
+                                    .UserId(a.UserId)
+                                    .SintomasId(new Guid(a.SintomasId))
                                     .WithCreated(created)
-                                    .WithCreatedBy(request.UserId)
+                                    .WithCreatedBy(a.CreatedBy)
                                     .WithIsDeleted(false)
                                     .Raise();
 
