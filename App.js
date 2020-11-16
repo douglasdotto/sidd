@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, Dimensions, Image, Picker, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
-  Button, Block, Text, Input, Card, Checkbox
+  Button, Block, Text, Input, Card, Checkbox, Accordion
 } from 'galio-framework';
 import BottomNavigation, {
   FullTab,
@@ -1409,91 +1409,91 @@ export default function App() {
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Orientação (marque a opção, se o usuário acertou a resposta)</Text>
                     <Text muted style={styles.buttonText}>Em que ano estamos?</Text>
-                    <Checkbox color="#3e0057" label="Ano" style={styles.checkbox} value={meem1_1} onChange={(e) => setMEEM1_1(e)} />
+                    <Checkbox color="#3e0057" label="Ano" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_1} onChange={(e) => setMEEM1_1(e)} />
                     <Text muted style={styles.buttonText}>Em que estação do ano estamos?</Text>
-                    <Checkbox color="#3e0057" label="Estação" style={styles.checkbox} value={meem1_2} onChange={(e) => setMEEM1_2(e)} />
+                    <Checkbox color="#3e0057" label="Estação" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_2} onChange={(e) => setMEEM1_2(e)} />
                     <Text muted style={styles.buttonText}>Qual o dia da semana em que estamos?</Text>
-                    <Checkbox color="#3e0057" label="Dia da semana" style={styles.checkbox} value={meem1_3} onChange={(e) => setMEEM1_3(e)} />
+                    <Checkbox color="#3e0057" label="Dia da semana" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_3} onChange={(e) => setMEEM1_3(e)} />
                     <Text muted style={styles.buttonText}>Qual o dia do mês em que estamos?</Text>
-                    <Checkbox color="#3e0057" label="Dia do mês" style={styles.checkbox} value={meem1_4} onChange={(e) => setMEEM1_4(e)} />
+                    <Checkbox color="#3e0057" label="Dia do mês" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_4} onChange={(e) => setMEEM1_4(e)} />
                     <Text muted style={styles.buttonText}>Qual o mês em que estamos?</Text>
-                    <Checkbox color="#3e0057" label="Mês" style={styles.checkbox} value={meem1_5} onChange={(e) => setMEEM1_5(e)} />
+                    <Checkbox color="#3e0057" label="Mês" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_5} onChange={(e) => setMEEM1_5(e)} />
                     <Text muted style={styles.buttonText}>Qual o país onde estamos?</Text>
-                    <Checkbox color="#3e0057" label="Pais" style={styles.checkbox} value={meem1_6} onChange={(e) => setMEEM1_6(e)} />
+                    <Checkbox color="#3e0057" label="Pais" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_6} onChange={(e) => setMEEM1_6(e)} />
                     <Text muted style={styles.buttonText}>Qual o estados onde estamos?</Text>
-                    <Checkbox color="#3e0057" label="Estado" style={styles.checkbox} value={meem1_7} onChange={(e) => setMEEM1_7(e)} />
+                    <Checkbox color="#3e0057" label="Estado" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_7} onChange={(e) => setMEEM1_7(e)} />
                     <Text muted style={styles.buttonText}>Qual a cidade onde estamos?</Text>
-                    <Checkbox color="#3e0057" label="Cidade" style={styles.checkbox} value={meem1_8} onChange={(e) => setMEEM1_8(e)} />
+                    <Checkbox color="#3e0057" label="Cidade" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_8} onChange={(e) => setMEEM1_8(e)} />
                     <Text muted style={styles.buttonText}>Qual a rua ou local onde estamos?</Text>
-                    <Checkbox color="#3e0057" label="Rua/local" style={styles.checkbox} value={meem1_9} onChange={(e) => setMEEM1_9(e)} />
+                    <Checkbox color="#3e0057" label="Rua/local" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_9} onChange={(e) => setMEEM1_9(e)} />
                     <Text muted style={styles.buttonText}>Qual o andar onde estamos?</Text>
-                    <Checkbox color="#3e0057" label="Andar" style={styles.checkbox} value={meem1_10} onChange={(e) => setMEEM1_10(e)} />
+                    <Checkbox color="#3e0057" label="Andar" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem1_10} onChange={(e) => setMEEM1_10(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Registro (marque a opção, se o usuário acertou a resposta)</Text>
                     <Text muted style={styles.buttonText}>Solicite ao paciente que preste atenção pois terá que repetir as palavras mais tarde. Peça para repetir as 3 palavras depois de vocês dizê-las. Se necessário, repita até 5 vezes para aprender as palavras, porém a pontuação é referente a primeira tentativa de repetição.</Text>
                     <Text muted style={styles.buttonText}>O objetivo é dizer três palavras: PENTE RUA AZUL</Text>
-                    <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} value={meem2_1} onChange={(e) => setMEEM2_2(e)} />
-                    <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} value={meem2_2} onChange={(e) => setMEEM2_2(e)} />
-                    <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} value={meem2_3} onChange={(e) => setMEEM2_3(e)} />
+                    <Checkbox color="#3e0057" label="Pente" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem2_1} onChange={(e) => setMEEM2_2(e)} />
+                    <Checkbox color="#3e0057" label="Rua" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem2_2} onChange={(e) => setMEEM2_2(e)} />
+                    <Checkbox color="#3e0057" label="Azul" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem2_3} onChange={(e) => setMEEM2_3(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Atenção e cálculo (marque a opção, se o usuário acertou a resposta)</Text>
                     <Text muted style={styles.buttonText}>Peça para que o paciente faça as subtrações seriadas. Se errar na primeira ou na segunda tentativa, peça para soletrar e pule a etapa da subtração</Text>
                     <Text muted style={styles.buttonText}>Subtrair: 100 - 7</Text>
-                    <Checkbox color="#3e0057" label="(93)" style={styles.checkbox} value={meem3_1} onChange={(e) => setMEEM3_1(e)} />
+                    <Checkbox color="#3e0057" label="(93)" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_1} onChange={(e) => setMEEM3_1(e)} />
                     <Text muted style={styles.buttonText}>Subtrair: 93 - 7</Text>
-                    <Checkbox color="#3e0057" label="(86)" style={styles.checkbox} value={meem3_2} onChange={(e) => setMEEM3_2(e)} />
+                    <Checkbox color="#3e0057" label="(86)" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_2} onChange={(e) => setMEEM3_2(e)} />
                     <Text muted style={styles.buttonText}>Subtrair: 86 - 7</Text>
-                    <Checkbox color="#3e0057" label="(79)" style={styles.checkbox} value={meem3_3} onChange={(e) => setMEEM3_3(e)} />
+                    <Checkbox color="#3e0057" label="(79)" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_3} onChange={(e) => setMEEM3_3(e)} />
                     <Text muted style={styles.buttonText}>Subtrair: 79 - 7</Text>
-                    <Checkbox color="#3e0057" label="(72)" style={styles.checkbox} value={meem3_4} onChange={(e) => setMEEM3_4(e)} />
+                    <Checkbox color="#3e0057" label="(72)" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_4} onChange={(e) => setMEEM3_4(e)} />
                     <Text muted style={styles.buttonText}>Subtrair: 72 - 7</Text>
-                    <Checkbox color="#3e0057" label="(65)" style={styles.checkbox} value={meem3_5} onChange={(e) => setMEEM3_5(e)} />
+                    <Checkbox color="#3e0057" label="(65)" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_5} onChange={(e) => setMEEM3_5(e)} />
 
                     <Text muted style={styles.buttonText}>Se o usuário errou os calculos acima, marque a caixa abaixo e peça para que ele soletre MUNDO de trás pra frente (marque as letras que ele soletrou corretamente)</Text>
-                    <Checkbox color="#3e0057" label="Errou" style={styles.checkbox} value={meem3_erro} onChange={(e) => setMEEM3_erro(e)} />
-                    <Checkbox color="#3e0057" label="O" style={styles.checkbox} value={meem3_11} onChange={(e) => setMEEM3_11(e)} />
-                    <Checkbox color="#3e0057" label="D" style={styles.checkbox} value={meem3_22} onChange={(e) => setMEEM3_22(e)} />
-                    <Checkbox color="#3e0057" label="N" style={styles.checkbox} value={meem3_33} onChange={(e) => setMEEM3_33(e)} />
-                    <Checkbox color="#3e0057" label="U" style={styles.checkbox} value={meem3_44} onChange={(e) => setMEEM3_44(e)} />
-                    <Checkbox color="#3e0057" label="M" style={styles.checkbox} value={meem3_55} onChange={(e) => setMEEM3_55(e)} />
+                    <Checkbox color="#3e0057" label="Errou" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_erro} onChange={(e) => setMEEM3_erro(e)} />
+                    <Checkbox color="#3e0057" label="O" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_11} onChange={(e) => setMEEM3_11(e)} />
+                    <Checkbox color="#3e0057" label="D" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_22} onChange={(e) => setMEEM3_22(e)} />
+                    <Checkbox color="#3e0057" label="N" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_33} onChange={(e) => setMEEM3_33(e)} />
+                    <Checkbox color="#3e0057" label="U" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_44} onChange={(e) => setMEEM3_44(e)} />
+                    <Checkbox color="#3e0057" label="M" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem3_55} onChange={(e) => setMEEM3_55(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Evocação (marque a opção, se o usuário lembrar a palavra)</Text>
                     <Text muted style={styles.buttonText}>Perguntar pelas 3 palavras anteriores: PENTE RUA AZUL</Text>
-                    <Checkbox color="#3e0057" label="Pente" style={styles.checkbox} value={meem4_1} onChange={(e) => setMEEM4_1(e)} />
-                    <Checkbox color="#3e0057" label="Rua" style={styles.checkbox} value={meem4_2} onChange={(e) => setMEEM4_2(e)} />
-                    <Checkbox color="#3e0057" label="Azul" style={styles.checkbox} value={meem4_3} onChange={(e) => setMEEM4_3(e)} />
+                    <Checkbox color="#3e0057" label="Pente" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem4_1} onChange={(e) => setMEEM4_1(e)} />
+                    <Checkbox color="#3e0057" label="Rua" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem4_2} onChange={(e) => setMEEM4_2(e)} />
+                    <Checkbox color="#3e0057" label="Azul" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem4_3} onChange={(e) => setMEEM4_3(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Linguagem (marque a opção, se o usuário lembrar a palavra)</Text>
                     <Text muted style={styles.buttonText}>Mostre um relógio e uma caneta e peça para nomear</Text>
-                    <Checkbox color="#3e0057" label="Relógio" style={styles.checkbox} value={meem5_1} onChange={(e) => setMEEM5_1(e)} />
-                    <Checkbox color="#3e0057" label="Caneta" style={styles.checkbox} value={meem5_2} onChange={(e) => setMEEM5_2(e)} />
+                    <Checkbox color="#3e0057" label="Relógio" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem5_1} onChange={(e) => setMEEM5_1(e)} />
+                    <Checkbox color="#3e0057" label="Caneta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem5_2} onChange={(e) => setMEEM5_2(e)} />
                     <Text muted style={styles.buttonText}>Repetir: "Nem aqui, nem ali, nem lá"</Text>
-                    <Checkbox color="#3e0057" label="Repetiu corretamente" style={styles.checkbox} value={meem6_1} onChange={(e) => setMEEM6_1(e)} />
+                    <Checkbox color="#3e0057" label="Repetiu corretamente" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem6_1} onChange={(e) => setMEEM6_1(e)} />
                     <Text muted style={styles.buttonText}>Seguir o comando (falado) de três estágios: Pegue o papel com a mão direita, dobre ao meio e ponha no chão</Text>
-                    <Checkbox color="#3e0057" label="Pegar papel com a mão direita" style={styles.checkbox} value={meem7_1} onChange={(e) => setMEEM7_1(e)} />
-                    <Checkbox color="#3e0057" label="Dobre ao meio" style={styles.checkbox} value={meem7_2} onChange={(e) => setMEEM7_2(e)} />
-                    <Checkbox color="#3e0057" label="Ponha no chão" style={styles.checkbox} value={meem7_3} onChange={(e) => setMEEM7_3(e)} />
+                    <Checkbox color="#3e0057" label="Pegar papel com a mão direita" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem7_1} onChange={(e) => setMEEM7_1(e)} />
+                    <Checkbox color="#3e0057" label="Dobre ao meio" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem7_2} onChange={(e) => setMEEM7_2(e)} />
+                    <Checkbox color="#3e0057" label="Ponha no chão" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem7_3} onChange={(e) => setMEEM7_3(e)} />
                     <Text muted style={styles.buttonText}>Escreva em um papel e peça para a pessoa executar: Feche os olhos</Text>
-                    <Checkbox color="#3e0057" label="Fechou os olhos" style={styles.checkbox} value={meem8_1} onChange={(e) => setMEEM8_1(e)} />
+                    <Checkbox color="#3e0057" label="Fechou os olhos" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem8_1} onChange={(e) => setMEEM8_1(e)} />
                     <Text muted style={styles.buttonText}>Solicite que o paciente escreva uma frase (um pensamento ou ideia completa)</Text>
-                    <Checkbox color="#3e0057" label="Frase/ideia correta" style={styles.checkbox} value={meem9_1} onChange={(e) => setMEEM9_1(e)} />
+                    <Checkbox color="#3e0057" label="Frase/ideia correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem9_1} onChange={(e) => setMEEM9_1(e)} />
                     <Text muted style={styles.buttonText}>Copiar o desenho</Text>
                     <Block row space="evenly" style={{ padding: 10 }}>
                       <Image source={require('./assets/meem1.png')} style={{ minWidth: 100, minHeight: 100 }} />
                     </Block>
-                    <Checkbox color="#3e0057" label="Desenho correto" style={styles.checkbox} value={meem10_1} onChange={(e) => setMEEM10_1(e)} />
+                    <Checkbox color="#3e0057" label="Desenho correto" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem10_1} onChange={(e) => setMEEM10_1(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Qual a escolaridade do paciente?</Text>
                     <Text muted style={styles.buttonText}>Quantos anos concluidos de educação formal (deixe marcado apenas a opção ao qual o paciente se encaixa)</Text>
-                    <Checkbox color="#3e0057" label="Analfabeto" style={styles.checkbox} value={meem11_1} onChange={(e) => { setMEEM11_1(true); setMEEM11_2(false); setMEEM11_3(false); setMEEM11_4(false); }} />
-                    <Checkbox color="#3e0057" label="1 a 5 anos de escolaridade" style={styles.checkbox} value={meem11_2} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(true); setMEEM11_3(false); setMEEM11_4(false); }} />
-                    <Checkbox color="#3e0057" label="6 a 11 anos de escolaridade" style={styles.checkbox} value={meem11_3} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(false); setMEEM11_3(true); setMEEM11_4(false); }} />
-                    <Checkbox color="#3e0057" label="12 anos ou mais de escolaridade" style={styles.checkbox} value={meem11_4} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(false); setMEEM11_3(false); setMEEM11_4(true); }} />
+                    <Checkbox color="#3e0057" label="Analfabeto" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem11_1} onChange={(e) => { setMEEM11_1(true); setMEEM11_2(false); setMEEM11_3(false); setMEEM11_4(false); }} />
+                    <Checkbox color="#3e0057" label="1 a 5 anos de escolaridade" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem11_2} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(true); setMEEM11_3(false); setMEEM11_4(false); }} />
+                    <Checkbox color="#3e0057" label="6 a 11 anos de escolaridade" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem11_3} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(false); setMEEM11_3(true); setMEEM11_4(false); }} />
+                    <Checkbox color="#3e0057" label="12 anos ou mais de escolaridade" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={meem11_4} onChange={(e) => { setMEEM11_1(false); setMEEM11_2(false); setMEEM11_3(false); setMEEM11_4(true); }} />
                   </Block>
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
@@ -1510,16 +1510,16 @@ export default function App() {
                     <Block row space="evenly" style={{ padding: 10 }}>
                       <Image source={require('./assets/moca1.png')} style={{ minWidth: 100, minHeight: 100 }} />
                     </Block>
-                    <Checkbox color="#3e0057" label="Desenho correto" style={styles.checkbox} value={moca1_1} onChange={(e) => setMOCA1_1(e)} />
+                    <Checkbox color="#3e0057" label="Desenho correto" labelStyle={styles.labelCheckbox} labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca1_1} onChange={(e) => setMOCA1_1(e)} />
                     <Text muted style={styles.buttonText}>Copiar o cubo (marque a opção abaixo, se o usuário conseguir copiar o cubo)</Text>
                     <Block row space="evenly" style={{ padding: 10 }}>
                       <Image source={require('./assets/moca2.png')} style={{ minWidth: 100, minHeight: 100 }} />
                     </Block>
-                    <Checkbox color="#3e0057" label="Desenho correto" style={styles.checkbox} value={moca1_2} onChange={(e) => setMOCA1_2(e)} />
+                    <Checkbox color="#3e0057" label="Desenho correto" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca1_2} onChange={(e) => setMOCA1_2(e)} />
                     <Text muted style={styles.buttonText}>Peça desenhar um Relógio - onze horas e dez minutos (marque a opção abaixo, de acordo com as opções que o usuários conseguiu realizar)</Text>
-                    <Checkbox color="#3e0057" label="Contorno" style={styles.checkbox} value={moca1_3} onChange={(e) => setMOCA1_3(e)} />
-                    <Checkbox color="#3e0057" label="Números" style={styles.checkbox} value={moca1_4} onChange={(e) => setMOCA1_4(e)} />
-                    <Checkbox color="#3e0057" label="Ponteiros" style={styles.checkbox} value={moca1_5} onChange={(e) => setMOCA1_5(e)} />
+                    <Checkbox color="#3e0057" label="Contorno" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca1_3} onChange={(e) => setMOCA1_3(e)} />
+                    <Checkbox color="#3e0057" label="Números" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca1_4} onChange={(e) => setMOCA1_4(e)} />
+                    <Checkbox color="#3e0057" label="Ponteiros" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca1_5} onChange={(e) => setMOCA1_5(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Nomeação</Text>
@@ -1527,81 +1527,81 @@ export default function App() {
                     <Block row space="evenly" style={{ padding: 10 }}>
                       <Image source={require('./assets/moca3.png')} style={{ minWidth: 100, minHeight: 100 }} />
                     </Block>
-                    <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} value={moca2_1} onChange={(e) => setMOCA2_1(e)} />
+                    <Checkbox color="#3e0057" label="Resposta correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca2_1} onChange={(e) => setMOCA2_1(e)} />
                     <Text muted style={styles.buttonText}>Qual o nome do animal a seguir? (marque a opção abaixo, se o usuário acertou a resposta)</Text>
                     <Block row space="evenly" style={{ padding: 10 }}>
                       <Image source={require('./assets/moca4.png')} style={{ minWidth: 100, minHeight: 100 }} />
                     </Block>
-                    <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} value={moca2_2} onChange={(e) => setMOCA2_2(e)} />
+                    <Checkbox color="#3e0057" label="Resposta correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca2_2} onChange={(e) => setMOCA2_2(e)} />
                     <Text muted style={styles.buttonText}>Qual o nome do animal a seguir? (marque a opção abaixo, se o usuário acertou a resposta)</Text>
                     <Block row space="evenly" style={{ padding: 10 }}>
                       <Image source={require('./assets/moca5.png')} style={{ minWidth: 100, minHeight: 100 }} />
                     </Block>
-                    <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} value={moca2_3} onChange={(e) => setMOCA2_3(e)} />
+                    <Checkbox color="#3e0057" label="Resposta correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca2_3} onChange={(e) => setMOCA2_3(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Memória (sem pontuação - repetir depois no passo evocação tardia)</Text>
                     <Text muted style={styles.buttonText}>Leia a lista de palavras, o sujeito deve repeti-la, faça duas tentativas, evocar após 5 minutos</Text>
                     <Text muted style={styles.buttonText}>Rosto - Veludo - Igreja - Margarida - Vermelho</Text>
-                    <Checkbox color="#3e0057" label="1° tentativa (sem pontuação)" style={styles.checkbox} />
-                    <Checkbox color="#3e0057" label="2° tentativa (sem pontuação)" style={styles.checkbox} />
+                    <Checkbox color="#3e0057" label="1° tentativa (sem pontuação)" labelStyle={styles.labelCheckbox} style={styles.checkbox} />
+                    <Checkbox color="#3e0057" label="2° tentativa (sem pontuação)" labelStyle={styles.labelCheckbox} style={styles.checkbox} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Atenção</Text>
                     <Text muted style={styles.buttonText}>Leia a sequência de números (1 por segundo)</Text>
                     <Text muted style={styles.buttonText}>(2 1 8 5 4) em ordem direta (marque abaixo se o usuário respondeu corretamente)</Text>
-                    <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} value={moca3_1} onChange={(e) => setMOCA3_1(e)} />
+                    <Checkbox color="#3e0057" label="Resposta correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca3_1} onChange={(e) => setMOCA3_1(e)} />
                     <Text muted style={styles.buttonText}>(7 4 2) em ordem indireta (marque abaixo se o usuário respondeu corretamente)</Text>
-                    <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} value={moca3_2} onChange={(e) => setMOCA3_2(e)} />
+                    <Checkbox color="#3e0057" label="Resposta correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca3_2} onChange={(e) => setMOCA3_2(e)} />
                     <Text muted style={styles.buttonText}>Leia a série de linhas. O Sujeito deve bater com a mão na mesa, cada vez que ouvir a letra (A). Não marque a caixa abaixo se teve 2 ou mais erros</Text>
                     <Text muted style={styles.buttonText}>Linha: F B A C M N A A J K L B A F A K D E A A A J A M O F A A B</Text>
-                    <Checkbox color="#3e0057" label="Série A Correta" style={styles.checkbox} value={moca4_1} onChange={(e) => setMOCA4_1(e)} />
+                    <Checkbox color="#3e0057" label="Série A Correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca4_1} onChange={(e) => setMOCA4_1(e)} />
                     <Text muted style={styles.buttonText}>Subtração de 7 começando pelo 100 (93) (86) (79) (72) (65) (deixe marcado apenas a opção correta)</Text>
-                    <Checkbox color="#3e0057" label="4 ou 5 subtrações corretas" style={styles.checkbox} checked={moca5_1} value={moca5_1} onChange={(e) => { setMOCA5_1(true); setMOCA5_2(false); setMOCA5_3(false); setMOCA5_4(false); }} />
-                    <Checkbox color="#3e0057" label="2 ou 3 subtrações corretas" style={styles.checkbox} checked={moca5_2} value={moca5_2} onChange={(e) => { setMOCA5_1(false); setMOCA5_2(true); setMOCA5_3(false); setMOCA5_4(false); }} />
-                    <Checkbox color="#3e0057" label="1 subtração correta" style={styles.checkbox} checked={moca5_3} value={moca5_3} onChange={(e) => { setMOCA5_1(false); setMOCA5_2(false); setMOCA5_3(true); setMOCA5_4(false); }} />
-                    <Checkbox color="#3e0057" label="0 subtrações corretas" style={styles.checkbox} checked={moca5_4} value={moca5_4} onChange={(e) => { setMOCA5_1(false); setMOCA5_2(false); setMOCA5_3(false); setMOCA5_4(true); }} />
+                    <Checkbox color="#3e0057" label="4 ou 5 subtrações corretas" labelStyle={styles.labelCheckbox} style={styles.checkbox} checked={moca5_1} value={moca5_1} onChange={(e) => { setMOCA5_1(true); setMOCA5_2(false); setMOCA5_3(false); setMOCA5_4(false); }} />
+                    <Checkbox color="#3e0057" label="2 ou 3 subtrações corretas" labelStyle={styles.labelCheckbox} style={styles.checkbox} checked={moca5_2} value={moca5_2} onChange={(e) => { setMOCA5_1(false); setMOCA5_2(true); setMOCA5_3(false); setMOCA5_4(false); }} />
+                    <Checkbox color="#3e0057" label="1 subtração correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} checked={moca5_3} value={moca5_3} onChange={(e) => { setMOCA5_1(false); setMOCA5_2(false); setMOCA5_3(true); setMOCA5_4(false); }} />
+                    <Checkbox color="#3e0057" label="0 subtrações corretas" labelStyle={styles.labelCheckbox} style={styles.checkbox} checked={moca5_4} value={moca5_4} onChange={(e) => { setMOCA5_1(false); setMOCA5_2(false); setMOCA5_3(false); setMOCA5_4(true); }} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Linguagem</Text>
                     <Text muted style={styles.buttonText}>Repetir: Eu somente sei que é João quem será ajudado hoje</Text>
-                    <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} value={moca6_1} onChange={(e) => setMOCA6_1(e)} />
+                    <Checkbox color="#3e0057" label="Resposta correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca6_1} onChange={(e) => setMOCA6_1(e)} />
                     <Text muted style={styles.buttonText}>Repetir: O gato sempre se esconde embaixo do Sofá quando o cachorro está na sala</Text>
-                    <Checkbox color="#3e0057" label="Resposta correta" style={styles.checkbox} value={moca6_2} onChange={(e) => setMOCA6_2(e)} />
+                    <Checkbox color="#3e0057" label="Resposta correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca6_2} onChange={(e) => setMOCA6_2(e)} />
                     <Text muted style={styles.buttonText}>Fluência verbal: dzier o maior número possivel de palavras que comecem pela letra F (1 minuto)</Text>
-                    <Checkbox color="#3e0057" label="Maior ou igual a 11 palavras com a letra F" style={styles.checkbox} value={moca7_1} onChange={(e) => setMOCA7_1(e)} />
+                    <Checkbox color="#3e0057" label="Maior ou igual a 11 palavras com a letra F" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca7_1} onChange={(e) => setMOCA7_1(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Abstração</Text>
                     <Text muted style={styles.buttonText}>Semelhança por exemplo entre banana e laranja = fruta</Text>
                     <Text muted style={styles.buttonText}>Qual a semelhança entre trem - bicicleta? (marque abaixo se o usuário respondeu corretamente)</Text>
-                    <Checkbox color="#3e0057" label="Semelhança correta" style={styles.checkbox} value={moca8_1} onChange={(e) => setMOCA8_1(e)} />
+                    <Checkbox color="#3e0057" label="Semelhança correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca8_1} onChange={(e) => setMOCA8_1(e)} />
                     <Text muted style={styles.buttonText}>Qual a semelhança entre relógio - régua? (marque abaixo se o usuário respondeu corretamente)</Text>
-                    <Checkbox color="#3e0057" label="Semelhança correta" style={styles.checkbox} value={moca8_2} onChange={(e) => setMOCA8_2(e)} />
+                    <Checkbox color="#3e0057" label="Semelhança correta" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca8_2} onChange={(e) => setMOCA8_2(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Evocação tardia</Text>
                     <Text muted style={styles.buttonText}>O sujeito deve se recordas das palavras do teste de memória (sem pistas)</Text>
-                    <Checkbox color="#3e0057" label="Rosto" style={styles.checkbox} value={moca9_1} onChange={(e) => setMOCA9_1(e)} />
-                    <Checkbox color="#3e0057" label="Veludo" style={styles.checkbox} value={moca9_2} onChange={(e) => setMOCA9_2(e)} />
-                    <Checkbox color="#3e0057" label="Igreja" style={styles.checkbox} value={moca9_3} onChange={(e) => setMOCA9_3(e)} />
-                    <Checkbox color="#3e0057" label="Margarida" style={styles.checkbox} value={moca9_4} onChange={(e) => setMOCA9_4(e)} />
-                    <Checkbox color="#3e0057" label="Vermelho" style={styles.checkbox} value={moca9_5} onChange={(e) => setMOCA9_5(e)} />
+                    <Checkbox color="#3e0057" label="Rosto" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca9_1} onChange={(e) => setMOCA9_1(e)} />
+                    <Checkbox color="#3e0057" label="Veludo" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca9_2} onChange={(e) => setMOCA9_2(e)} />
+                    <Checkbox color="#3e0057" label="Igreja" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca9_3} onChange={(e) => setMOCA9_3(e)} />
+                    <Checkbox color="#3e0057" label="Margarida" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca9_4} onChange={(e) => setMOCA9_4(e)} />
+                    <Checkbox color="#3e0057" label="Vermelho" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca9_5} onChange={(e) => setMOCA9_5(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Orientação</Text>
                     <Text muted style={styles.buttonText}>O sujeito deve saber responder as dúvidas abaixo (marque se o usuário acertou a resposta)</Text>
-                    <Checkbox color="#3e0057" label="Qual dia do mês estamos" style={styles.checkbox} value={moca10_1} onChange={(e) => setMOCA10_1(e)} />
-                    <Checkbox color="#3e0057" label="Qual mês" style={styles.checkbox} value={moca10_2} onChange={(e) => setMOCA10_2(e)} />
-                    <Checkbox color="#3e0057" label="Qual Ano" style={styles.checkbox} value={moca10_3} onChange={(e) => setMOCA10_3(e)} />
-                    <Checkbox color="#3e0057" label="Qual dia da semana" style={styles.checkbox} value={moca10_4} onChange={(e) => setMOCA10_4(e)} />
-                    <Checkbox color="#3e0057" label="Em que Lugar" style={styles.checkbox} value={moca10_5} onChange={(e) => setMOCA10_5(e)} />
-                    <Checkbox color="#3e0057" label="Em qual Cidade" style={styles.checkbox} value={moca10_6} onChange={(e) => setMOCA10_6(e)} />
+                    <Checkbox color="#3e0057" label="Qual dia do mês estamos" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca10_1} onChange={(e) => setMOCA10_1(e)} />
+                    <Checkbox color="#3e0057" label="Qual mês" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca10_2} onChange={(e) => setMOCA10_2(e)} />
+                    <Checkbox color="#3e0057" label="Qual Ano" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca10_3} onChange={(e) => setMOCA10_3(e)} />
+                    <Checkbox color="#3e0057" label="Qual dia da semana" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca10_4} onChange={(e) => setMOCA10_4(e)} />
+                    <Checkbox color="#3e0057" label="Em que Lugar" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca10_5} onChange={(e) => setMOCA10_5(e)} />
+                    <Checkbox color="#3e0057" label="Em qual Cidade" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca10_6} onChange={(e) => setMOCA10_6(e)} />
                   </Block>
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>Escolaridade</Text>
                     <Text muted style={styles.buttonText}>Se o usuário possui menor ou igual a 12 anos de escolaridade, marque a opção abaixo</Text>
-                    <Checkbox color="#3e0057" label="Escolaridade <= 12 anos" style={styles.checkbox} value={moca11_1} onChange={(e) => setMOCA11_1(e)} />
+                    <Checkbox color="#3e0057" label="Escolaridade <= 12 anos" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={moca11_1} onChange={(e) => setMOCA11_1(e)} />
                   </Block>
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
@@ -1723,8 +1723,8 @@ export default function App() {
                     flex
                     borderless
                     style={styles.card}
-                    title={e.firstName + " " + e.lastName}
-                    caption={"Testes aplicados: " + e.totalTests}
+                    title={"   " + e.firstName + " " + e.lastName}
+                    caption={"   Testes aplicados: " + e.totalTests}
                     avatar="https://siddproject.azurewebsites.net/img/theme/avatar.png"
                   />
                 }) : null}
@@ -1798,13 +1798,17 @@ const styles = StyleSheet.create({
   },
   picker: {
     height: 45,
-    color: "#a6a6a6",
+    color: "#3e0057b8",
     marginLeft: 6,
     borderWidth: 0,
   },
   checkbox: {
     height: 45,
+    color: "#3e0057b8",
     marginLeft: 6,
+  },
+  labelCheckbox: {
+    color: "#3e0057b8",
   },
   checkboxSintoma: {
     paddingRight: 10,
@@ -1814,8 +1818,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   touchableOpacity: {
-    borderWidth: 1,
-    borderColor: "#a6a6a6",
+    borderWidth: 0,
     borderRadius: 10,
     marginTop: 5
   },
