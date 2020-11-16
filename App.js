@@ -216,7 +216,7 @@ export default function App() {
     {
       id: 1,
       image: 'https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2018/11/Como-Criar-um-Site.png',
-      avatar: 'https://i7.pngguru.com/preview/178/419/741/computer-icons-avatar-login-user-avatar.jpg',
+      avatar: 'https://siddproject.azurewebsites.net/img/theme/avatar.png',
       title: 'Tutoriais',
       caption: 'Acessar',
       location: 'Santa Cruz do Sul, RS',
@@ -235,15 +235,6 @@ export default function App() {
       setPatient(null);
       var result = await client.postApi(`${endpoints.user.getPatients}`, null, true);
       if (result.statusCode === 200) {
-        Toast.show({
-          text1: 'Sucesso',
-          text2: 'Pacientes carregados! 👋',
-          type: 'info',
-          position: 'top',
-          visibilityTime: 2000,
-          autoHide: true,
-          topOffset: 60
-        });
         setPatient(result.response);
         setLoading(false);
       } else {
@@ -263,15 +254,6 @@ export default function App() {
       setPatient(null);
       var result = await client.postApi(`${endpoints.user.getPatients}`, null, true);
       if (result.statusCode === 200) {
-        Toast.show({
-          text1: 'Sucesso',
-          text2: 'Pacientes carregados! 👋',
-          type: 'info',
-          position: 'top',
-          visibilityTime: 2000,
-          autoHide: true,
-          topOffset: 60
-        });
         setPatient(result.response);
         setLoading(false);
       } else {
@@ -856,13 +838,11 @@ export default function App() {
   }
 
   const CheckTesteSintoma = (e) => {
-    console.log(e)
     var teste = testeSintoma.filter(x => x == e);
     if (teste.length == 0)
       setTesteSintoma([...testeSintoma, e])
     else
       setTesteSintoma(testeSintoma.filter((x) => (x !== e)))
-    console.log(testeSintoma)
   };
 
   async function sendTesteSintoma() {
@@ -876,11 +856,8 @@ export default function App() {
       };
       listaA.push(data);
     });
-    var data = {
-      lista: listaA
-    };
 
-    var result = await client.postApi(`${endpoints.app.insertTesteSintoma}`, data, false);
+    var result = await client.postApi(`${endpoints.app.insertTesteSintoma}`, listaA, false);
     if (result.statusCode === 200) {
       Toast.show({
         text1: 'Teste de Sintomas',
@@ -972,8 +949,7 @@ export default function App() {
             <Text muted center color="#fff" style={{ marginTop: 14 }}>Olá, {userData.user.firstName} {userData.user.lastName}</Text>
           </Block>
         </Block> : null}
-        <Block row style={{ width: '100%', paddingTop: 10, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, backgroundColor: '#3e0057', color: '#ffffff !important', paddingBottom: 10 }}>
-        </Block>
+        <Block row style={{ width: '100%', paddingTop: 10, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, backgroundColor: '#3e0057', color: '#ffffff !important', paddingBottom: 10 }} />
 
         <Block style={styles.grid}>
           {loading &&
@@ -1016,34 +992,11 @@ export default function App() {
                     <Text muted style={styles.buttonText}>Novo Teste</Text>
                   </Button>
 
-                  <Button color="" style={styles.button} onPress={() => tab("results")}>
-                    <Block middle style={styles.block}>
-                      <Icon size={40} color="#F5F5F5" name={'format-list-bulleted'} />
-                    </Block>
-                    <Text muted style={styles.buttonText}>Resultados</Text>
-                  </Button>
-                </Block>
-
-                <Block row space="evenly">
                   <Button color="" style={styles.button} onPress={() => second("patients")}>
                     <Block middle style={styles.block}>
                       <Icon size={40} color="#F5F5F5" name={'account-supervisor'} />
                     </Block>
                     <Text muted style={styles.buttonText}>Pacientes</Text>
-                  </Button>
-
-                  <Button color="" style={styles.button} onPress={() => second("medics")}>
-                    <Block middle style={styles.block}>
-                      <Icon size={40} color="#F5F5F5" name={'medical-bag'} />
-                    </Block>
-                    <Text muted style={styles.buttonText}>Médicos</Text>
-                  </Button>
-
-                  <Button color="" style={styles.button} onPress={() => second("unitys")}>
-                    <Block middle style={styles.block}>
-                      <Icon size={40} color="#F5F5F5" name={'home-outline'} />
-                    </Block>
-                    <Text muted style={styles.buttonText}>Unidades</Text>
                   </Button>
                 </Block>
 
@@ -1098,16 +1051,16 @@ export default function App() {
                     }) : null}</Text>
                   </Block>
                   <Block flex center>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("pfeffer")}>1° PASSO - PFEFFER</Button>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("pfeffer")}>QUESTIONÁRIO PFEFFER</Button>
                   </Block>
                   <Block flex center>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("cdr")}>2° PASSO - CDR</Button>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("cdr")}>CDR</Button>
                   </Block>
                   <Block flex center>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("minimental")}>3° PASSO - MINI MENTAL</Button>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("minimental")}>MINI MENTAL (MEEM)</Button>
                   </Block>
                   <Block flex center>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("moca")}>3° PASSO - MoCA</Button>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("moca")}>MoCA</Button>
                   </Block>
                   <Block flex center>
                     <Button round color="#3e0057" uppercase size="large" onPress={() => calltest("sintomas")}>TESTE DE SINTOMAS</Button>
@@ -1115,9 +1068,7 @@ export default function App() {
                 </>}
                 {activeTab == "new" && activeTest != "" && <>
                   <Block flex center>
-                    <TouchableOpacity>
-                      <Text h4 muted onPress={() => test("")} style={{ backgroundColor: '#e8e8e8', borderRadius: 50, color: '#f5f5f5', paddingLeft: 15, paddingRight: 15 }}>FECHAR</Text>
-                    </TouchableOpacity>
+                    <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "pfeffer" && <>
@@ -1767,10 +1718,15 @@ export default function App() {
                   <Text muted style={styles.buttonText}>Pacientes</Text>
                 </Block>
                 {patient != null ? patient.data.map((e) => {
-                  return <Block style={styles.cardQuestion} key={e.id}>
-                    <Text p>{e.firstName + " " + e.lastName}</Text>
-                    <Text muted>Testes aplicados: {e.totalTests}</Text>
-                  </Block>
+                  return <Card
+                    key={e.id}
+                    flex
+                    borderless
+                    style={styles.card}
+                    title={e.firstName + " " + e.lastName}
+                    caption={"Testes aplicados: " + e.totalTests}
+                    avatar="https://siddproject.azurewebsites.net/img/theme/avatar.png"
+                  />
                 }) : null}
               </>}
               {activeTab == "results" && secondTab == "medics" && <>
@@ -1844,7 +1800,7 @@ const styles = StyleSheet.create({
     height: 45,
     color: "#a6a6a6",
     marginLeft: 6,
-    borderWidth: 0
+    borderWidth: 0,
   },
   checkbox: {
     height: 45,
@@ -1891,6 +1847,12 @@ const styles = StyleSheet.create({
   block: {
     marginTop: 15,
     backgroundColor: "#3e0057",
+    borderWidth: 3.5,
+    borderColor: '#ddd',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    elevation: 1,
     color: '#fff',
     borderRadius: 100,
     height: width * 0.2,
