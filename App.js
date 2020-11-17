@@ -8,6 +8,7 @@ import {
 import BottomNavigation, {
   FullTab,
 } from 'react-native-material-bottom-navigation';
+import DatePicker from 'react-native-datepicker'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import theme from './theme';
 import Toast from 'react-native-toast-message';
@@ -33,8 +34,10 @@ export default function App() {
   // NEW
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [idade, setIdade] = useState("");
+  const [idade, setIdade] = useState(new Date());
   const [sexo, setSexo] = useState("");
+  const [trabalho, setTrabalho] = useState("");
+  const [estadoCivil, setEstadoCivil] = useState("");
   // NEW
   // NEW
   const [frequencia, setFrequencia] = useState("");
@@ -352,8 +355,10 @@ export default function App() {
     var data = {
       firstName: firstName,
       lastName: lastName,
-      idade: parseInt(idade),
-      sexo: sexo
+      idadeData: idade,
+      sexo: sexo,
+      estadoCivil: estadoCivil,
+      trabalho: trabalho
     };
     var result = await client.postApi(`${endpoints.user.insertPatient}`, data, false);
     if (result.statusCode === 200) {
@@ -1686,8 +1691,16 @@ export default function App() {
                   <Input type="default" value={firstName} onChangeText={(e) => setFirstName(e)} />
                   <Text muted center style={styles.buttonText}>Último Nome</Text>
                   <Input type="default" value={lastName} onChangeText={(e) => setLastName(e)} />
-                  <Text muted center style={styles.buttonText}>Idade</Text>
-                  <Input type="numeric" value={idade} onChangeText={(e) => setIdade(e)} />
+                  <Text muted center style={styles.buttonText}>Data de Nascimento</Text>
+                  <DatePicker
+                    style={{ width: '100%', borderRadius: 8 }}
+                    date={idade}
+                    mode="date"
+                    format="DD/MM/YYYY"
+                    confirmBtnText="Confirma"
+                    cancelBtnText="Cancela"
+                    onDateChange={(date) => setIdade(date)}
+                  />
                   <Text muted center style={styles.buttonText}>Sexo</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
@@ -1699,6 +1712,25 @@ export default function App() {
                       <Picker.Item label="Nenhum selecionado" value="null" />
                       <Picker.Item label="Masculino" value="Masculino" />
                       <Picker.Item label="Feminino" value="Feminino" />
+                      <Picker.Item label="Outro" value="Outro" />
+                    </Picker>
+                  </TouchableOpacity>
+                  <Text muted center style={styles.buttonText}>Trabalho</Text>
+                  <Input type="default" value={trabalho} onChangeText={(e) => setTrabalho(e)} />
+                  <Text muted center style={styles.buttonText}>Estado Civil</Text>
+                  <TouchableOpacity style={styles.touchableOpacity}>
+                    <Picker
+                      mode="dropdown"
+                      style={styles.picker}
+                      selectedValue={estadoCivil}
+                      onValueChange={(itemValue, itemIndex) => { setEstadoCivil(itemValue) }}
+                    >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
+                      <Picker.Item label="Solteiro(a)" value="Solteiro(a)" />
+                      <Picker.Item label="Casado(a)" value="Casado(a)" />
+                      <Picker.Item label="Separado(a)" value="Separado(a)" />
+                      <Picker.Item label="Divorciado(a)" value="Divorciado(a)" />
+                      <Picker.Item label="Viúvo(a)" value="Viúvo(a)" />
                       <Picker.Item label="Outro" value="Outro" />
                     </Picker>
                   </TouchableOpacity>

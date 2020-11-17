@@ -14,6 +14,10 @@ namespace AppSidd.Domain.Users.Auth
         public string LastName { get; set; }
         public string Sexo { get; set; }
         public int Idade { get; set; }
+        public DateTime? IdadeData { get; set; }
+        public int TempoDeEstudo { get; set; }
+        public string EstadoCivil { get; set; }
+        public string Trabalho { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
         public string SUS { get; set; }
@@ -22,14 +26,14 @@ namespace AppSidd.Domain.Users.Auth
         public bool IsActive { get; set; }
         public virtual ICollection<AppUserRole> AppUserRoles { get; set; }
 
-        internal AppUser(INotificationHandler notificationHandler) 
+        internal AppUser(INotificationHandler notificationHandler)
             => _notificationHandler = notificationHandler;
 
         public bool IsValid => !_notificationHandler.HasNotification();
 
         public void Specify()
         {
-             var specifications = new AppUserSpecifications();
+            var specifications = new AppUserSpecifications();
             foreach (var specification in specifications)
             {
                 var validation = specification.Condition();

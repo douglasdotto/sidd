@@ -1,17 +1,17 @@
-﻿using AutoMapper;
-using AppSidd.Application.Users;
+﻿using AppSidd.Application.Dto;
 using AppSidd.Domain.Interfaces.Write;
 using AppSidd.Domain.Notifications;
 using AppSidd.Domain.Users.Auth;
 using AppSidd.Domain.Users.Auth.JWT;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using INotification = AppSidd.Domain.Notifications.INotificationHandler;
-using System.Text.RegularExpressions;
-using AppSidd.Application.Dto;
 
 namespace AppSidd.Application.Users.Handlers
 {
@@ -55,7 +55,10 @@ namespace AppSidd.Application.Users.Handlers
                     .WithFirstName(char.ToUpper(first[0]) + first.Substring(1))
                     .WithLastName(char.ToUpper(last[0]) + last.Substring(1))
                     .WithSexo(request.User.Sexo)
-                    .WithIdade(request.User.Idade)
+                    .WithIdadeData(DateTime.ParseExact(request.User.IdadeData, "dd/MM/yyyy", CultureInfo.InvariantCulture))
+                    .WithEstadoCivil(request.User.EstadoCivil)
+                    .WithTempoDeEstudo(request.User.TempoDeEstudo)
+                    .WithTrabalho(request.User.Trabalho)
                     .Raise();
 
                 if (!appUser.IsValid)

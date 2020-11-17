@@ -4,10 +4,10 @@ using System;
 
 namespace AppSidd.Domain.Users.Auth
 {
-    public class AppUserFactory: IAppUserFactory
+    public class AppUserFactory : IAppUserFactory
     {
         private readonly INotificationHandler _notificationHandler;
-        public AppUserFactory(INotificationHandler notificationHandler) => 
+        public AppUserFactory(INotificationHandler notificationHandler) =>
             _notificationHandler = notificationHandler;
 
         public AppUserBuilder DefaultBuilder()
@@ -22,7 +22,7 @@ namespace AppSidd.Domain.Users.Auth
                 _notificationHandler = notificationHandler;
                 _appuser = new AppUser(notificationHandler);
             }
-            
+
             public AppUserBuilder WithUserName(string value)
             {
                 _appuser.UserName = value;
@@ -60,9 +60,27 @@ namespace AppSidd.Domain.Users.Auth
                 return this;
             }
 
-            public AppUserBuilder WithIdade(int value)
+            public AppUserBuilder WithIdadeData(DateTime value)
             {
-                _appuser.Idade = value;
+                _appuser.IdadeData = value;
+                return this;
+            }
+
+            public AppUserBuilder WithEstadoCivil(string value)
+            {
+                _appuser.EstadoCivil = value;
+                return this;
+            }
+
+            public AppUserBuilder WithTempoDeEstudo(int value)
+            {
+                _appuser.TempoDeEstudo = value;
+                return this;
+            }
+
+            public AppUserBuilder WithTrabalho(string value)
+            {
+                _appuser.Trabalho = value;
                 return this;
             }
 

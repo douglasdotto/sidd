@@ -306,9 +306,9 @@ namespace AppSidd.Application.Users.Handlers
                 diagnostico.Add("Transtorno Neurocognitivo Leve - Doença de Parkinson");
 
             if (diagnostico.Count() > 0 && reprovacao > 0)
-                result.Diagnostico = "Com base nos dados coletados pelos sintomas, existe uma probabilidade do paciente ter: <h3>" + string.Join("<br>", diagnostico) + "</h3>";
+                result.Diagnostico = "Com base nos testes aplicados e nos sintomas relatados, existe uma probabilidade do paciente ter: <h3>" + string.Join("<br>", diagnostico) + "</h3>";
             else
-                result.Diagnostico = "Ainda não é possível informar um diagnóstico.";
+                result.Diagnostico = "Ops... O SIDD ainda não é capaz de informar um diagnóstico.";
 
             return result;
         }

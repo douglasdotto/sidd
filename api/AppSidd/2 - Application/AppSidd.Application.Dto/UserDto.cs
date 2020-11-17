@@ -11,7 +11,11 @@ namespace AppSidd.Application.Dto
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Sexo { get; set; }
-        public int Idade { get; set; }
+        public int? Idade { get; set; }
+        public DateTime? IdadeData { get; set; }
+        public int TempoDeEstudo { get; set; }
+        public string EstadoCivil { get; set; }
+        public string Trabalho { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
         public string SUS { get; set; }
