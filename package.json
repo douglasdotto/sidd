@@ -7,6 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject"
   },
+  "homepage": ".",
   "dependencies": {
     "@react-native-community/async-storage": "~1.11.0",
     "expo": "^38.0.10",
