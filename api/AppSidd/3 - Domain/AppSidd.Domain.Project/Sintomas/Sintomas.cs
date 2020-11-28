@@ -3,13 +3,18 @@ using System;
 
 namespace AppSidd.Domain.Project
 {
-    // 1 - Alzheimer 1° estágio
-    // 2 - Alzheimer 2° estágio
-    // 3 - Alzheimer 3° estágio
-    // 4 - Fronto
-    // 5 - Lewy
-    // 6 - Vascular
-    // 7 - Parkinson
+    // 11 - atenção complexa maior
+    // 12 - atenção complexa leve
+    // 21 - função executiva maior
+    // 22 - função executiva leve
+    // 31 - aprendizagem e memoria maior
+    // 32 - aprendizagem e memoria leve
+    // 41 - linguagem maior
+    // 42 - linguagem leve
+    // 51 - perceptomotor maior
+    // 52 - perceptomotor leve
+    // 61 - cognição social maior
+    // 62 - cognição social leve
     public class Sintomas
     {
         private readonly INotificationHandler _notificationHandler;

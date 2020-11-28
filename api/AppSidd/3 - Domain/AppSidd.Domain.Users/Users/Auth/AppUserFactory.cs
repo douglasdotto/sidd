@@ -84,6 +84,24 @@ namespace AppSidd.Domain.Users.Auth
                 return this;
             }
 
+            public AppUserBuilder WithRaca(string value)
+            {
+                _appuser.Raca = value;
+                return this;
+            }
+
+            public AppUserBuilder WithResideCom(string value)
+            {
+                _appuser.ResideCom = value;
+                return this;
+            }
+
+            public AppUserBuilder WithPossuiCuidador(bool value)
+            {
+                _appuser.PossuiCuidador = value;
+                return this;
+            }
+
             public AppUser Raise()
             {
                 _appuser.Specify();

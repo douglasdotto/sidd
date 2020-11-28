@@ -33,18 +33,53 @@ namespace Dashboard.Controllers
             var dash = await _mediator.Send(new GetInfoDashRequest(CurrentUser));
 
             decimal total = dash.Pfeffer + dash.CDR + dash.MEEM + dash.MoCA + dash.TesteSintomas;
-
             ViewBag.Patients = token.Data;
             ViewBag.Pffefer = dash.Pfeffer.ToString();
-            ViewBag.PffeferPerc = Decimal.Round(Convert.ToDecimal((dash.Pfeffer * 100)) / total, 2).ToString().Replace(",", ".");
+            try
+            {
+                ViewBag.PffeferPerc = Decimal.Round(Convert.ToDecimal((dash.Pfeffer * 100)) / total, 2).ToString().Replace(",", ".");
+            }
+            catch
+            {
+                ViewBag.PffeferPerc = 0;
+            }
             ViewBag.MEEM = dash.MEEM.ToString();
-            ViewBag.MEEMPerc = Decimal.Round(Convert.ToDecimal((dash.MEEM * 100)) / total, 2).ToString().Replace(",", ".");
+            try
+            {
+                ViewBag.MEEMPerc = Decimal.Round(Convert.ToDecimal((dash.MEEM * 100)) / total, 2).ToString().Replace(",", ".");
+            }
+            catch
+            {
+                ViewBag.PffeferPerc = 0;
+            }
             ViewBag.MoCA = dash.MoCA.ToString();
-            ViewBag.MoCAPerc = Decimal.Round(Convert.ToDecimal((dash.MoCA * 100)) / total, 2).ToString().Replace(",", ".");
+            try
+            {
+                ViewBag.MoCAPerc = Decimal.Round(Convert.ToDecimal((dash.MoCA * 100)) / total, 2).ToString().Replace(",", ".");
+            }
+            catch
+            {
+                ViewBag.MoCAPerc = 0;
+            }
             ViewBag.CDR = dash.CDR.ToString();
-            ViewBag.CDRPerc = Decimal.Round(Convert.ToDecimal((dash.CDR * 100)) / total, 2).ToString().Replace(",", ".");
+            try
+            {
+                ViewBag.CDRPerc = Decimal.Round(Convert.ToDecimal((dash.CDR * 100)) / total, 2).ToString().Replace(",", ".");
+            }
+            catch
+            {
+                ViewBag.CDRPerc = 0;
+            }
             ViewBag.TesteSintoma = dash.TesteSintomas.ToString();
-            ViewBag.TesteSintomaPerc = Decimal.Round(Convert.ToDecimal((dash.TesteSintomas * 100)) / total, 2).ToString().Replace(",", ".");
+            try
+            {
+                ViewBag.TesteSintomaPerc = Decimal.Round(Convert.ToDecimal((dash.TesteSintomas * 100)) / total, 2).ToString().Replace(",", ".");
+            }
+            catch
+            {
+                ViewBag.TesteSintomaPerc = 0;
+            }
+
             return View();
         }
 
@@ -55,9 +90,6 @@ namespace Dashboard.Controllers
             ViewBag.Nome = dados.FirstName + " " + dados.LastName;
             ViewBag.Idade = dados.Idade;
             ViewBag.Sexo = dados.Sexo;
-            ViewBag.RG = dados.RG;
-            ViewBag.CPF = dados.CPF;
-            ViewBag.SUS = dados.SUS;
 
             ViewBag.TotalTests = dados.TotalTests;
             ViewBag.Tests = dados.Tests;

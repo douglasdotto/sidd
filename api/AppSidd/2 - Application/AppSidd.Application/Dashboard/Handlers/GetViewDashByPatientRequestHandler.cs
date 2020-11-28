@@ -242,73 +242,59 @@ namespace AppSidd.Application.Users.Handlers
             result.TotalTests = tests.Count();
             result.Acolhimento = acoDto;
             var testeSintomas = _uow.TesteSintomaRepository.Find(x => !x.IsDeleted && x.UserId == request.PatientId).ToList();
-            // 1 - Alzheimer 1° estágio
-            // 2 - Alzheimer 2° estágio
-            // 3 - Alzheimer 3° estágio
-            // 4 - Fronto
-            // 5 - Lewy
-            // 6 - Vascular
-            // 7 - Parkinson
-            int alzheimer1 = 0;
-            int alzheimer2 = 0;
-            int alzheimer3 = 0;
-            int fronto = 0;
-            int lewy51 = 0;
-            int lewy52 = 0;
-            int vascular = 0;
-            int parkinson = 0;
+            // 11 - atenção complexa maior
+            // 12 - atenção complexa leve
+            // 21 - função executiva maior
+            // 22 - função executiva leve
+            // 31 - aprendizagem e memoria maior
+            // 32 - aprendizagem e memoria leve
+            // 41 - linguagem maior
+            // 42 - linguagem leve
+            // 51 - perceptomotor maior
+            // 52 - perceptomotor leve
+            // 61 - cognição social maior
+            // 62 - cognição social leve
+            int atencaomaior = 0;
+            int antecaoleve = 0;
 
             List<String> diagnostico = new List<String>();
             foreach (var teste in testeSintomas)
             {
-                if (teste.Sintomas.Doenca1 == 1 || teste.Sintomas.Doenca2 == 1 || teste.Sintomas.Doenca3 == 1 || teste.Sintomas.Doenca4 == 1 || teste.Sintomas.Doenca5 == 1)
-                    alzheimer1++;
-                if (teste.Sintomas.Doenca1 == 2 || teste.Sintomas.Doenca2 == 2 || teste.Sintomas.Doenca3 == 2 || teste.Sintomas.Doenca4 == 2 || teste.Sintomas.Doenca5 == 2)
-                    alzheimer2++;
-                if (teste.Sintomas.Doenca1 == 3 || teste.Sintomas.Doenca2 == 3 || teste.Sintomas.Doenca3 == 3 || teste.Sintomas.Doenca4 == 3 || teste.Sintomas.Doenca5 == 3)
-                    alzheimer3++;
-                if (teste.Sintomas.Doenca1 == 4 || teste.Sintomas.Doenca2 == 4 || teste.Sintomas.Doenca3 == 4 || teste.Sintomas.Doenca4 == 4 || teste.Sintomas.Doenca5 == 4)
-                    fronto++;
-                if (teste.Sintomas.Doenca1 == 51 || teste.Sintomas.Doenca2 == 51 || teste.Sintomas.Doenca3 == 51 || teste.Sintomas.Doenca4 == 51 || teste.Sintomas.Doenca5 == 51)
-                    lewy51++;
-                if (teste.Sintomas.Doenca1 == 52 || teste.Sintomas.Doenca2 == 52 || teste.Sintomas.Doenca3 == 52 || teste.Sintomas.Doenca4 == 52 || teste.Sintomas.Doenca5 == 52)
-                    lewy52++;
-                if (teste.Sintomas.Doenca1 == 6 || teste.Sintomas.Doenca2 == 6 || teste.Sintomas.Doenca3 == 6 || teste.Sintomas.Doenca4 == 6 || teste.Sintomas.Doenca5 == 6)
-                    vascular++;
-                if (teste.Sintomas.Doenca1 == 7 || teste.Sintomas.Doenca2 == 7 || teste.Sintomas.Doenca3 == 7 || teste.Sintomas.Doenca4 == 7 || teste.Sintomas.Doenca5 == 7)
-                    parkinson++;
+                if (teste.Sintomas.Doenca1 == 1) { 
+                
+                }
             }
 
 
-            if (alzheimer3 >= 1)
-                diagnostico.Add("Transtorno Neurocognitivo Avançado - Doença de Alzheimer 3° Estagio");
-            else if (alzheimer2 >= 2)
-                diagnostico.Add("Transtorno Neurocognitivo Intermediário - Doença de Alzheimer 2° Estagio");
-            else if (alzheimer1 >= 3)
-                diagnostico.Add("Transtorno Neurocognitivo Leve - Doença de Alzheimer 1° Estagio");
+            //if (alzheimer3 >= 1)
+            //    diagnostico.Add("Transtorno Neurocognitivo Avançado - Doença de Alzheimer 3° Estagio");
+            //else if (alzheimer2 >= 2)
+            //    diagnostico.Add("Transtorno Neurocognitivo Intermediário - Doença de Alzheimer 2° Estagio");
+            //else if (alzheimer1 >= 3)
+            //    diagnostico.Add("Transtorno Neurocognitivo Leve - Doença de Alzheimer 1° Estagio");
 
-            if (fronto >= 3)
-                diagnostico.Add("Transtorno Neurocognitivo Maior ou Leve - Fronto temporal");
+            //if (fronto >= 3)
+            //    diagnostico.Add("Transtorno Neurocognitivo Maior ou Leve - Fronto temporal");
 
-            if (lewy51 >= 2 && lewy52 >= 1)
-                diagnostico.Add("Transtorno Neurocognitivo Maior - Corpos de Lewy");
-            else if (lewy51 == 1 && lewy52 >= 1)
-                diagnostico.Add("Transtorno Neurocognitivo Leve - Corpos de Lewy");
+            //if (lewy51 >= 2 && lewy52 >= 1)
+            //    diagnostico.Add("Transtorno Neurocognitivo Maior - Corpos de Lewy");
+            //else if (lewy51 == 1 && lewy52 >= 1)
+            //    diagnostico.Add("Transtorno Neurocognitivo Leve - Corpos de Lewy");
 
-            if (vascular >= 4)
-                diagnostico.Add("Transtorno Neurocognitivo Maior - Demência Vascular");
-            else if (vascular >= 2)
-                diagnostico.Add("Transtorno Neurocognitivo Leve - Demência Vascular");
+            //if (vascular >= 4)
+            //    diagnostico.Add("Transtorno Neurocognitivo Maior - Demência Vascular");
+            //else if (vascular >= 2)
+            //    diagnostico.Add("Transtorno Neurocognitivo Leve - Demência Vascular");
 
-            if (parkinson >= 4)
-                diagnostico.Add("Transtorno Neurocognitivo Maior - Doença de Parkinson");
-            else if (parkinson >= 2)
-                diagnostico.Add("Transtorno Neurocognitivo Leve - Doença de Parkinson");
+            //if (parkinson >= 4)
+            //    diagnostico.Add("Transtorno Neurocognitivo Maior - Doença de Parkinson");
+            //else if (parkinson >= 2)
+            //    diagnostico.Add("Transtorno Neurocognitivo Leve - Doença de Parkinson");
 
-            if (diagnostico.Count() > 0 && reprovacao > 0)
-                result.Diagnostico = "Com base nos testes aplicados e nos sintomas relatados, existe uma probabilidade do paciente ter: <h3>" + string.Join("<br>", diagnostico) + "</h3>";
-            else
-                result.Diagnostico = "Ops... O SIDD ainda não é capaz de informar um diagnóstico.";
+            //if (diagnostico.Count() > 0 && reprovacao > 0)
+            //    result.Diagnostico = "Com base nos testes aplicados e nos sintomas relatados, existe uma probabilidade do paciente ter: <h3>" + string.Join("<br>", diagnostico) + "</h3>";
+            //else
+            //    result.Diagnostico = "Ops... O SIDD ainda não é capaz de informar um diagnóstico.";
 
             return result;
         }

@@ -42,9 +42,9 @@ namespace Dashboard.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("insertPatient")]
-        public async Task<IActionResult> InsertPatient([FromBody] NewPatientDto patient)
+        public async Task<IActionResult> InsertPatient([FromBody] NewPatientDto data)
         {
-            var token = await _mediator.Send(new InsertPatientRequest(patient));
+            var token = await _mediator.Send(new InsertPatientRequest(data));
 
             if (_notification.HasNotification())
                 return BadRequest(new BadRequestDto(_notification));

@@ -16,10 +16,9 @@ namespace AppSidd.Application.Dto
         public int TempoDeEstudo { get; set; }
         public string EstadoCivil { get; set; }
         public string Trabalho { get; set; }
-        public string CPF { get; set; }
-        public string RG { get; set; }
-        public string SUS { get; set; }
-        public string COREN { get; set; }
+        public string Raca { get; set; }
+        public string ResideCom { get; set; }
+        public bool? PossuiCuidador { get; set; }
         public Guid? UnityId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }

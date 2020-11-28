@@ -57,8 +57,10 @@ namespace AppSidd.Application.Users.Handlers
                     .WithSexo(request.User.Sexo)
                     .WithIdadeData(DateTime.ParseExact(request.User.IdadeData, "dd/MM/yyyy", CultureInfo.InvariantCulture))
                     .WithEstadoCivil(request.User.EstadoCivil)
-                    .WithTempoDeEstudo(request.User.TempoDeEstudo)
-                    .WithTrabalho(request.User.Trabalho)
+                    .WithTempoDeEstudo(Convert.ToInt32(request.User.TempoDeEstudo))
+                    .WithRaca(request.User.Raca)
+                    .WithResideCom(request.User.ResideCom)
+                    .WithPossuiCuidador(request.User.PossuiCuidador == "1" ? true : false)
                     .Raise();
 
                 if (!appUser.IsValid)
@@ -74,7 +76,7 @@ namespace AppSidd.Application.Users.Handlers
 
                 appUser.IsActive = true;
 
-                var result = await _userManager.CreateAsync(appUser, "sidd123");
+                var result = await _userManager.CreateAsync(appUser, "104a938408af4fdea10147072159fc1c");
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)

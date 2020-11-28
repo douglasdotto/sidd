@@ -17,7 +17,8 @@ class ApiClient {
             headers: {
                 'Authorization': 'Bearer ' + this.authToken,
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Data-Type': 'json',
             },
             body: JSON.stringify(data)
         }).then(response => {

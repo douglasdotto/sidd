@@ -10,8 +10,10 @@ namespace AppSidd.Application.Dto
         public string LastName { get; set; }
         public string Sexo { get; set; }
         public string IdadeData { get; set; }
-        public int TempoDeEstudo { get; set; }
+        public string TempoDeEstudo { get; set; }
         public string EstadoCivil { get; set; }
-        public string Trabalho { get; set; }
+        public string Raca { get; set; }
+        public string ResideCom { get; set; }
+        public string PossuiCuidador { get; set; }
     }
 }

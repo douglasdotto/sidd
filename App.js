@@ -12,6 +12,7 @@ import DatePicker from 'react-native-datepicker'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import theme from './theme';
 import Toast from 'react-native-toast-message';
+import moment from 'moment';
 
 //api client
 import ApiClient from './ApiClient';
@@ -36,8 +37,11 @@ export default function App() {
   const [lastName, setLastName] = useState("");
   const [idade, setIdade] = useState(new Date());
   const [sexo, setSexo] = useState("");
-  const [trabalho, setTrabalho] = useState("");
+  const [tempoDeEstudo, setTempoDeEstudo] = useState("");
   const [estadoCivil, setEstadoCivil] = useState("");
+  const [raca, setRaca] = useState("");
+  const [resideCom, setResideCom] = useState("");
+  const [possuiCuidador, setPossuiCuidador] = useState("");
   // NEW
   // NEW
   const [frequencia, setFrequencia] = useState("");
@@ -199,7 +203,7 @@ export default function App() {
     },
     {
       key: 'results',
-      label: 'Resultados',
+      label: 'Tutoriais',
       barColor: '#3e0057',
       pressColor: '#F5F5F5',
       icon: 'format-list-bulleted'
@@ -339,7 +343,7 @@ export default function App() {
 
   async function newPatient() {
     setLoading(true);
-    if (firstName == "" || lastName == "" || idade == "" || sexo == "") {
+    if (firstName == "" || lastName == "" || idade == "" || sexo == "" || estadoCivil == "" || raca == "" || resideCom == "" || possuiCuidador == "") {
       Toast.show({
         text1: 'Erro',
         text2: "Por favor, preencha todas as opções de acordo com o paciente.",
@@ -353,12 +357,15 @@ export default function App() {
       return;
     }
     var data = {
-      firstName: firstName,
-      lastName: lastName,
-      idadeData: idade,
-      sexo: sexo,
-      estadoCivil: estadoCivil,
-      trabalho: trabalho
+      FirstName: firstName,
+      LastName: lastName,
+      Sexo: sexo,
+      IdadeData: moment(idade).format("DD/MM/YYYY").toString(),
+      TempoDeEstudo: tempoDeEstudo,
+      EstadoCivil: estadoCivil,
+      Raca: raca,
+      ResideCom: resideCom,
+      PossuiCuidador: possuiCuidador
     };
     var result = await client.postApi(`${endpoints.user.insertPatient}`, data, false);
     if (result.statusCode === 200) {
@@ -1007,6 +1014,8 @@ export default function App() {
 
                 {cards && cards.map((card, id) => (
                   <Card
+                    onClick={() => tab("results")}
+                    onClick={() => tab("results")}
                     key={`card-${card.image}`}
                     flex
                     borderless
@@ -1056,19 +1065,22 @@ export default function App() {
                     }) : null}</Text>
                   </Block>
                   <Block flex center>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("pfeffer")}>QUESTIONÁRIO PFEFFER</Button>
+                    <Text muted center style={styles.buttonText}>Identificação de Sintomas (sintomas que o profissional percebeu ou relatados pelo familiar), na aba de tutoriais tem informações que podem ser úteis para o preenchimento correto deste formulário</Text>
+                    <Button round color="warning" uppercase size="large" onPress={() => calltest("sintomas")}>TESTE DE SINTOMAS</Button>
                   </Block>
                   <Block flex center>
+                    <Text muted center style={styles.buttonText}>Questionário de atividades funcionais de Pfeffer</Text>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("pfeffer")}>PFEFFER</Button>
+                    <Text muted center style={styles.buttonText}>Escala de avaliação clínica da demência</Text>
                     <Button round color="#3e0057" uppercase size="large" onPress={() => test("cdr")}>CDR</Button>
+                    <Text muted center style={styles.buttonText}>Escala de depressão geriátrica</Text>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("cdr")}>GDS</Button>
                   </Block>
                   <Block flex center>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("minimental")}>MINI MENTAL (MEEM)</Button>
-                  </Block>
-                  <Block flex center>
+                    <Text muted center style={styles.buttonText}>Mini Exame do Estado Mental</Text>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("minimental")}>MEEM</Button>
+                    <Text muted center style={styles.buttonText}>Montreal Cognitive Assessment</Text>
                     <Button round color="#3e0057" uppercase size="large" onPress={() => test("moca")}>MoCA</Button>
-                  </Block>
-                  <Block flex center>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => calltest("sintomas")}>TESTE DE SINTOMAS</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest != "" && <>
@@ -1617,11 +1629,42 @@ export default function App() {
                   <Block row space="evenly">
                     <Text muted style={styles.buttonText}>Teste de Sintomas</Text>
                   </Block>
-                  {listaSintomas != null ? listaSintomas.map((e) => {
-                    return <Block style={styles.cardQuestion} key={e.sintomasId}>
-                      <Checkbox color="#3e0057" label={e.descricao} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
-                    </Block>
-                  }) : null}
+                  <Block style={styles.cardQuestion}>
+                    <Text muted center style={styles.buttonText}>ATENÇÃO COMPLEXA (Atenção sustentada, dividida, seletiva e velocidade de processamento)</Text>
+                    {listaSintomas != null ? listaSintomas.filter(x => x.doenca1 == 11 || x.doenca1 == 12).map((e) => {
+                      return <Checkbox color="#3e0057" key={e.sintomasId} label={e.descricao} labelStyle={styles.labelCheckbox} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
+                    }) : null}
+                  </Block>
+                  <Block style={styles.cardQuestion}>
+                    <Text muted center style={styles.buttonText}>FUNÇÃO EXECUTIVA (Planejamento, tomada de decisão, memória de trabalho, resposta a feedback e correção de erros, substituir hábitos/inibição e flexibilidade mental)</Text>
+                    {listaSintomas != null ? listaSintomas.filter(x => x.doenca1 == 21 || x.doenca1 == 22).map((e) => {
+                      return <Checkbox color="#3e0057" key={e.sintomasId} label={e.descricao} labelStyle={styles.labelCheckbox} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
+                    }) : null}
+                  </Block>
+                  <Block style={styles.cardQuestion}>
+                    <Text muted center style={styles.buttonText}>APRENDIZAGEM E MEMÓRIA (Memória imeadiata, recente (incluindo recordação livre, recordação por pistas e memória de reconhecimento), longo prazo (semântica e autobiográfica) e aprendizagem implícita)</Text>
+                    {listaSintomas != null ? listaSintomas.filter(x => x.doenca1 == 31 || x.doenca1 == 32).map((e) => {
+                      return <Checkbox color="#3e0057" key={e.sintomasId} label={e.descricao} labelStyle={styles.labelCheckbox} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
+                    }) : null}
+                  </Block>
+                  <Block style={styles.cardQuestion}>
+                    <Text muted center style={styles.buttonText}>LINGUAGEM (Linguagem expressiva (inclui nomeação, encontrar palavras, fluência, gramática e sintaxe) e receptiva)</Text>
+                    {listaSintomas != null ? listaSintomas.filter(x => x.doenca1 == 41 || x.doenca1 == 42).map((e) => {
+                      return <Checkbox color="#3e0057" key={e.sintomasId} label={e.descricao} labelStyle={styles.labelCheckbox} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
+                    }) : null}
+                  </Block>
+                  <Block style={styles.cardQuestion}>
+                    <Text muted center style={styles.buttonText}>PERCEPTOMOTOR (Percepção visual, visuoconstrutiva, práxis (utilização de uma teoria ou conhecimento de maneira prática) e gnosia(reconhecimento dos objetos por intermédio de um dos sentidos: visual, auditiva, etc))</Text>
+                    {listaSintomas != null ? listaSintomas.filter(x => x.doenca1 == 51 || x.doenca1 == 52).map((e) => {
+                      return <Checkbox color="#3e0057" key={e.sintomasId} label={e.descricao} labelStyle={styles.labelCheckbox} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
+                    }) : null}
+                  </Block>
+                  <Block style={styles.cardQuestion}>
+                    <Text muted center style={styles.buttonText}>COGNIÇÃO SOCIAL (Reconhecimento de emoções e teoria da mente)</Text>
+                    {listaSintomas != null ? listaSintomas.filter(x => x.doenca1 == 61 || x.doenca1 == 62).map((e) => {
+                      return <Checkbox color="#3e0057" key={e.sintomasId} label={e.descricao} labelStyle={styles.labelCheckbox} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
+                    }) : null}
+                  </Block>
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
                     <Button round uppercase color="primary" onPress={() => sendTesteSintoma()}>SALVAR</Button>
@@ -1691,6 +1734,8 @@ export default function App() {
                   <Input type="default" value={firstName} onChangeText={(e) => setFirstName(e)} />
                   <Text muted center style={styles.buttonText}>Último Nome</Text>
                   <Input type="default" value={lastName} onChangeText={(e) => setLastName(e)} />
+                  <Text muted center style={styles.buttonText}>Tempo de Estudo</Text>
+                  <Input type="numeric" value={tempoDeEstudo} onChangeText={(e) => setTempoDeEstudo(e)} />
                   <Text muted center style={styles.buttonText}>Data de Nascimento</Text>
                   <DatePicker
                     style={{ width: '100%', borderRadius: 8 }}
@@ -1715,8 +1760,6 @@ export default function App() {
                       <Picker.Item label="Outro" value="Outro" />
                     </Picker>
                   </TouchableOpacity>
-                  <Text muted center style={styles.buttonText}>Trabalho</Text>
-                  <Input type="default" value={trabalho} onChangeText={(e) => setTrabalho(e)} />
                   <Text muted center style={styles.buttonText}>Estado Civil</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
@@ -1734,6 +1777,54 @@ export default function App() {
                       <Picker.Item label="Outro" value="Outro" />
                     </Picker>
                   </TouchableOpacity>
+                  <Text muted center style={styles.buttonText}>Raça</Text>
+                  <TouchableOpacity style={styles.touchableOpacity}>
+                    <Picker
+                      mode="dropdown"
+                      style={styles.picker}
+                      selectedValue={raca}
+                      onValueChange={(itemValue, itemIndex) => { setRaca(itemValue) }}
+                    >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
+                      <Picker.Item label="Branca" value="Branca" />
+                      <Picker.Item label="Negra" value="Negra" />
+                      <Picker.Item label="Parda" value="Parda" />
+                      <Picker.Item label="Amarela" value="Amarela" />
+                      <Picker.Item label="Indígena" value="Indígena" />
+                    </Picker>
+                  </TouchableOpacity>
+                  <Text muted center style={styles.buttonText}>Reside com</Text>
+                  <TouchableOpacity style={styles.touchableOpacity}>
+                    <Picker
+                      mode="dropdown"
+                      style={styles.picker}
+                      selectedValue={resideCom}
+                      onValueChange={(itemValue, itemIndex) => { setResideCom(itemValue) }}
+                    >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
+                      <Picker.Item label="Familiar" value="Familiar" />
+                      <Picker.Item label="Filho(a)" value="Filho(a)" />
+                      <Picker.Item label="Neto(a)" value="Neto(a)" />
+                      <Picker.Item label="Sobrinho(a)" value="Sobrinho(a)" />
+                      <Picker.Item label="Irmão(Irmã)" value="Irmão(Irmã)" />
+                      <Picker.Item label="Companheiro(a)" value="Companheiro(a)" />
+                      <Picker.Item label="Conhecido" value="Conhecido" />
+                      <Picker.Item label="Sozinho" value="Sozinho" />
+                    </Picker>
+                  </TouchableOpacity>
+                  <Text muted center style={styles.buttonText}>Possui cuidador</Text>
+                  <TouchableOpacity style={styles.touchableOpacity}>
+                    <Picker
+                      mode="dropdown"
+                      style={styles.picker}
+                      selectedValue={possuiCuidador}
+                      onValueChange={(itemValue, itemIndex) => { setPossuiCuidador(itemValue) }}
+                    >
+                      <Picker.Item label="Nenhum selecionado" value="null" />
+                      <Picker.Item label="Sim" value="1" />
+                      <Picker.Item label="Não" value="0" />
+                    </Picker>
+                  </TouchableOpacity>
                 </Block>
                 <Block row center>
                   <Button round uppercase color="#3e0057" onPress={() => tab("home")}>FECHAR</Button>
@@ -1742,7 +1833,210 @@ export default function App() {
               </>}
               {activeTab == "results" && secondTab == "results" && <>
                 <Block row space="evenly">
-                  <Text muted style={styles.buttonText}>Resultados</Text>
+                  <Text muted style={styles.buttonText}>Tutoriais</Text>
+                </Block>
+                <Block style={styles.cardQuestion}>
+                  <Text h4 center style={styles.buttonText}>Domínios Cognitivos - Teste de Sintomas</Text>
+                  <Text style={styles.buttonText}>
+                    •	ATENÇÃO COMPLEXA:
+                  </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Atenção sustentada: Manutenção da atenção ao longo do tempo (p. ex., pressionar um botão sempre que escuta um tom e durante certo tempo).
+                  </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Atenção seletiva: Manutenção da atenção apesar de estímulos concorrentes e/ ou distratores: escutar a leitura de letras e números e repetir apenas as letras.
+                  </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Atenção dividida: Participar de duas tarefas no mesmo período de tempo: bater rapidamente enquanto aprende uma história que está sendo lida. A velocidade de processamento pode ser quantificada em qualquer tarefa cronometrando- a (p. ex., tempo para unir blocos em determinada forma; tempo para combinar símbolos com números; velocidade para responder, como a velocidade de contagem ou a velocidade de séries de 3).
+                  </Text>
+                  <Text style={styles.buttonText}>
+                    •	FUNÇÃO EXECUTIVA:
+                  </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Planejamento: Habilidade para encontrar a saída em um labirinto; interpreta uma combinação de figuras ou objetos em sequência.
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Tomada de decisão: Desempenho de tarefas que avaliam o processo de decisão diante de alternativas (p. ex., simulação de aposta).
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Memória de trabalho: Capacidade de manter informações por período curto e de manipulá-las (p. ex., aumento de uma lista de números ou repetição de uma série de números ou palavras, de trás para a frente).
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Resposta a feedback/utilização de erros: Capacidade de beneficiar-se de feedback ou crítica para inferir as regras para resolver um problema.
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Substituição de hábitos/inibição: Capacidade de escolher uma solução mais complexa e exigente para ser correto (p. ex., olhar além do rumo indicado por uma flecha; dar nome à cor da fonte de uma palavra e não nomear a palavra).
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Flexibilidade mental/cognitiva: Capacidade de mudar entre dois conceitos, tarefas ou regras de resposta (p. ex., de número para letra, de resposta verbal para pressionamento de tecla, de soma de números para ordenamento de números, de ordenamento de objetos por tamanho para ordenamento por cor).
+                        </Text>
+                  <Text style={styles.buttonText}>
+                    •	APRENDIZAGEM E MEMÓRIA:
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Alcance da memória imediata: Capacidade de repetir uma lista de palavras ou algarismos.
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    Nota: A memória imediata às vezes é considerada “memória de trabalho” (ver “Função Executiva”).
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Memória recente: Avalia o processo de codificar novas informações (p. ex., listas de palavras, contos ou diagramas). Os aspectos da memória recente que podem ser testados incluem:
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    1 - evocação livre (pede-se à pessoa que relembre o máximo de palavras, diagramas ou elementos de uma história);
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    2) evocação com pistas (o examinador ajuda a recordar, dando pistas semânticas, como “Listar todos os itens alimentares em uma lista” ou “Citar todas as crianças da história”);
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    3) memória de reconhecimento (o examinador solicita itens específicos – p. ex., “‘Maçã’ estava na lista?” ou “Você viu este diagrama ou figura?”).
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    Outros aspectos da memória que podem ser avaliados incluem memória semântica (memória de fatos), memória autobiográfica (memória de eventos pessoais ou pessoas) e aprendizagem.
+                            </Text>
+                  <Text style={styles.buttonText}>
+                    •	LINGUAGEM
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Linguagem expressiva: Citação confrontativa (identificação de objetos ou figuras); fluência (p. ex., nomear tantos itens quanto possível em uma categoria semântica [p. ex., animais] ou fonêmica [p. ex., palavras que começam com “f”] em um minuto).
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Gramática e sintaxe (p. ex., omissão ou uso incorreto de artigos, preposições, verbos auxiliares): Erros observados durante testes de nomeação e fluência são comparados aos padrões normais para avaliar a frequência de erros e comparados com pequenos erros normais da língua.
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Linguagem receptiva: Compreensão (tarefas de definição de palavras e identificação de objetos envolvendo estímulos animados e inanimados): realização de ações/atividades conforme comando verbal.
+                                </Text>
+                  <Text style={styles.buttonText}>
+                    •	PERCEPTOMOTOR:
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Percepção visual: Tarefas lineares com duas seções podem ser usadas para a detecção de defeito visual básico ou deficiência da atenção. Tarefas perceptivas sem uso da motricidade (incluindo reconhecimento facial) necessitam de identificação e/ou combinação de figuras – melhor quando as tarefas não podem ser mediadas verbalmente (p. ex., figuras não são objetos); algumas exigem a decisão de se uma figura pode ser “real” ou não baseada na dimensionalidade.
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Visuoconstrutiva: Reunir itens com necessidade de coordenação dos olhos- -mãos, como desenhar, copiar e montar blocos.
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Perceptomotora: Integrar a percepção com movimentos que têm um propósito
+                    (p. ex., inserção de blocos em uma placa sem pistas visuais; inserir, rapidamente, pinos em estrutura com orifícios).
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Práxis: Integridade de movimentos aprendidos, como habilidade de imitar gestos
+                    (abanar ao dar adeus), ou uso de pantomima do uso de objetos (“Mostre- -me como você usaria um martelo”).
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Gnosia: Integridade perceptiva da conscientização e do reconhecimento, como o reconhecimento de faces e cores.
+                    </Text>
+                  <Text style={styles.buttonText}>
+                    •	COGNIÇÃO SOCIAL
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Reconhecimento de emoções: Identificação de emoções em imagens de rostos que representam uma variedade de emoções positivas e negativas.
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Teoria da mente: Capacidade de considerar o estado mental de outra pessoa (pensamentos, desejos, intenções) ou sua experiência – cartões que contam uma história, com perguntas para provocar informações sobre o estado mental dos indivíduos retratados, tal como “Onde a garota procurará a bolsa perdida?” ou “Por que o garoto está triste?”.
+                    </Text>
+                  <Text muted style={styles.buttonText}>
+                    - Os TNCs são aqueles em que a cognição prejudicada não estava presente ao nascimento ou muito no início da vida, representando, assim, um declínio a partir de um nível de funcionamento alcançado anteriormente.
+                  </Text>
+                </Block>
+                <Block style={styles.cardQuestion}>
+                  <Text h4 center style={styles.buttonText}>Fatores de Risco e Diagnóstico diferencial para apoio ao tipo de Demência</Text>
+                  <Text style={styles.buttonText}>
+                    •	Transtorno Neurocognitivo Doença de Alzheimer
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Fatores de Risco e Prognóstico
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Ambientais. Lesão cerebral traumática aumenta o risco de TNC maior ou leve devido à doença de Alzheimer.
+                    Genéticos e fisiológicos. A idade é o fator de risco mais poderoso para a doença de Alzheimer. Múltiplos fatores de risco vasculares influenciam o risco da doença e podem agir aumentando a patologia cerebrovascular ou, ainda, provocando efeitos diretos na patologia da doença de Alzheimer.
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Diagnóstico Diferencial
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Outros transtornos neurocognitivos. Transtornos neurocognitivos maiores e leves devido a outros processos neurodegenerativos (p. ex., doença com corpos de Lewy, degeneração lobar frontotemporal) partilham o surgimento insidioso e o declínio gradativo causados pela doença de Alzheimer, embora tenham características distintas. No TNC vascular maior ou leve, costuma haver história de acidente vascular cerebral temporariamente relacionada ao surgimento de prejuízo cognitivo, com infartos ou aumento de intensidades da substância branca considerados suficientes para responder pelo quadro clínico. No entanto, sobretudo quando não existe história clara de declínio gradual, o TNC maior ou leve pode partilhar muitas características clínicas da doença de Alzheimer.
+                    Outra doença neurológica ou sistêmica ativa e comorbida. Outras doenças neurológicas ou sistêmicas devem ser consideradas quando há uma relação temporal apropriada e gravidade que respondam pelo quadro clínico. No nível leve do TNC, pode ser difícil diferenciar a etiologia da doença de Alzheimer daquela de outra condição médica (p. ex., distúrbios da tireoide, deficiência de vitamina B12).
+                    Transtorno depressivo maior. Particularmente no nível leve de um TNC, o diagnóstico diferencial inclui ainda depressão maior. A presença de depressão pode estar associada a funcionamento diário reduzido e concentração insatisfatória capazes de assemelhar-se a um TNC. A melhora com tratamento da depressão pode ser útil para a distinção.
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    •	Transtorno Neurocognitivo Frontotemporal Maior ou Leve
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Fatores de Risco e Prognóstico
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Genéticos e fisiológicos. Por volta de 40% dos indivíduos com TNC maior ou leve têm história familiar de TNC com surgimento precoce, e cerca de 10% mostram um padrão autossômico dominante herdado. Foram identificados vários fatores genéticos, como mutações no gene codificador da proteína tau associada aos microtúbulos (microtubule associated protein tau – MAPT), o gene granulina (granulin gene – GRN) e o gene C9ORF72. Uma variedade de famílias com mutações causadoras foi identificada (ver a seção “Marcadores Diagnósticos” a seguir), mas muitos indivíduos com transmissão familiar conhecida não têm a mutação conhecida. A presença de doença neuronal motora está associada a deterioração mais rápida.
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Diagnóstico Diferencial
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Outros transtornos neurocognitivos. Outras doenças neurodegenerativas podem ser diferenciadas de TNC frontotemporal maior ou leve pelos aspectos característicos. No TNC maior ou leve devido à doença de Alzheimer, o declínio na aprendizagem e na memória é um aspecto precoce. Todavia, 10 a 30% dos pacientes que se apresentam com uma síndrome sugestiva de TNC frontotemporal maior ou leve mostram, via necropsia, ser portadores de patologia da doença de Alzheimer. Isso ocorre com mais frequência em indivíduos que apresentam síndromes com alterações progressivas nas funções executivas na ausência de mudanças comportamentais ou de transtorno do movimento ou nos que apresentam a variante logopênica.
+                    No TNC maior ou leve com corpos de Lewy, aspectos centrais e sugestivos dos corpos de Lewy podem estar presentes. No TNC maior ou leve devido à doença de Parkinson, surge parkinsonismo espontâneo bem antes do declínio cognitivo. No TNC vascular maior ou leve, dependendo das regiões cerebrais afetadas, pode também haver perda da capacidade executiva e mudanças comportamentais, como apatia, e esse transtorno deve ser levado em conta no diagnóstico diferencial.
+                    Uma história de evento cerebrovascular, no entanto, está temporalmente relacionada ao aparecimento de prejuízo cognitivo no TNC vascular maior ou leve, e a neuroimagem revela infartos ou lesões na substância branca, em quantidade suficiente para responder pelo quadro clínico.
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    •	Transtorno Neurocognitivo Maior ou Leve com Corpos de Lewy
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Fatores de Risco e Prognóstico
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Genéticos e fisiológicos. Pode ocorrer agregação familiar, tendo sido identificados vários genes de risco, embora na maior parte dos casos de TNCCL não haja história familiar.
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Diagnóstico Diferencial
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Transtorno neurocognitivo maior ou leve devido à doença de Parkinson. Um aspecto distintivo essencial no diagnóstico clínico é a sequência temporal em que aparecem o parkinsonismo e o TNC. No caso de TNC devido à doença de Parkinson, o indivíduo deve desenvolver declínio cognitivo no contexto da doença de Parkinson estabelecida; por convenção, o declínio só atinge o estágio de TNC maior pelo menos um ano após o diagnóstico da doença de Parkinson. Se decorreu menos de um ano desde o surgimento de sintomas motores, o diagnóstico é TNCCL. Essa distinção fica mais clara no nível do TNC maior do que no do leve.
+                    O momento certo e a sequência do parkinsonismo e do TNC leve podem ser de difícil determinação, porque o surgimento e a apresentação clínica podem ser ambíguos, e TNC leve não especificado deve ser diagnosticado diante da ausência de outras características principais e sugestivas.
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    •	Transtorno Neurocognitivo Vascular Maior ou Leve
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Fatores de Risco e Prognóstico
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Ambientais. As consequências neurocognitivas de uma lesão encefálica vascular são influenciadas por fatores de neuroplasticidade, como educação, exercício físico e atividade mental.
+                    Genéticos e fisiológicos. Os principais fatores de risco de TNC vascular maior ou leve são os mesmos que os da doença cerebrovascular, incluindo hipertensão, diabetes, tabagismo, obesidade, níveis elevados de colesterol, níveis elevados de homocisteína, outros fatores de risco de aterosclerose e arteriolosclerose, fibrilação atrial e outras condições que aumentam o risco de embolia cerebral. Angiopatia amiloide cerebral é um fator de risco importante, em que ocorrem depósitos amiloides em vasos arteriais. Outro fator de risco significativo é a condição hereditária de arteriopatia cerebral autossômica dominante com infartos subcorticais e leucoencefalopatia, ou
+                    CADASIL (cerebral autosomal dominant arteriopathy with subcortical infarcts and leukoencephalopathy).
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Diagnóstico Diferencial
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Outros transtornos neurocognitivos. Considerando que infartos cerebrais incidentais e lesões na substância branca são comuns em indivíduos idosos, é importante levar em conta outras etiologias possíveis na presença de um transtorno neurocognitivo. História de déficit de memória no começo do curso, com piora progressiva da memória, da linguagem, da função executiva e das capacidades perceptomotoras, na ausência de lesões focais correspondentes em imagens do cérebro, sugere a doença de Alzheimer como diagnóstico primário. Biomarcadores potenciais sendo atualmente validados para a doença de Alzheimer, como níveis de beta-amiloide e de tau
+                    fosforilada no líquido cerebrospinal, bem como imagem amiloide, podem ser úteis no diagnóstico diferencial. O TNC com corpos de Lewy difere do TNC vascular maior ou leve em suas características principais de cognição oscilante, alucinações visuais e parkinsonismo espontâneo. No TNC vascular maior ou leve, ocorrem déficits na função executiva e na linguagem, ao passo que o surgimento insidioso e a progressão gradual de prejuízos dos aspectos comportamentais ou da linguagem são características de TNC frontotemporal, não sendo típicos da etiologia vascular.
+                    Outras condições médicas. Não é feito um diagnóstico de TNC vascular maior ou leve se outras doenças (p. ex., tumor cerebral, esclerose múltipla, encefalite, distúrbios tóxicos ou metabólicos) estão presentes e tenham gravidade suficiente para responder pelo prejuízo cognitivo.
+                    Outros transtornos mentais. É inadequado um diagnóstico de TNC vascular maior ou leve quando os sintomas podem ser completamente atribuídos a delirium, embora este possa, por vezes, estar sobreposto a um TNC vascular maior ou leve preexistente, situação em que podem ser feitos os dois diagnósticos. Se atendidos os critérios para transtorno depressivo maior, e o prejuízo cognitivo está temporariamente relacionado ao possível surgimento da depressão, não deve ser diagnosticado TNC vascular maior ou leve. Quando, porém, o TNC antecedeu o desenvolvimento da depressão, ou a gravidade do prejuízo cognitivo está fora de proporção em relação à gravidade da depressão, ambos devem ser diagnosticados.
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    •	Transtorno Neurocognitivo Maior ou Leve Devido à Doença de Parkinson
+                    </Text>
+                    <Text style={styles.buttonText}>
+                      Fatores de Risco e Prognóstico
+                      </Text>
+                    <Text muted style={styles.buttonText}>
+                    Ambientais. Os fatores de risco para a doença de Parkinson incluem exposição a herbicidas e pesticidas.
+                    Genéticos e fisiológicos. Fatores de risco potenciais para TNC entre pessoas com a doença de Parkinson incluem idade mais velha no surgimento e duração aumentada da doença.
+                    </Text>
+                    <Text style={styles.buttonText}>
+                    Diagnóstico Diferencial
+                    </Text>
+                    <Text muted style={styles.buttonText}>
+                    Transtorno neurocognitivo maior ou leve com corpos de Lewy. Essa distinção baseia-se muito no momento certo e na sequência dos sintomas cognitivos e motores. Para o TNC ser atribuído à doença de Parkinson, os sintomas motores e outros sintomas dessa doença devem estar presentes bem antes (por convenção, no mínimo um ano antes) de o declínio cognitivo ter alcançado o nível de TNC maior, ao passo que no TNC maior ou leve com corpos de Lewy os sintomas cognitivos começam logo antes ou são concomitantes aos sintomas motores. Para TNC leve, o momento certo é de difícil estabelecimento, porque o próprio diagnóstico é menos claro e os dois transtornos existem em um continuum. A não ser que a doença de Parkinson tenha sido estabelecida algum tempo antes do surgimento do declínio cognitivo ou as características típicas do TNC maior ou leve com corpos de Lewy estejam presentes, é preferível diagnosticar TNC leve não especificado.
+                    Transtorno neurocognitivo maior ou leve devido à doença de Alzheimer. As características motoras são essenciais para a distinção entre TNC maior ou leve devido à doença de Parkinson e TNC maior ou leve devido à doença de Alzheimer. Os dois transtornos podem, porém, ser concomitantes.
+                    Transtorno neurocognitivo vascular maior ou leve. O TNC vascular maior ou leve pode se apresentar com aspectos parkinsonianos, como lentificação psicomotora, que pode ocorrer como
+                    consequência de doença em pequeno vaso subcortical. As características parkinsonianas, no entanto, não costumam ser suficientes para um diagnóstico de doença de Parkinson, e o curso do
+                    TNC normalmente tem clara associação com mudanças cerebrovasculares.
+                    Transtorno neurocognitivo devido a outra condição médica (p. ex., distúrbios neurodegenerativos).
+                    Quando considerado um diagnóstico de transtorno neurocognitivo maior ou leve devido à doença de Parkinson, deve também ser feita uma distinção de outros distúrbios cerebrais, como paralisia supranuclear progressiva, degeneração corticobasal, atrofia sistêmica múltipla, tumores e hidrocefalia.
+                    Parkinsonismo induzido por neurolépticos. Pode ocorrer parkinsonismo induzido por neurolépticos em indivíduos com outros TNCs, particularmente quando fármacos bloqueadores da dopamina são prescritos para manifestações comportamentais desses transtornos.
+                    Outras condições médicas. Delirium e TNCs devidos a efeitos secundários de fármacos bloqueadores da dopamina e outras condições médicas (p. ex., sedação ou cognição prejudicada,
+                    hipotireoidismo grave, deficiência de vitamina B12) devem ser também descartados.
+                  </Text>
                 </Block>
               </>}
               {activeTab == "results" && secondTab == "patients" && <>
@@ -1830,7 +2124,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     height: 45,
-    color: "#3e0057b8",
+    color: "rgb(159, 165, 170)",
     marginLeft: 6,
     borderWidth: 0,
   },
@@ -1840,9 +2134,10 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   labelCheckbox: {
-    color: "#3e0057b8",
+    color: "rgb(159, 165, 170)",
   },
   checkboxSintoma: {
+    color: "#3e0057b8",
     paddingRight: 10,
     marginLeft: 6,
     marginRight: 10,
