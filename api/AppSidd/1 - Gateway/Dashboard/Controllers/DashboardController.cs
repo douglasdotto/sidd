@@ -88,8 +88,13 @@ namespace Dashboard.Controllers
         {
             var dados = await _mediator.Send(new GetViewDashByPatientRequest(CurrentUser, patientId));
             ViewBag.Nome = dados.FirstName + " " + dados.LastName;
-            ViewBag.Idade = dados.Idade;
+            ViewBag.Idade = ((DateTime.UtcNow - dados.IdadeData.Value).TotalDays / 365).ToString("N0");
             ViewBag.Sexo = dados.Sexo;
+            ViewBag.EstadoCivil = dados.EstadoCivil;
+            ViewBag.PossuiCuidador = dados.PossuiCuidador.Value ? "Sim" : "Não";
+            ViewBag.Raca = dados.Raca;
+            ViewBag.ResideCom = dados.ResideCom;
+            ViewBag.TempoDeEstudo = dados.TempoDeEstudo;
 
             ViewBag.TotalTests = dados.TotalTests;
             ViewBag.Tests = dados.Tests;

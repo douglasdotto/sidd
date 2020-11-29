@@ -880,6 +880,7 @@ export default function App() {
         autoHide: true,
         topOffset: 60
       });
+      setTesteSintoma([]);
       tab("home");
     } else {
       let notifications = result.notifications
@@ -1662,6 +1663,12 @@ export default function App() {
                   <Block style={styles.cardQuestion}>
                     <Text muted center style={styles.buttonText}>COGNIÇÃO SOCIAL (Reconhecimento de emoções e teoria da mente)</Text>
                     {listaSintomas != null ? listaSintomas.filter(x => x.doenca1 == 61 || x.doenca1 == 62).map((e) => {
+                      return <Checkbox color="#3e0057" key={e.sintomasId} label={e.descricao} labelStyle={styles.labelCheckbox} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
+                    }) : null}
+                  </Block>
+                  <Block style={styles.cardQuestion}>
+                    <Text muted center style={styles.buttonText}>Outros sintomas (específicos de determinadas doenças)</Text>
+                    {listaSintomas != null ? listaSintomas.filter(x => x.doenca1 == 71).map((e) => {
                       return <Checkbox color="#3e0057" key={e.sintomasId} label={e.descricao} labelStyle={styles.labelCheckbox} style={styles.checkboxSintoma} onChange={(x) => CheckTesteSintoma(e.sintomasId)} />
                     }) : null}
                   </Block>
