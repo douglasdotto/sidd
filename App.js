@@ -1066,7 +1066,7 @@ export default function App() {
                   </Block>
                   <Block flex center>
                     <Text muted center style={styles.buttonText}>Identificação de Sintomas (sintomas que o profissional percebeu ou relatados pelo familiar), na aba de tutoriais tem informações que podem ser úteis para o preenchimento correto deste formulário</Text>
-                    <Button round color="warning" uppercase size="large" onPress={() => calltest("sintomas")}>TESTE DE SINTOMAS</Button>
+                    <Button round color="#04cfb4" uppercase size="large" onPress={() => calltest("sintomas")}>TESTE DE SINTOMAS</Button>
                   </Block>
                   <Block flex center>
                     <Text muted center style={styles.buttonText}>Questionário de atividades funcionais de Pfeffer</Text>
@@ -1293,7 +1293,7 @@ export default function App() {
                   </Block>
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
-                    <Button round uppercase color="primary" onPress={() => pfeffer()}>SALVAR</Button>
+                    <Button round uppercase color="#04cfb4" onPress={() => pfeffer()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "cdr" && <>
@@ -1416,7 +1416,7 @@ export default function App() {
                   </Block>
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
-                    <Button round uppercase color="primary" onPress={() => cdr()}>SALVAR</Button>
+                    <Button round uppercase color="#04cfb4" onPress={() => cdr()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "minimental" && <>
@@ -1514,7 +1514,7 @@ export default function App() {
                   </Block>
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
-                    <Button round uppercase color="primary" onPress={() => meem()}>SALVAR</Button>
+                    <Button round uppercase color="#04cfb4" onPress={() => meem()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "moca" && <>
@@ -1622,7 +1622,7 @@ export default function App() {
                   </Block>
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
-                    <Button round uppercase color="primary" onPress={() => moca()}>SALVAR</Button>
+                    <Button round uppercase color="#04cfb4" onPress={() => moca()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "sintomas" && <>
@@ -1667,7 +1667,7 @@ export default function App() {
                   </Block>
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
-                    <Button round uppercase color="primary" onPress={() => sendTesteSintoma()}>SALVAR</Button>
+                    <Button round uppercase color="#04cfb4" onPress={() => sendTesteSintoma()}>SALVAR</Button>
                   </Block>
                 </>}
               </>}
@@ -1722,7 +1722,7 @@ export default function App() {
                 </Block>
                 <Block row center>
                   <Button round uppercase color="#3e0057" onPress={() => tab("home")}>FECHAR</Button>
-                  <Button round uppercase color="primary" onPress={() => newAcolhimento()}>SALVAR</Button>
+                  <Button round uppercase color="#04cfb4" onPress={() => newAcolhimento()}>SALVAR</Button>
                 </Block>
               </>}
               {activeTab == "results" && secondTab == "acol" && patientSelected != null && patientSelected == "new" && <>
@@ -1828,7 +1828,7 @@ export default function App() {
                 </Block>
                 <Block row center>
                   <Button round uppercase color="#3e0057" onPress={() => tab("home")}>FECHAR</Button>
-                  <Button round uppercase color="primary" onPress={() => newPatient()}>SALVAR</Button>
+                  <Button round uppercase color="#04cfb4" onPress={() => newPatient()}>SALVAR</Button>
                 </Block>
               </>}
               {activeTab == "results" && secondTab == "results" && <>
@@ -1944,88 +1944,88 @@ export default function App() {
                   <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Doença de Alzheimer
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Ambientais. Lesão cerebral traumática aumenta o risco de TNC maior ou leve devido à doença de Alzheimer.
                     Genéticos e fisiológicos. A idade é o fator de risco mais poderoso para a doença de Alzheimer. Múltiplos fatores de risco vasculares influenciam o risco da doença e podem agir aumentando a patologia cerebrovascular ou, ainda, provocando efeitos diretos na patologia da doença de Alzheimer.
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Outros transtornos neurocognitivos. Transtornos neurocognitivos maiores e leves devido a outros processos neurodegenerativos (p. ex., doença com corpos de Lewy, degeneração lobar frontotemporal) partilham o surgimento insidioso e o declínio gradativo causados pela doença de Alzheimer, embora tenham características distintas. No TNC vascular maior ou leve, costuma haver história de acidente vascular cerebral temporariamente relacionada ao surgimento de prejuízo cognitivo, com infartos ou aumento de intensidades da substância branca considerados suficientes para responder pelo quadro clínico. No entanto, sobretudo quando não existe história clara de declínio gradual, o TNC maior ou leve pode partilhar muitas características clínicas da doença de Alzheimer.
                     Outra doença neurológica ou sistêmica ativa e comorbida. Outras doenças neurológicas ou sistêmicas devem ser consideradas quando há uma relação temporal apropriada e gravidade que respondam pelo quadro clínico. No nível leve do TNC, pode ser difícil diferenciar a etiologia da doença de Alzheimer daquela de outra condição médica (p. ex., distúrbios da tireoide, deficiência de vitamina B12).
                     Transtorno depressivo maior. Particularmente no nível leve de um TNC, o diagnóstico diferencial inclui ainda depressão maior. A presença de depressão pode estar associada a funcionamento diário reduzido e concentração insatisfatória capazes de assemelhar-se a um TNC. A melhora com tratamento da depressão pode ser útil para a distinção.
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Frontotemporal Maior ou Leve
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Genéticos e fisiológicos. Por volta de 40% dos indivíduos com TNC maior ou leve têm história familiar de TNC com surgimento precoce, e cerca de 10% mostram um padrão autossômico dominante herdado. Foram identificados vários fatores genéticos, como mutações no gene codificador da proteína tau associada aos microtúbulos (microtubule associated protein tau – MAPT), o gene granulina (granulin gene – GRN) e o gene C9ORF72. Uma variedade de famílias com mutações causadoras foi identificada (ver a seção “Marcadores Diagnósticos” a seguir), mas muitos indivíduos com transmissão familiar conhecida não têm a mutação conhecida. A presença de doença neuronal motora está associada a deterioração mais rápida.
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Outros transtornos neurocognitivos. Outras doenças neurodegenerativas podem ser diferenciadas de TNC frontotemporal maior ou leve pelos aspectos característicos. No TNC maior ou leve devido à doença de Alzheimer, o declínio na aprendizagem e na memória é um aspecto precoce. Todavia, 10 a 30% dos pacientes que se apresentam com uma síndrome sugestiva de TNC frontotemporal maior ou leve mostram, via necropsia, ser portadores de patologia da doença de Alzheimer. Isso ocorre com mais frequência em indivíduos que apresentam síndromes com alterações progressivas nas funções executivas na ausência de mudanças comportamentais ou de transtorno do movimento ou nos que apresentam a variante logopênica.
                     No TNC maior ou leve com corpos de Lewy, aspectos centrais e sugestivos dos corpos de Lewy podem estar presentes. No TNC maior ou leve devido à doença de Parkinson, surge parkinsonismo espontâneo bem antes do declínio cognitivo. No TNC vascular maior ou leve, dependendo das regiões cerebrais afetadas, pode também haver perda da capacidade executiva e mudanças comportamentais, como apatia, e esse transtorno deve ser levado em conta no diagnóstico diferencial.
                     Uma história de evento cerebrovascular, no entanto, está temporalmente relacionada ao aparecimento de prejuízo cognitivo no TNC vascular maior ou leve, e a neuroimagem revela infartos ou lesões na substância branca, em quantidade suficiente para responder pelo quadro clínico.
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Maior ou Leve com Corpos de Lewy
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Genéticos e fisiológicos. Pode ocorrer agregação familiar, tendo sido identificados vários genes de risco, embora na maior parte dos casos de TNCCL não haja história familiar.
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Transtorno neurocognitivo maior ou leve devido à doença de Parkinson. Um aspecto distintivo essencial no diagnóstico clínico é a sequência temporal em que aparecem o parkinsonismo e o TNC. No caso de TNC devido à doença de Parkinson, o indivíduo deve desenvolver declínio cognitivo no contexto da doença de Parkinson estabelecida; por convenção, o declínio só atinge o estágio de TNC maior pelo menos um ano após o diagnóstico da doença de Parkinson. Se decorreu menos de um ano desde o surgimento de sintomas motores, o diagnóstico é TNCCL. Essa distinção fica mais clara no nível do TNC maior do que no do leve.
                     O momento certo e a sequência do parkinsonismo e do TNC leve podem ser de difícil determinação, porque o surgimento e a apresentação clínica podem ser ambíguos, e TNC leve não especificado deve ser diagnosticado diante da ausência de outras características principais e sugestivas.
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Vascular Maior ou Leve
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Ambientais. As consequências neurocognitivas de uma lesão encefálica vascular são influenciadas por fatores de neuroplasticidade, como educação, exercício físico e atividade mental.
                     Genéticos e fisiológicos. Os principais fatores de risco de TNC vascular maior ou leve são os mesmos que os da doença cerebrovascular, incluindo hipertensão, diabetes, tabagismo, obesidade, níveis elevados de colesterol, níveis elevados de homocisteína, outros fatores de risco de aterosclerose e arteriolosclerose, fibrilação atrial e outras condições que aumentam o risco de embolia cerebral. Angiopatia amiloide cerebral é um fator de risco importante, em que ocorrem depósitos amiloides em vasos arteriais. Outro fator de risco significativo é a condição hereditária de arteriopatia cerebral autossômica dominante com infartos subcorticais e leucoencefalopatia, ou
                     CADASIL (cerebral autosomal dominant arteriopathy with subcortical infarcts and leukoencephalopathy).
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Outros transtornos neurocognitivos. Considerando que infartos cerebrais incidentais e lesões na substância branca são comuns em indivíduos idosos, é importante levar em conta outras etiologias possíveis na presença de um transtorno neurocognitivo. História de déficit de memória no começo do curso, com piora progressiva da memória, da linguagem, da função executiva e das capacidades perceptomotoras, na ausência de lesões focais correspondentes em imagens do cérebro, sugere a doença de Alzheimer como diagnóstico primário. Biomarcadores potenciais sendo atualmente validados para a doença de Alzheimer, como níveis de beta-amiloide e de tau
                     fosforilada no líquido cerebrospinal, bem como imagem amiloide, podem ser úteis no diagnóstico diferencial. O TNC com corpos de Lewy difere do TNC vascular maior ou leve em suas características principais de cognição oscilante, alucinações visuais e parkinsonismo espontâneo. No TNC vascular maior ou leve, ocorrem déficits na função executiva e na linguagem, ao passo que o surgimento insidioso e a progressão gradual de prejuízos dos aspectos comportamentais ou da linguagem são características de TNC frontotemporal, não sendo típicos da etiologia vascular.
                     Outras condições médicas. Não é feito um diagnóstico de TNC vascular maior ou leve se outras doenças (p. ex., tumor cerebral, esclerose múltipla, encefalite, distúrbios tóxicos ou metabólicos) estão presentes e tenham gravidade suficiente para responder pelo prejuízo cognitivo.
                     Outros transtornos mentais. É inadequado um diagnóstico de TNC vascular maior ou leve quando os sintomas podem ser completamente atribuídos a delirium, embora este possa, por vezes, estar sobreposto a um TNC vascular maior ou leve preexistente, situação em que podem ser feitos os dois diagnósticos. Se atendidos os critérios para transtorno depressivo maior, e o prejuízo cognitivo está temporariamente relacionado ao possível surgimento da depressão, não deve ser diagnosticado TNC vascular maior ou leve. Quando, porém, o TNC antecedeu o desenvolvimento da depressão, ou a gravidade do prejuízo cognitivo está fora de proporção em relação à gravidade da depressão, ambos devem ser diagnosticados.
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Maior ou Leve Devido à Doença de Parkinson
                     </Text>
-                    <Text style={styles.buttonText}>
-                      Fatores de Risco e Prognóstico
+                  <Text style={styles.buttonText}>
+                    Fatores de Risco e Prognóstico
                       </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Ambientais. Os fatores de risco para a doença de Parkinson incluem exposição a herbicidas e pesticidas.
                     Genéticos e fisiológicos. Fatores de risco potenciais para TNC entre pessoas com a doença de Parkinson incluem idade mais velha no surgimento e duração aumentada da doença.
                     </Text>
-                    <Text style={styles.buttonText}>
+                  <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
                     </Text>
-                    <Text muted style={styles.buttonText}>
+                  <Text muted style={styles.buttonText}>
                     Transtorno neurocognitivo maior ou leve com corpos de Lewy. Essa distinção baseia-se muito no momento certo e na sequência dos sintomas cognitivos e motores. Para o TNC ser atribuído à doença de Parkinson, os sintomas motores e outros sintomas dessa doença devem estar presentes bem antes (por convenção, no mínimo um ano antes) de o declínio cognitivo ter alcançado o nível de TNC maior, ao passo que no TNC maior ou leve com corpos de Lewy os sintomas cognitivos começam logo antes ou são concomitantes aos sintomas motores. Para TNC leve, o momento certo é de difícil estabelecimento, porque o próprio diagnóstico é menos claro e os dois transtornos existem em um continuum. A não ser que a doença de Parkinson tenha sido estabelecida algum tempo antes do surgimento do declínio cognitivo ou as características típicas do TNC maior ou leve com corpos de Lewy estejam presentes, é preferível diagnosticar TNC leve não especificado.
                     Transtorno neurocognitivo maior ou leve devido à doença de Alzheimer. As características motoras são essenciais para a distinção entre TNC maior ou leve devido à doença de Parkinson e TNC maior ou leve devido à doença de Alzheimer. Os dois transtornos podem, porém, ser concomitantes.
                     Transtorno neurocognitivo vascular maior ou leve. O TNC vascular maior ou leve pode se apresentar com aspectos parkinsonianos, como lentificação psicomotora, que pode ocorrer como
