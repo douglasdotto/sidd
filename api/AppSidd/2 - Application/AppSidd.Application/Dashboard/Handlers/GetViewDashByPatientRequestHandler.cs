@@ -390,7 +390,7 @@ namespace AppSidd.Application.Users.Handlers
             }
 
             if (diagnostico.Count() > 0 && reprovacao > 0)
-                result.Diagnostico = "Com base nos testes aplicados e nos sintomas relatados, nossa sugestão é de que o paciente tenha: <h3>" + string.Join("<br>", diagnostico) + "</h3>";
+                result.Diagnostico = "Com base nos testes aplicados e nos sintomas relatados, nossa sugestão é de que o paciente tenha: <h3 class='text-warning'>" + string.Join("<br>", diagnostico) + "</h3>";
             else
                 result.Diagnostico = "Ops... O SIDD ainda tem dados o suficiente para sugerir um diagnóstico.";
 

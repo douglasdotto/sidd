@@ -19,7 +19,7 @@
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-body text-left">
-                    <h2>Dados do paciente</h2>
+                    <h1 class="text-primary"><i class="ni ni-single-02 text-primary"></i> Dados do paciente</h1>
                     <strong>Nome:</strong> @ViewBag.Nome<br />
                     <strong>Sexo:</strong> @ViewBag.Sexo<br />
                     <strong>Idade:</strong> @ViewBag.Idade anos<br />
@@ -34,7 +34,7 @@
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-body text-left">
-                    <h2>Testes - Último aplicado por tipo</h2>
+                    <h1 class="text-primary"><i class="ni ni-single-copy-04 text-primary"></i> Testes - Último aplicado por tipo</h1>
                     <strong>Pfeffer:</strong> @Html.Raw(ViewBag.PfefferLast)<br />
                     <strong>CDR:</strong> @Html.Raw(ViewBag.CDRLast)<br />
                     <strong>Mini Mental:</strong> @Html.Raw(ViewBag.MEEMLast)<br />
@@ -46,7 +46,7 @@
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-body text-left">
-                    <h2>Diagnóstico - SIDD</h2>
+                    <h1 class="text-primary"><i class="ni ni-favourite-28"></i> Diagnóstico - SIDD</h1>
                     @Html.Raw(ViewBag.Diagnostico)
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="mb-0">Dados do acolhimento</h3>
+                            <h1 class="text-primary mb-0">Dados do acolhimento</h1>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                                 <th scope="col">Saturação</th>
                                 <th scope="col">Pressão Arterial</th>
                                 <th scope="col">Glicemia</th>
-                                <th scope="col">Sintomas</th>
+                                <th scope="col">Queixas relacionadas</th>
                                 <th scope="col">Medicamentos</th>
                                 <th scope="col">Observações</th>
                             </tr>
@@ -102,7 +102,7 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="mb-0">Testes aplicados</h3>
+                            <h1 class="text-primary mb-0">Testes aplicados</h1>
                         </div>
                     </div>
                 </div>
