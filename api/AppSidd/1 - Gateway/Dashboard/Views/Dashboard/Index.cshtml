@@ -116,6 +116,20 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>GDS</td>
+                            <td>@ViewBag.GDS</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <span class="mr-2">@Html.Raw(ViewBag.GDSPerc)%</span>
+                                    <div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="@Html.Raw(ViewBag.GDSPerc)" aria-valuemin="0" aria-valuemax="100" style="width: @Html.Raw(ViewBag.GDSPerc)%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Teste de Sintomas</td>
                             <td>@ViewBag.TesteSintoma</td>
                             <td>

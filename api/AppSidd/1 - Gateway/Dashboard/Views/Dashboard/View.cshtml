@@ -15,110 +15,123 @@
     }
 </style>
 <div class="row m-2 mt-4">
-    <div class="col-xl-3">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <img src="~/img/theme/avatar.png" width="150" height="150" /><hr />
-                        <h2>Dados do paciente</h2>
-                        <strong>Nome:</strong> @ViewBag.Nome<br />
-                        <strong>Sexo:</strong> @ViewBag.Sexo<br />
-                        <strong>Idade:</strong> @ViewBag.Idade anos<br />
-                        <strong>Raça:</strong> @ViewBag.Raca<br />
-                        <strong>Reside com:</strong> @ViewBag.ResideCom<br />
-                        <strong>Tempo de estudos:</strong> @ViewBag.TempoDeEstudo anos<br />
-                        <strong>Possui cuidador:</strong> @ViewBag.PossuiCuidador<br />
-                        <strong>Testes:</strong> @ViewBag.TotalTests aplicado(s)
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h2>Diagnóstico - SIDD</h2>
-                        @Html.Raw(ViewBag.Diagnostico)
-                    </div>
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body text-left">
+                    <h2>Dados do paciente</h2>
+                    <strong>Nome:</strong> @ViewBag.Nome<br />
+                    <strong>Sexo:</strong> @ViewBag.Sexo<br />
+                    <strong>Idade:</strong> @ViewBag.Idade anos<br />
+                    <strong>Raça:</strong> @ViewBag.Raca<br />
+                    <strong>Reside com:</strong> @ViewBag.ResideCom<br />
+                    <strong>Tempo de estudos:</strong> @ViewBag.TempoDeEstudo anos<br />
+                    <strong>Possui cuidador:</strong> @ViewBag.PossuiCuidador<br />
+                    <strong>Testes:</strong> @ViewBag.TotalTests aplicado(s)
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-9">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-header border-0">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="mb-0">Dados do acolhimento</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive" style="        overflow-x: hidden !important">
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Data do Acolhimento</th>
-                                    <th scope="col">Frequencia Cardiaca</th>
-                                    <th scope="col">Saturação</th>
-                                    <th scope="col">Pressão Arterial</th>
-                                    <th scope="col">Glicemia</th>
-                                    <th scope="col">Sintomas</th>
-                                    <th scope="col">Medicamentos</th>
-                                    <th scope="col">Observações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var aco in ViewBag.Acolhimento)
-                                {
-                                    <tr>
-                                        <td>@aco.Created</td>
-                                        <td>@aco.FrequenciaCardiaca</td>
-                                        <td>@aco.Saturação</td>
-                                        <td>@aco.PressaoArterial</td>
-                                        <td>@aco.Glicemia</td>
-                                        <td>@aco.Sintomas</td>
-                                        <td>@aco.Medicamentos</td>
-                                        <td>@aco.Observacoes</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body text-left">
+                    <h2>Testes - Último aplicado por tipo</h2>
+                    <strong>Pfeffer:</strong> @Html.Raw(ViewBag.PfefferLast)<br />
+                    <strong>CDR:</strong> @Html.Raw(ViewBag.CDRLast)<br />
+                    <strong>Mini Mental:</strong> @Html.Raw(ViewBag.MEEMLast)<br />
+                    <strong>MoCA:</strong> @Html.Raw(ViewBag.MoCALast)<br />
+                    <strong>GDS:</strong> @Html.Raw(ViewBag.GDSlast)
                 </div>
             </div>
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-header border-0">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="mb-0">Testes aplicados</h3>
-                            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body text-left">
+                    <h2>Diagnóstico - SIDD</h2>
+                    @Html.Raw(ViewBag.Diagnostico)
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Dados do acolhimento</h3>
                         </div>
                     </div>
-                    <div class="table-responsive" style="overflow-x: hidden !important">
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
+                </div>
+                <div class="table-responsive" style="        overflow-x: hidden !important">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Data do Acolhimento</th>
+                                <th scope="col">Frequencia Cardiaca</th>
+                                <th scope="col">Saturação</th>
+                                <th scope="col">Pressão Arterial</th>
+                                <th scope="col">Glicemia</th>
+                                <th scope="col">Sintomas</th>
+                                <th scope="col">Medicamentos</th>
+                                <th scope="col">Observações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var aco in ViewBag.Acolhimento)
+                            {
                                 <tr>
-                                    <th scope="col">Data do Teste</th>
-                                    <th scope="col">Teste</th>
-                                    <th scope="col">Pontos</th>
-                                    <th scope="col">Classificação</th>
+                                    <td>@aco.Created</td>
+                                    <td>@aco.FrequenciaCardiaca</td>
+                                    <td>@aco.Saturação</td>
+                                    <td>@aco.PressaoArterial</td>
+                                    <td>@aco.Glicemia</td>
+                                    <td>@aco.Sintomas</td>
+                                    <td>@aco.Medicamentos</td>
+                                    <td>@aco.Observacoes</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var test in ViewBag.Tests)
-                                {
-                                    <tr>
-                                        <td>@test.Date</td>
-                                        <td>@test.Type</td>
-                                        <td><strong>@test.TotalPoints</strong></td>
-                                        <td class="@(test.Color == "G" ? Html.Raw("text-success") : @test.Color == "Y" ? Html.Raw("text-primary") : Html.Raw("text-danger"))">@test.Classification</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                            }
+                            @if (Enumerable.Count(ViewBag.Acolhimento) == 0)
+                            {
+                                <tr><td colspan="8">Nenhum dado de acolhimento a ser exibido. :)</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Testes aplicados</h3>
+                        </div>
                     </div>
+                </div>
+                <div class="table-responsive" style="overflow-x: hidden !important">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Data do Teste</th>
+                                <th scope="col">Teste</th>
+                                <th scope="col">Pontos</th>
+                                <th scope="col">Classificação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var test in ViewBag.Tests)
+                            {
+                                <tr>
+                                    <td>@test.Date</td>
+                                    <td>@test.Type</td>
+                                    <td><strong>@test.TotalPoints</strong></td>
+                                    <td class="@(test.Color == "G" ? Html.Raw("text-info") : @test.Color == "Y" ? Html.Raw("text-primary") : Html.Raw("text-warning"))">@test.Classification</td>
+                                </tr>
+                            }
+                            @if (Enumerable.Count(ViewBag.Tests) == 0)
+                            {
+                                <tr><td colspan="4">Ainda não foi aplicado nenhum teste nesse paciente. :)</td></tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

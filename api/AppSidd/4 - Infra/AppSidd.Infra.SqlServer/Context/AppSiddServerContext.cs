@@ -29,6 +29,7 @@ namespace AppSidd.Infra.SqlServer
             modelBuilder.ApplyConfiguration(new UnityConfiguration());
             modelBuilder.ApplyConfiguration(new AcolhimentoConfiguration());
             modelBuilder.ApplyConfiguration(new PfefferConfiguration());
+            modelBuilder.ApplyConfiguration(new GDSConfiguration());
             modelBuilder.ApplyConfiguration(new CDRConfiguration());
             modelBuilder.ApplyConfiguration(new MEEMConfiguration());
             modelBuilder.ApplyConfiguration(new MoCAConfiguration());

@@ -67,6 +67,23 @@ export default function App() {
   const [pfeffer9, setPfeffer9] = useState(null);
   const [pfeffer10, setPfeffer10] = useState(null);
   // PFEFFER
+  // GDS
+  const [gds1, setGDS1] = useState(null);
+  const [gds2, setGDS2] = useState(null);
+  const [gds3, setGDS3] = useState(null);
+  const [gds4, setGDS4] = useState(null);
+  const [gds5, setGDS5] = useState(null);
+  const [gds6, setGDS6] = useState(null);
+  const [gds7, setGDS7] = useState(null);
+  const [gds8, setGDS8] = useState(null);
+  const [gds9, setGDS9] = useState(null);
+  const [gds10, setGDS10] = useState(null);
+  const [gds11, setGDS11] = useState(null);
+  const [gds12, setGDS12] = useState(null);
+  const [gds13, setGDS13] = useState(null);
+  const [gds14, setGDS14] = useState(null);
+  const [gds15, setGDS15] = useState(null);
+  // GDS
   // CDR
   const [cdr1, setCDR1] = useState(null);
   const [cdr2, setCDR2] = useState(null);
@@ -224,9 +241,8 @@ export default function App() {
       id: 1,
       image: 'https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2018/11/Como-Criar-um-Site.png',
       avatar: 'https://siddproject.azurewebsites.net/img/theme/avatar.png',
-      title: 'Tutoriais',
-      caption: 'Acessar',
-      location: 'Santa Cruz do Sul, RS',
+      title: 'Tutoriais sobre testes e demências',
+      caption: 'Clique para acessar',
     }
   ];
   // END - CARDS
@@ -405,19 +421,6 @@ export default function App() {
 
   async function newAcolhimento() {
     setLoading(true);
-    if (frequencia == "" || saturacao == "" || pressao1 == "" || pressao2 == "" || glicemia == "") {
-      Toast.show({
-        text1: 'Erro',
-        text2: "Por favor, preencha todas as opções de acordo com o paciente.",
-        position: 'top',
-        type: 'error',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
-      setLoading(false);
-      return;
-    }
     var data = {
       userId: patientSelected,
       frequenciaCardiaca: frequencia,
@@ -523,6 +526,74 @@ export default function App() {
         setObsResult("Suspeita de demência");
       else
         setObsResult("Normal");
+    } else {
+      let notifications = result.notifications
+      if (notifications && notifications.length > 0) {
+        notifications.forEach(not => {
+          Toast.show({
+            text1: 'Erro',
+            text2: not.message,
+            position: 'top',
+            type: 'error',
+            visibilityTime: 2000,
+            autoHide: true,
+            topOffset: 60
+          });
+        })
+      }
+    }
+    setLoading(false);
+  }
+
+  async function gds() {
+    setLoading(true);
+    var data = {
+      userId: patientSelected,
+      question1: gds1 ? 0 : 1,
+      question2: gds2 ? 1 : 0,
+      question3: gds3 ? 1 : 0,
+      question4: gds4 ? 1 : 0,
+      question5: gds5 ? 0 : 1,
+      question6: gds6 ? 1 : 0,
+      question7: gds7 ? 0 : 1,
+      question8: gds8 ? 1 : 0,
+      question9: gds9 ? 1 : 0,
+      question10: gds10 ? 1 : 0,
+      question11: gds11 ? 0 : 1,
+      question12: gds12 ? 1 : 0,
+      question13: gds13 ? 0 : 1,
+      question14: gds14 ? 1 : 0,
+      question15: gds15 ? 1 : 0,
+      createdBy: userData.id
+    };
+    var result = await client.postApi(`${endpoints.app.insertGDS}`, data, false);
+    if (result.statusCode === 200) {
+      setGDS1(null);
+      setGDS2(null);
+      setGDS3(null);
+      setGDS4(null);
+      setGDS5(null);
+      setGDS6(null);
+      setGDS7(null);
+      setGDS8(null);
+      setGDS9(null);
+      setGDS10(null);
+      setGDS11(null);
+      setGDS12(null);
+      setGDS13(null);
+      setGDS14(null);
+      setGDS15(null);
+      setPatientSelected(null);
+      setActiveTab("results");
+      setSecondTab("tests");
+      setTestResult("GDS");
+      setTotalResult(result.response.total);
+      if (result.response.total >= 11)
+        setObsResult("Quadro de depressão severa");
+      else if (result.response.total >= 6 && result.response.total <= 10)
+        setObsResult("Quadro de depressão leve");
+      else
+        setObsResult("Quadro psicológico normal");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
@@ -1013,31 +1084,33 @@ export default function App() {
                   </Button>
                 </Block>
 
-                {cards && cards.map((card, id) => (
-                  <Card
-                    onClick={() => tab("results")}
-                    onClick={() => tab("results")}
-                    key={`card-${card.image}`}
-                    flex
-                    borderless
-                    shadowColor={theme.COLORS.BLACK}
-                    titleColor={card.full ? theme.COLORS.WHITE : null}
-                    style={styles.card}
-                    title={card.title}
-                    caption={card.caption}
-                    location={card.location}
-                    avatar={`${card.avatar}?${id}`}
-                    image={card.image}
-                    imageStyle={[card.padded ? styles.rounded : null]}
-                    imageBlockStyle={[
-                      card.padded ? { padding: theme.SIZES.BASE / 2 } : null,
-                      card.full ? null : styles.noRadius,
-                    ]}
-                    footerStyle={card.full ? styles.full : null}
-                  >
-                    {card.full ? <LinearGradient colors={['transparent', 'rgba(0,0,0, 0.8)']} style={styles.gradient} /> : null}
-                  </Card>
-                ))}
+                <Block onClick={() => tab("results")} onPress={() => tab("results")}>
+                  {cards && cards.map((card, id) => (
+                    <Card
+                      onClick={() => tab("results")}
+                      onPress={() => tab("results")}
+                      key={`card-${card.image}`}
+                      flex
+                      borderless
+                      shadowColor={theme.COLORS.BLACK}
+                      titleColor={card.full ? theme.COLORS.WHITE : null}
+                      style={styles.card}
+                      title={card.title}
+                      caption={card.caption}
+                      location={card.location}
+                      avatar={`${card.avatar}?${id}`}
+                      image={card.image}
+                      imageStyle={[card.padded ? styles.rounded : null]}
+                      imageBlockStyle={[
+                        card.padded ? { padding: theme.SIZES.BASE / 2 } : null,
+                        card.full ? null : styles.noRadius,
+                      ]}
+                      footerStyle={card.full ? styles.full : null}
+                    >
+                      {card.full ? <LinearGradient colors={['transparent', 'rgba(0,0,0, 0.8)']} style={styles.gradient} /> : null}
+                    </Card>
+                  ))}
+                </Block>
               </>}
               {activeTab == "new" && <>
                 {activeTab == "new" && activeTest == "" && patientSelected == null && <>
@@ -1075,7 +1148,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Escala de avaliação clínica da demência</Text>
                     <Button round color="#3e0057" uppercase size="large" onPress={() => test("cdr")}>CDR</Button>
                     <Text muted center style={styles.buttonText}>Escala de depressão geriátrica</Text>
-                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("cdr")}>GDS</Button>
+                    <Button round color="#3e0057" uppercase size="large" onPress={() => test("gds")}>GDS</Button>
                   </Block>
                   <Block flex center>
                     <Text muted center style={styles.buttonText}>Mini Exame do Estado Mental</Text>
@@ -1295,6 +1368,49 @@ export default function App() {
                   <Block row center>
                     <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
                     <Button round uppercase color="#04cfb4" onPress={() => pfeffer()}>SALVAR</Button>
+                  </Block>
+                </>}
+                {activeTab == "new" && activeTest == "gds" && <>
+                  <Block row space="evenly">
+                    <Text muted style={styles.buttonText}>ESCALA DE DEPRESSÃO GERIÁTRICA (GDS)</Text>
+                  </Block>
+
+                  <Block style={styles.cardQuestion}>
+                    <Text muted style={styles.buttonText}>Marque a caixa de seleção se a resposta for sim, caso contrário deixe desmarcado</Text>
+                    <Text muted style={styles.buttonText}>Está satisfeito(a) com a sua vida?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds1} onChange={(e) => setGDS1(e)} />
+                    <Text muted style={styles.buttonText}>Interrompeu muitas de suas atividades?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds2} onChange={(e) => setGDS2(e)} />
+                    <Text muted style={styles.buttonText}>Acha sua vida vazia?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds3} onChange={(e) => setGDS3(e)} />
+                    <Text muted style={styles.buttonText}>Aborrece-se com frequência?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds4} onChange={(e) => setGDS4(e)} />
+                    <Text muted style={styles.buttonText}>Sente-se bem com a vida na maior parte do tempo?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds5} onChange={(e) => setGDS5(e)} />
+                    <Text muted style={styles.buttonText}>Teme que algo ruim lhe aconteça?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds6} onChange={(e) => setGDS6(e)} />
+                    <Text muted style={styles.buttonText}>Sente-se alegre a maior parte do tempo?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds7} onChange={(e) => setGDS7(e)} />
+                    <Text muted style={styles.buttonText}>Sente-se desamparado com frequência?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds8} onChange={(e) => setGDS8(e)} />
+                    <Text muted style={styles.buttonText}>Prefere ficar em casa a sair e fazer coisas novas?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds9} onChange={(e) => setGDS9(e)} />
+                    <Text muted style={styles.buttonText}>Acha que tem mais problemas de memória que as outras pessoas?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds10} onChange={(e) => setGDS10(e)} />
+                    <Text muted style={styles.buttonText}>Acha que é maravilhoso estar vivo(a)?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds11} onChange={(e) => setGDS11(e)} />
+                    <Text muted style={styles.buttonText}>Sente-se inútil?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds12} onChange={(e) => setGDS12(e)} />
+                    <Text muted style={styles.buttonText}>Sente-se cheio(a) de energia?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds13} onChange={(e) => setGDS13(e)} />
+                    <Text muted style={styles.buttonText}>Sente-se sem esperança?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds14} onChange={(e) => setGDS14(e)} />
+                    <Text muted style={styles.buttonText}>Acha que os outros tem mais sorte que você?</Text>
+                    <Checkbox color="#3e0057" label="Sim/Não" labelStyle={styles.labelCheckbox} style={styles.checkbox} value={gds15} onChange={(e) => setGDS15(e)} />
+                  </Block>
+                  <Block row center>
+                    <Button round uppercase color="#3e0057" onPress={() => test("")}>FECHAR</Button>
+                    <Button round uppercase color="#04cfb4" onPress={() => gds()}>SALVAR</Button>
                   </Block>
                 </>}
                 {activeTab == "new" && activeTest == "cdr" && <>
@@ -1720,7 +1836,7 @@ export default function App() {
                   </Block>
                   <Text muted center style={styles.buttonText}>Glicemia (nível de glicose no sangue)</Text>
                   <Input type="numeric" value={glicemia} onChangeText={(e) => setGlicemia(e)} />
-                  <Text muted center style={styles.buttonText}>Sintomas (insira aqui se o paciente tem algum sintoma aparente para doenças de demência)</Text>
+                  <Text muted center style={styles.buttonText}>Queixas relacionadas a possível demência</Text>
                   <Input type="default" value={sintomas} onChangeText={(e) => setSintomas(e)} />
                   <Text muted center style={styles.buttonText}>Medicamentos Utilizados (insira aqui se o paciente faz uso de algum medicamento)</Text>
                   <Input type="default" value={medicamentos} onChangeText={(e) => setMedicamentos(e)} />

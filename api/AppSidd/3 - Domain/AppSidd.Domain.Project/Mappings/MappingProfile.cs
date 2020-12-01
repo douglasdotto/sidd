@@ -10,6 +10,7 @@ namespace AppSidd.Domain.Mapper
         {
             CreateMap<Unity, UnityDto>();
             CreateMap<Pfeffer, PfefferDto>();
+            CreateMap<GDS, GDSDto>();
             CreateMap<CDR, CDRDto>();
             CreateMap<MEEM, MEEMDto>();
             CreateMap<MoCA, MoCADto>();

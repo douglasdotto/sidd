@@ -60,6 +60,7 @@ namespace AppSidd.Application.Users.Handlers
                         total += _uow.CDRRepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
                         total += _uow.MEEMRepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
                         total += _uow.MoCARepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
+                        total += _uow.GDSRepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
                         total += _uow.PfefferRepository.Find(x => x.UserId == userInfo.Id && !x.IsDeleted).Count();
                         userInfo.TotalTests = total;
                         result.Add(userInfo);

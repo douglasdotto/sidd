@@ -12,6 +12,7 @@ const endpoints = {
         insertUnity: `${url}/insertUnity`,
         insertPfeffer: `${url}/insertPfeffer`,
         insertCDR: `${url}/insertCDR`,
+        insertGDS: `${url}/insertGDS`,
         insertMoCA: `${url}/insertMoCA`,
         insertMEEM: `${url}/insertMEEM`,
         getSintomas: `${url}/getSintomas`,

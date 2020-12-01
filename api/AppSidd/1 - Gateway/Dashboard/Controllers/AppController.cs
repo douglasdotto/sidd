@@ -145,6 +145,19 @@ namespace Dashboard.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("insertGDS")]
+        public async Task<IActionResult> InsertGDS([FromBody] GDSDto gds)
+        {
+            var token = await _mediator.Send(new InsertGDSRequest(gds, gds.CreatedBy));
+
+            if (_notification.HasNotification())
+                return BadRequest(new BadRequestDto(_notification));
+
+            return Ok(new OkDto(token));
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
         [Route("getSintomas")]
         public async Task<IActionResult> GetSintomas()
         {

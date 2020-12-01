@@ -38,6 +38,7 @@ namespace AppSidd.Application.Users.Handlers
             var cdr = _uow.CDRRepository.Find(x => !x.IsDeleted).Count();
             var meem = _uow.MEEMRepository.Find(x => !x.IsDeleted).Count();
             var moca = _uow.MoCARepository.Find(x => !x.IsDeleted).Count();
+            var gds = _uow.GDSRepository.Find(x => !x.IsDeleted).Count();
             var pfeffer = _uow.PfefferRepository.Find(x => !x.IsDeleted).Count();
             var testeSintoma = _uow.TesteSintomaRepository.Find(x => !x.IsDeleted).Select(x => x.Created).Distinct().Count();
             DashDto totais = new DashDto
@@ -46,6 +47,7 @@ namespace AppSidd.Application.Users.Handlers
                 MoCA = moca,
                 MEEM = meem,
                 Pfeffer = pfeffer,
+                GDS = gds,
                 TesteSintomas = testeSintoma
             };
             return totais;

@@ -11,6 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddTransient<IUnityFactory, UnityFactory>();
             services.TryAddTransient<IAcolhimentoFactory, AcolhimentoFactory>();
             services.TryAddTransient<IPfefferFactory, PfefferFactory>();
+            services.TryAddTransient<IGDSFactory, GDSFactory>();
             services.TryAddTransient<ICDRFactory, CDRFactory>();
             services.TryAddTransient<IMEEMFactory, MEEMFactory>();
             services.TryAddTransient<IMoCAFactory, MoCAFactory>();

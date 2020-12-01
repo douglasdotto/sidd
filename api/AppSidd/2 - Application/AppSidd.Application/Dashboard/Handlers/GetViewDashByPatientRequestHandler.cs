@@ -80,6 +80,34 @@ namespace AppSidd.Application.Users.Handlers
                 }
                 tests.Add(test);
             }
+            var gds = _uow.GDSRepository.Find(x => !x.IsDeleted && x.UserId == request.PatientId).ToList();
+            foreach (var c in gds)
+            {
+                TestsDto test = new TestsDto
+                {
+                    Type = "GDS",
+                    TotalPoints = c.Total.ToString("N2"),
+                    Date = c.Created
+                };
+                if (c.Total <= 5)
+                {
+                    test.Classification = "Quadro psicológico normal";
+                    test.Color = "G";
+                }
+                else if (c.Total > 5 && c.Total <= 10)
+                {
+                    test.Classification = "Quadro de depressão leve";
+                    test.Color = "Y";
+                    reprovacao++;
+                }
+                else
+                {
+                    test.Classification = "Quadro de depressão severa";
+                    test.Color = "R";
+                    reprovacao++;
+                }
+                tests.Add(test);
+            }
             var meem = _uow.MEEMRepository.Find(x => !x.IsDeleted && x.UserId == request.PatientId).ToList();
             foreach (var c in meem)
             {
