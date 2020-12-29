@@ -304,7 +304,7 @@ namespace AppSidd.Application.Users.Handlers
                 if (teste.Sintomas.Doenca1 == 61 || teste.Sintomas.Doenca1 == 62)
                     d6++;
                 if (teste.Sintomas.Doenca1 == 71)
-                    d1++;
+                    d7++;
             }
 
             bool reprovad1 = false;
@@ -330,7 +330,6 @@ namespace AppSidd.Application.Users.Handlers
             bool reprovad6 = false;
             if (d6 >= 4)
                 reprovad6 = true;
-
 
             if ((reprovad1 || reprovad3 || reprovad3 || reprovad4 || reprovad5 || reprovad6) && reprovam && reprovap)
             {
