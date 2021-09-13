@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Dimensions, Image, Picker, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, StyleSheet, Dimensions, Image, Picker, ToastAndroid, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   Button, Block, Text, Input, Card, Checkbox, Accordion
@@ -11,7 +11,6 @@ import BottomNavigation, {
 import DatePicker from 'react-native-datepicker'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import theme from './theme';
-import Toast from 'react-native-toast-message';
 import moment from 'moment';
 
 //api client
@@ -302,15 +301,7 @@ export default function App() {
   async function fetchData() {
     if (await auth.isAuthenticated()) {
       setUserData(await auth.getData());
-      Toast.show({
-        text1: 'Olá',
-        text2: 'Seja bem-vindo de volta! 👋',
-        type: 'info',
-        position: 'top',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show('Seja bem-vindo de volta! 👋', ToastAndroid.SHORT);
       setActiveTab("home");
     } else {
       setActiveTab("login");
@@ -327,30 +318,14 @@ export default function App() {
     if (result.statusCode === 200) {
       auth.login(result.response);
       setUserData(result.response);
-      Toast.show({
-        text1: 'Olá',
-        text2: 'Seu login foi realizado com sucesso! 👋',
-        position: 'top',
-        type: 'info',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show('Seu login foi realizado com sucesso! 👋', ToastAndroid.SHORT);
       setActiveTab("home");
     } else {
       setActiveTab("login");
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
     }
@@ -360,15 +335,7 @@ export default function App() {
   async function newPatient() {
     setLoading(true);
     if (firstName == "" || lastName == "" || idade == "" || sexo == "" || estadoCivil == "" || raca == "" || resideCom == "" || possuiCuidador == "") {
-      Toast.show({
-        text1: 'Erro',
-        text2: "Por favor, preencha todas as opções de acordo com o paciente.",
-        position: 'top',
-        type: 'error',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show("Por favor, preencha todas as opções de acordo com o paciente.", ToastAndroid.SHORT);
       setLoading(false);
       return;
     }
@@ -389,29 +356,13 @@ export default function App() {
       setLastName("");
       setIdade("");
       setSexo("");
-      Toast.show({
-        text1: 'Novo Paciente',
-        text2: 'O paciente foi cadastrado com sucesso! 👋',
-        position: 'top',
-        type: 'info',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show('O paciente foi cadastrado com sucesso! 👋', ToastAndroid.SHORT);
       setPatientSelected(result.response.id);
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
       tab("home");
@@ -442,29 +393,13 @@ export default function App() {
       setSintomas("");
       setMedicamentos("");
       setObservacoes("");
-      Toast.show({
-        text1: 'Acolhimento',
-        text2: 'Os dados do acolhimento foram salvos com sucesso! 👋',
-        position: 'top',
-        type: 'info',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show('Os dados do acolhimento foram salvos com sucesso! 👋', ToastAndroid.SHORT);
       tab("home");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
       tab("home");
@@ -476,15 +411,7 @@ export default function App() {
   async function pfeffer() {
     setLoading(true);
     if (pfeffer1 == null || pfeffer2 == null || pfeffer3 == null || pfeffer4 == null || pfeffer5 == null || pfeffer6 == null || pfeffer7 == null || pfeffer8 == null || pfeffer9 == null || pfeffer10 == null) {
-      Toast.show({
-        text1: 'Erro',
-        text2: "Por favor, marque todas as opções de acordo com o paciente.",
-        position: 'top',
-        type: 'error',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show("Por favor, marque todas as opções de acordo com o paciente.", ToastAndroid.SHORT);
       setLoading(false);
       return;
     }
@@ -530,15 +457,7 @@ export default function App() {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
     }
@@ -598,15 +517,7 @@ export default function App() {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
     }
@@ -616,15 +527,7 @@ export default function App() {
   async function cdr() {
     setLoading(true);
     if (cdr1 == null || cdr2 == null || cdr3 == null || cdr4 == null || cdr5 == null || cdr6 == null) {
-      Toast.show({
-        text1: 'Erro',
-        text2: "Por favor, marque todas as opções de acordo com o paciente.",
-        position: 'top',
-        type: 'error',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show("Por favor, marque todas as opções de acordo com o paciente.", ToastAndroid.SHORT);
       setLoading(false);
       return;
     }
@@ -662,15 +565,7 @@ export default function App() {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
     }
@@ -696,15 +591,7 @@ export default function App() {
     };
 
     if (data.escolaridade == 0) {
-      Toast.show({
-        text1: 'Erro',
-        text2: "Por favor, marque a escolaridade do paciente.",
-        position: 'top',
-        type: 'error',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show("Por favor, marque a escolaridade do paciente.", ToastAndroid.SHORT);
       setLoading(false);
       return;
     }
@@ -790,15 +677,7 @@ export default function App() {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
     }
@@ -880,15 +759,7 @@ export default function App() {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
     }
@@ -905,15 +776,7 @@ export default function App() {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
     }
@@ -942,30 +805,14 @@ export default function App() {
 
     var result = await client.postApi(`${endpoints.app.insertTesteSintoma}`, listaA, false);
     if (result.statusCode === 200) {
-      Toast.show({
-        text1: 'Teste de Sintomas',
-        text2: 'Os dados do teste de sintomas foram salvos com sucesso! 👋',
-        position: 'top',
-        type: 'info',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60
-      });
+      ToastAndroid.show('Os dados do teste de sintomas foram salvos com sucesso! 👋', ToastAndroid.SHORT);
       setTesteSintoma([]);
       tab("home");
     } else {
       let notifications = result.notifications
       if (notifications && notifications.length > 0) {
         notifications.forEach(not => {
-          Toast.show({
-            text1: 'Erro',
-            text2: not.message,
-            position: 'top',
-            type: 'error',
-            visibilityTime: 2000,
-            autoHide: true,
-            topOffset: 60
-          });
+          ToastAndroid.show(not.message, ToastAndroid.SHORT);
         })
       }
     }
@@ -982,7 +829,6 @@ export default function App() {
   return (
     <Block safe flex style={{ backgroundColor: '#F5F5F5' }}>
       <StatusBar style="light" />
-      <Toast ref={(ref) => Toast.setRef(ref)} />
       {activeTab == "login" && <>
         <Block flex style={{ backgroundColor: '#3e0057' }}>
           <ScrollView style={{ height: 1 }} keyboardShouldPersistTaps="handled">
@@ -1118,7 +964,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Selecione um paciente</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={patientSelected}
                         onValueChange={(itemValue, itemIndex) => { if (itemValue != "null") { setPatientSelected(itemValue) } }}
@@ -1170,7 +1016,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) manuseia seu próprio dinheiro? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer1}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer1(itemValue) }}
@@ -1190,7 +1036,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de comprar comidas, roupas, coisas para casa sozinho(a)? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer2}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer2(itemValue) }}
@@ -1210,7 +1056,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de esquenta a água para o café e apagar o fogo? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer3}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer3(itemValue) }}
@@ -1230,7 +1076,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de preparar uma comida? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer4}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer4(itemValue) }}
@@ -1250,7 +1096,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de manter-se em dia com as atualidades, com os acontecimentos da comunidade? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer5}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer5(itemValue) }}
@@ -1270,7 +1116,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de prestar atenção, entender e discutir um programa de rádio, jornal ou televisão? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer6}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer6(itemValue) }}
@@ -1290,7 +1136,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de lembrar-se de compromissos, acontecimentos familiares ou feriados? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer7}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer7(itemValue) }}
@@ -1310,7 +1156,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de manusear seus próprios remédios? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer8}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer8(itemValue) }}
@@ -1330,7 +1176,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) é capaz de passear pela vizinhança e encontrar o caminho de volta para casa? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer9}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer9(itemValue) }}
@@ -1350,7 +1196,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Ele(a) pode ser deixado(a) em casa sozinho(a) de forma segura? (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={pfeffer10}
                         onValueChange={(itemValue, itemIndex) => { setPfeffer10(itemValue) }}
@@ -1422,7 +1268,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a memória (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={cdr1}
                         onValueChange={(itemValue, itemIndex) => { setCDR1(itemValue) }}
@@ -1441,7 +1287,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a orientação (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={cdr2}
                         onValueChange={(itemValue, itemIndex) => { setCDR2(itemValue) }}
@@ -1460,7 +1306,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a julgamento e solução de problemas (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={cdr3}
                         onValueChange={(itemValue, itemIndex) => { setCDR3(itemValue) }}
@@ -1479,7 +1325,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a assuntos da comunidade (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={cdr4}
                         onValueChange={(itemValue, itemIndex) => { setCDR4(itemValue) }}
@@ -1498,7 +1344,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação ao lar e passatempos (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={cdr5}
                         onValueChange={(itemValue, itemIndex) => { setCDR5(itemValue) }}
@@ -1517,7 +1363,7 @@ export default function App() {
                     <Text muted center style={styles.buttonText}>Em relação a cuidados pessoais (marque a opção que mais se encaixa com o paciente)</Text>
                     <TouchableOpacity style={styles.touchableOpacity}>
                       <Picker
-                        mode="dropdown"
+                        mode="dialog"
                         style={styles.picker}
                         selectedValue={cdr6}
                         onValueChange={(itemValue, itemIndex) => { setCDR6(itemValue) }}
@@ -1806,7 +1652,7 @@ export default function App() {
                   <Text muted center style={styles.buttonText}>Selecione um paciente</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
-                      mode="dropdown"
+                      mode="dialog"
                       style={styles.picker}
                       selectedValue={patientSelected}
                       onValueChange={(itemValue, itemIndex) => { if (itemValue != "null") { setPatientSelected(itemValue) } }}
@@ -1872,7 +1718,7 @@ export default function App() {
                   <Text muted center style={styles.buttonText}>Sexo</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
-                      mode="dropdown"
+                      mode="dialog"
                       style={styles.picker}
                       selectedValue={sexo}
                       onValueChange={(itemValue, itemIndex) => { setSexo(itemValue) }}
@@ -1886,7 +1732,7 @@ export default function App() {
                   <Text muted center style={styles.buttonText}>Estado Civil</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
-                      mode="dropdown"
+                      mode="dialog"
                       style={styles.picker}
                       selectedValue={estadoCivil}
                       onValueChange={(itemValue, itemIndex) => { setEstadoCivil(itemValue) }}
@@ -1903,7 +1749,7 @@ export default function App() {
                   <Text muted center style={styles.buttonText}>Raça</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
-                      mode="dropdown"
+                      mode="dialog"
                       style={styles.picker}
                       selectedValue={raca}
                       onValueChange={(itemValue, itemIndex) => { setRaca(itemValue) }}
@@ -1919,7 +1765,7 @@ export default function App() {
                   <Text muted center style={styles.buttonText}>Reside com</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
-                      mode="dropdown"
+                      mode="dialog"
                       style={styles.picker}
                       selectedValue={resideCom}
                       onValueChange={(itemValue, itemIndex) => { setResideCom(itemValue) }}
@@ -1938,7 +1784,7 @@ export default function App() {
                   <Text muted center style={styles.buttonText}>Possui cuidador</Text>
                   <TouchableOpacity style={styles.touchableOpacity}>
                     <Picker
-                      mode="dropdown"
+                      mode="dialog"
                       style={styles.picker}
                       selectedValue={possuiCuidador}
                       onValueChange={(itemValue, itemIndex) => { setPossuiCuidador(itemValue) }}
@@ -1977,87 +1823,87 @@ export default function App() {
                   </Text>
                   <Text muted style={styles.buttonText}>
                     - Planejamento: Habilidade para encontrar a saída em um labirinto; interpreta uma combinação de figuras ou objetos em sequência.
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Tomada de decisão: Desempenho de tarefas que avaliam o processo de decisão diante de alternativas (p. ex., simulação de aposta).
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Memória de trabalho: Capacidade de manter informações por período curto e de manipulá-las (p. ex., aumento de uma lista de números ou repetição de uma série de números ou palavras, de trás para a frente).
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Resposta a feedback/utilização de erros: Capacidade de beneficiar-se de feedback ou crítica para inferir as regras para resolver um problema.
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Substituição de hábitos/inibição: Capacidade de escolher uma solução mais complexa e exigente para ser correto (p. ex., olhar além do rumo indicado por uma flecha; dar nome à cor da fonte de uma palavra e não nomear a palavra).
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Flexibilidade mental/cognitiva: Capacidade de mudar entre dois conceitos, tarefas ou regras de resposta (p. ex., de número para letra, de resposta verbal para pressionamento de tecla, de soma de números para ordenamento de números, de ordenamento de objetos por tamanho para ordenamento por cor).
-                        </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     •	APRENDIZAGEM E MEMÓRIA:
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Alcance da memória imediata: Capacidade de repetir uma lista de palavras ou algarismos.
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Nota: A memória imediata às vezes é considerada “memória de trabalho” (ver “Função Executiva”).
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Memória recente: Avalia o processo de codificar novas informações (p. ex., listas de palavras, contos ou diagramas). Os aspectos da memória recente que podem ser testados incluem:
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     1 - evocação livre (pede-se à pessoa que relembre o máximo de palavras, diagramas ou elementos de uma história);
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     2) evocação com pistas (o examinador ajuda a recordar, dando pistas semânticas, como “Listar todos os itens alimentares em uma lista” ou “Citar todas as crianças da história”);
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     3) memória de reconhecimento (o examinador solicita itens específicos – p. ex., “‘Maçã’ estava na lista?” ou “Você viu este diagrama ou figura?”).
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Outros aspectos da memória que podem ser avaliados incluem memória semântica (memória de fatos), memória autobiográfica (memória de eventos pessoais ou pessoas) e aprendizagem.
-                            </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     •	LINGUAGEM
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Linguagem expressiva: Citação confrontativa (identificação de objetos ou figuras); fluência (p. ex., nomear tantos itens quanto possível em uma categoria semântica [p. ex., animais] ou fonêmica [p. ex., palavras que começam com “f”] em um minuto).
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Gramática e sintaxe (p. ex., omissão ou uso incorreto de artigos, preposições, verbos auxiliares): Erros observados durante testes de nomeação e fluência são comparados aos padrões normais para avaliar a frequência de erros e comparados com pequenos erros normais da língua.
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Linguagem receptiva: Compreensão (tarefas de definição de palavras e identificação de objetos envolvendo estímulos animados e inanimados): realização de ações/atividades conforme comando verbal.
-                                </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     •	PERCEPTOMOTOR:
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Percepção visual: Tarefas lineares com duas seções podem ser usadas para a detecção de defeito visual básico ou deficiência da atenção. Tarefas perceptivas sem uso da motricidade (incluindo reconhecimento facial) necessitam de identificação e/ou combinação de figuras – melhor quando as tarefas não podem ser mediadas verbalmente (p. ex., figuras não são objetos); algumas exigem a decisão de se uma figura pode ser “real” ou não baseada na dimensionalidade.
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Visuoconstrutiva: Reunir itens com necessidade de coordenação dos olhos- -mãos, como desenhar, copiar e montar blocos.
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Perceptomotora: Integrar a percepção com movimentos que têm um propósito
                     (p. ex., inserção de blocos em uma placa sem pistas visuais; inserir, rapidamente, pinos em estrutura com orifícios).
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Práxis: Integridade de movimentos aprendidos, como habilidade de imitar gestos
                     (abanar ao dar adeus), ou uso de pantomima do uso de objetos (“Mostre- -me como você usaria um martelo”).
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Gnosia: Integridade perceptiva da conscientização e do reconhecimento, como o reconhecimento de faces e cores.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     •	COGNIÇÃO SOCIAL
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Reconhecimento de emoções: Identificação de emoções em imagens de rostos que representam uma variedade de emoções positivas e negativas.
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Teoria da mente: Capacidade de considerar o estado mental de outra pessoa (pensamentos, desejos, intenções) ou sua experiência – cartões que contam uma história, com perguntas para provocar informações sobre o estado mental dos indivíduos retratados, tal como “Onde a garota procurará a bolsa perdida?” ou “Por que o garoto está triste?”.
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     - Os TNCs são aqueles em que a cognição prejudicada não estava presente ao nascimento ou muito no início da vida, representando, assim, um declínio a partir de um nível de funcionamento alcançado anteriormente.
                   </Text>
@@ -2066,88 +1912,88 @@ export default function App() {
                   <Text h4 center style={styles.buttonText}>Fatores de Risco e Diagnóstico diferencial para apoio ao tipo de Demência</Text>
                   <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Doença de Alzheimer
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Ambientais. Lesão cerebral traumática aumenta o risco de TNC maior ou leve devido à doença de Alzheimer.
                     Genéticos e fisiológicos. A idade é o fator de risco mais poderoso para a doença de Alzheimer. Múltiplos fatores de risco vasculares influenciam o risco da doença e podem agir aumentando a patologia cerebrovascular ou, ainda, provocando efeitos diretos na patologia da doença de Alzheimer.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Outros transtornos neurocognitivos. Transtornos neurocognitivos maiores e leves devido a outros processos neurodegenerativos (p. ex., doença com corpos de Lewy, degeneração lobar frontotemporal) partilham o surgimento insidioso e o declínio gradativo causados pela doença de Alzheimer, embora tenham características distintas. No TNC vascular maior ou leve, costuma haver história de acidente vascular cerebral temporariamente relacionada ao surgimento de prejuízo cognitivo, com infartos ou aumento de intensidades da substância branca considerados suficientes para responder pelo quadro clínico. No entanto, sobretudo quando não existe história clara de declínio gradual, o TNC maior ou leve pode partilhar muitas características clínicas da doença de Alzheimer.
                     Outra doença neurológica ou sistêmica ativa e comorbida. Outras doenças neurológicas ou sistêmicas devem ser consideradas quando há uma relação temporal apropriada e gravidade que respondam pelo quadro clínico. No nível leve do TNC, pode ser difícil diferenciar a etiologia da doença de Alzheimer daquela de outra condição médica (p. ex., distúrbios da tireoide, deficiência de vitamina B12).
                     Transtorno depressivo maior. Particularmente no nível leve de um TNC, o diagnóstico diferencial inclui ainda depressão maior. A presença de depressão pode estar associada a funcionamento diário reduzido e concentração insatisfatória capazes de assemelhar-se a um TNC. A melhora com tratamento da depressão pode ser útil para a distinção.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Frontotemporal Maior ou Leve
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Genéticos e fisiológicos. Por volta de 40% dos indivíduos com TNC maior ou leve têm história familiar de TNC com surgimento precoce, e cerca de 10% mostram um padrão autossômico dominante herdado. Foram identificados vários fatores genéticos, como mutações no gene codificador da proteína tau associada aos microtúbulos (microtubule associated protein tau – MAPT), o gene granulina (granulin gene – GRN) e o gene C9ORF72. Uma variedade de famílias com mutações causadoras foi identificada (ver a seção “Marcadores Diagnósticos” a seguir), mas muitos indivíduos com transmissão familiar conhecida não têm a mutação conhecida. A presença de doença neuronal motora está associada a deterioração mais rápida.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Outros transtornos neurocognitivos. Outras doenças neurodegenerativas podem ser diferenciadas de TNC frontotemporal maior ou leve pelos aspectos característicos. No TNC maior ou leve devido à doença de Alzheimer, o declínio na aprendizagem e na memória é um aspecto precoce. Todavia, 10 a 30% dos pacientes que se apresentam com uma síndrome sugestiva de TNC frontotemporal maior ou leve mostram, via necropsia, ser portadores de patologia da doença de Alzheimer. Isso ocorre com mais frequência em indivíduos que apresentam síndromes com alterações progressivas nas funções executivas na ausência de mudanças comportamentais ou de transtorno do movimento ou nos que apresentam a variante logopênica.
                     No TNC maior ou leve com corpos de Lewy, aspectos centrais e sugestivos dos corpos de Lewy podem estar presentes. No TNC maior ou leve devido à doença de Parkinson, surge parkinsonismo espontâneo bem antes do declínio cognitivo. No TNC vascular maior ou leve, dependendo das regiões cerebrais afetadas, pode também haver perda da capacidade executiva e mudanças comportamentais, como apatia, e esse transtorno deve ser levado em conta no diagnóstico diferencial.
                     Uma história de evento cerebrovascular, no entanto, está temporalmente relacionada ao aparecimento de prejuízo cognitivo no TNC vascular maior ou leve, e a neuroimagem revela infartos ou lesões na substância branca, em quantidade suficiente para responder pelo quadro clínico.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Maior ou Leve com Corpos de Lewy
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Genéticos e fisiológicos. Pode ocorrer agregação familiar, tendo sido identificados vários genes de risco, embora na maior parte dos casos de TNCCL não haja história familiar.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Transtorno neurocognitivo maior ou leve devido à doença de Parkinson. Um aspecto distintivo essencial no diagnóstico clínico é a sequência temporal em que aparecem o parkinsonismo e o TNC. No caso de TNC devido à doença de Parkinson, o indivíduo deve desenvolver declínio cognitivo no contexto da doença de Parkinson estabelecida; por convenção, o declínio só atinge o estágio de TNC maior pelo menos um ano após o diagnóstico da doença de Parkinson. Se decorreu menos de um ano desde o surgimento de sintomas motores, o diagnóstico é TNCCL. Essa distinção fica mais clara no nível do TNC maior do que no do leve.
                     O momento certo e a sequência do parkinsonismo e do TNC leve podem ser de difícil determinação, porque o surgimento e a apresentação clínica podem ser ambíguos, e TNC leve não especificado deve ser diagnosticado diante da ausência de outras características principais e sugestivas.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Vascular Maior ou Leve
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Ambientais. As consequências neurocognitivas de uma lesão encefálica vascular são influenciadas por fatores de neuroplasticidade, como educação, exercício físico e atividade mental.
                     Genéticos e fisiológicos. Os principais fatores de risco de TNC vascular maior ou leve são os mesmos que os da doença cerebrovascular, incluindo hipertensão, diabetes, tabagismo, obesidade, níveis elevados de colesterol, níveis elevados de homocisteína, outros fatores de risco de aterosclerose e arteriolosclerose, fibrilação atrial e outras condições que aumentam o risco de embolia cerebral. Angiopatia amiloide cerebral é um fator de risco importante, em que ocorrem depósitos amiloides em vasos arteriais. Outro fator de risco significativo é a condição hereditária de arteriopatia cerebral autossômica dominante com infartos subcorticais e leucoencefalopatia, ou
                     CADASIL (cerebral autosomal dominant arteriopathy with subcortical infarcts and leukoencephalopathy).
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Outros transtornos neurocognitivos. Considerando que infartos cerebrais incidentais e lesões na substância branca são comuns em indivíduos idosos, é importante levar em conta outras etiologias possíveis na presença de um transtorno neurocognitivo. História de déficit de memória no começo do curso, com piora progressiva da memória, da linguagem, da função executiva e das capacidades perceptomotoras, na ausência de lesões focais correspondentes em imagens do cérebro, sugere a doença de Alzheimer como diagnóstico primário. Biomarcadores potenciais sendo atualmente validados para a doença de Alzheimer, como níveis de beta-amiloide e de tau
                     fosforilada no líquido cerebrospinal, bem como imagem amiloide, podem ser úteis no diagnóstico diferencial. O TNC com corpos de Lewy difere do TNC vascular maior ou leve em suas características principais de cognição oscilante, alucinações visuais e parkinsonismo espontâneo. No TNC vascular maior ou leve, ocorrem déficits na função executiva e na linguagem, ao passo que o surgimento insidioso e a progressão gradual de prejuízos dos aspectos comportamentais ou da linguagem são características de TNC frontotemporal, não sendo típicos da etiologia vascular.
                     Outras condições médicas. Não é feito um diagnóstico de TNC vascular maior ou leve se outras doenças (p. ex., tumor cerebral, esclerose múltipla, encefalite, distúrbios tóxicos ou metabólicos) estão presentes e tenham gravidade suficiente para responder pelo prejuízo cognitivo.
                     Outros transtornos mentais. É inadequado um diagnóstico de TNC vascular maior ou leve quando os sintomas podem ser completamente atribuídos a delirium, embora este possa, por vezes, estar sobreposto a um TNC vascular maior ou leve preexistente, situação em que podem ser feitos os dois diagnósticos. Se atendidos os critérios para transtorno depressivo maior, e o prejuízo cognitivo está temporariamente relacionado ao possível surgimento da depressão, não deve ser diagnosticado TNC vascular maior ou leve. Quando, porém, o TNC antecedeu o desenvolvimento da depressão, ou a gravidade do prejuízo cognitivo está fora de proporção em relação à gravidade da depressão, ambos devem ser diagnosticados.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     •	Transtorno Neurocognitivo Maior ou Leve Devido à Doença de Parkinson
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Fatores de Risco e Prognóstico
-                      </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Ambientais. Os fatores de risco para a doença de Parkinson incluem exposição a herbicidas e pesticidas.
                     Genéticos e fisiológicos. Fatores de risco potenciais para TNC entre pessoas com a doença de Parkinson incluem idade mais velha no surgimento e duração aumentada da doença.
-                    </Text>
+                  </Text>
                   <Text style={styles.buttonText}>
                     Diagnóstico Diferencial
-                    </Text>
+                  </Text>
                   <Text muted style={styles.buttonText}>
                     Transtorno neurocognitivo maior ou leve com corpos de Lewy. Essa distinção baseia-se muito no momento certo e na sequência dos sintomas cognitivos e motores. Para o TNC ser atribuído à doença de Parkinson, os sintomas motores e outros sintomas dessa doença devem estar presentes bem antes (por convenção, no mínimo um ano antes) de o declínio cognitivo ter alcançado o nível de TNC maior, ao passo que no TNC maior ou leve com corpos de Lewy os sintomas cognitivos começam logo antes ou são concomitantes aos sintomas motores. Para TNC leve, o momento certo é de difícil estabelecimento, porque o próprio diagnóstico é menos claro e os dois transtornos existem em um continuum. A não ser que a doença de Parkinson tenha sido estabelecida algum tempo antes do surgimento do declínio cognitivo ou as características típicas do TNC maior ou leve com corpos de Lewy estejam presentes, é preferível diagnosticar TNC leve não especificado.
                     Transtorno neurocognitivo maior ou leve devido à doença de Alzheimer. As características motoras são essenciais para a distinção entre TNC maior ou leve devido à doença de Parkinson e TNC maior ou leve devido à doença de Alzheimer. Os dois transtornos podem, porém, ser concomitantes.
