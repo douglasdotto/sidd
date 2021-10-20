@@ -27,7 +27,7 @@ namespace Dashboard.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string message)
         {
-            await _mediator.Send(new SeedAdminRequest());
+            //await _mediator.Send(new SeedAdminRequest());
             ViewBag.Message = message;
 
             var model = new UserSignInDto();
